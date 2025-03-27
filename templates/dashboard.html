@@ -21,7 +21,7 @@
         padding: 6px;
         overflow: hidden;
         display: flex;
-        justify-content: center;
+        justify-content: right;
         font-size: 20px;
         box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
       }
@@ -42,17 +42,41 @@
         margin-top: 40px;
         color: #37474f; /* Darker grey */
       }
+      .dashboard-cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 58px;
+        justify-content: center;
+        gap: 90px;
+      }
       .dashboard-card {
         display: flex;
         flex-direction: column;
         padding: 24px;
-        margin-top: 80px;
-        width: 600px;
-        gap: 24px;
+        margin-top: 40px;
+        width: 30%;
         border-radius: 16px;
         background-color: #ffffff;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease-out;
+      }
+      .dashboard-card-vehicle {
+        display: flex;
+        flex-direction: column;
+        padding: 24px;
+        padding-top: 0px;
+        margin-top: 0;
+        width: 30%;
+        border-radius: 16px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-out;
+      }
+      .vehicle-container {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin-top: 20px;
       }
       .dashboard-card:hover {
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -62,11 +86,6 @@
         font-weight: 800;
         font-size: 24px;
         color: #37474f; /* Darker grey */
-      }
-      .dashboard-cards-container {
-        display: flex;
-        padding: 0 58px;
-        justify-content: space-between;
       }
       .card-header {
         display: flex;
@@ -91,11 +110,7 @@
       .desc {
         font-weight: 700;
       }
-      .amount {
-        font-weight: 700;
-        font-size: 20px;
-        color: #00796b; /* Pastel green */
-      }
+      .amount,
       .date {
         font-weight: 700;
         font-size: 20px;
@@ -121,10 +136,19 @@
       .vehicle-table tr:nth-child(even) {
         background-color: #e0f2f1; /* Very light pastel green */
       }
+      .logo {
+        width: 100px;
+        height: 100px;
+      }
     </style>
   </head>
   <body>
     <nav class="navbar">
+      <img
+        src="/images/Screenshot_2025-03-27_223500-removebg-preview (1).png"
+        alt=""
+        class="logo"
+      />
       <ul>
         <li><a href="#claims">Claims</a></li>
         <li><a href="#dashboard">Dashboard</a></li>
@@ -157,10 +181,35 @@
 
       <div class="dashboard-card">
         <div class="card-header">
+          <h2 class="dashboard-card-title">Policy</h2>
+          <img
+            src="https://cdn-icons-png.flaticon.com/256/1456/1456842.png"
+            alt="Policy Icon"
+          />
+        </div>
+        <div class="card-content">
+          <div class="card-text">
+            <span class="desc">Policy Number:</span>
+            <span class="amount">123456789</span>
+          </div>
+          <div class="card-text">
+            <span class="desc">Policy Type:</span>
+            <span class="amount">Comprehensive</span>
+          </div>
+          <div class="card-text">
+            <span class="desc">Coverage:</span>
+            <span class="amount">Full Coverage</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vehicle-container">
+      <div class="dashboard-card-vehicle" style="width: 70%">
+        <div class="card-header">
           <h2 class="dashboard-card-title">Vehicle(s)</h2>
           <img
             src="https://cdn-icons-png.flaticon.com/256/1456/1456842.png"
-            alt="Insurance Icon"
+            alt="Vehicle Icon"
           />
         </div>
         <div class="card-content">
