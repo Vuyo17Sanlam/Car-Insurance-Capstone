@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <title>Claims - Car Insurance</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        width: 1000px;
+        background: #fff;
+        padding: 30px;
+        margin: 30px;
+        border-radius: 15px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        color: #0277bd;
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+
+      .summary {
+        background: #e3f2fd;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+        color: #01579b;
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .claims-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .claim-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease-in-out;
+        font-size: 18px;
+      }
+      .claim-card-header {
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+      }
+
+      .claim-card:hover {
+        transform: scale(1.08);
+      }
+
+      .claim-card p {
+        margin: 5px;
+        color: #626262;
+      }
+
+      .claim-card b.date {
+        color: #626262;
+      }
+
+      .claim-card b.price {
+        font-size: 22px;
+        color: #d32f2f;
+        font-weight: bold;
+        display: block;
+      }
+
+      .status {
+        font-weight: bold;
+        padding: 6px 12px;
+        border-radius: 12px;
+        font-size: 14px;
+        display: inline-block;
+      }
+
+      .pending {
+        background: #ffcc00;
+        color: #333;
+      }
+      .approved {
+        background: #4caf50;
+        color: white;
+      }
+      .rejected {
+        background: #e53935;
+        color: white;
+      }
+
+      .new-claim-btn {
+        display: block;
+        background: #0288d1;
+        color: white;
+        padding: 14px;
+        text-align: center;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 20px;
+        transition: background 0.3s ease-in-out;
+      }
+
+      .new-claim-btn:hover {
+        background: #01579b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Claims</h1>
+
+      <div class="summary">
+        <div><i class="fa-solid fa-thumbs-up"></i> Approved: <b>2</b></div>
+        <div><i class="fa-solid fa-hourglass-half"></i> Pending: <b>1</b></div>
+        <div><i class="fa-solid fa-xmark"></i> Rejected: <b>0</b></div>
+      </div>
+
+      <div class="claims-container">
+        <div class="claim-card">
+          <div class="claim-card-header">
+            <p>
+              <b><i class="fa-solid fa-file"></i> #20240315</b>
+            </p>
+            <p>Car Accident</p>
+          </div>
+
+          <p>
+            Submitted: <b class="date">March 15, 2024</b>
+            <b class="price">R1,500</b>
+          </p>
+          <span class="status pending"
+            ><i class="fa-solid fa-hourglass-half"></i> Pending</span
+          >
+        </div>
+
+        <div class="claim-card">
+          <div class="claim-card-header">
+            <p>
+              <b><i class="fa-solid fa-file"></i> #20240315</b>
+            </p>
+            <p>Flood Incident</p>
+          </div>
+          <p>
+            Processed: <b class="date">Feb 28 - Mar 21, 2024</b>
+            <b class="price">R3,000</b>
+          </p>
+          <span class="status approved"
+            ><i class="fa-solid fa-thumbs-up"></i> Approved</span
+          >
+        </div>
+
+        <div class="claim-card">
+          <div class="claim-card-header">
+            <p>
+              <b><i class="fa-solid fa-file"></i> #20240315</b>
+            </p>
+            <p>Theft</p>
+          </div>
+          <p>
+            period: <b class="date">Feb 15 - June 15, 2024</b>
+            <b class="price">R5,500</b>
+          </p>
+          <span class="status rejected"
+            ><i class="fa-solid fa-xmark"></i> Rejected</span
+          >
+        </div>
+      </div>
+
+      <a href="claim_form.html" class="new-claim-btn">+ New Claim</a>
+    </div>
+  </body>
+</html>
