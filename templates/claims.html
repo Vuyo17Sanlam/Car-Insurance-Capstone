@@ -11,23 +11,41 @@
     <title>Claims - Car Insurance</title>
     <style>
       body {
-        font-family: "Poppins", sans-serif;
-        background: #f4f6f9;
         margin: 0;
-        padding: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #e0f7fa; /* Pastel blue background */
+      }
+      nav {
+        position: sticky;
+        top: 0;
+        background-color: #ffffff;
+      }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 6px;
+        overflow: hidden;
         display: flex;
         justify-content: center;
-        align-items: center;
-        min-height: 100vh;
+        font-size: 20px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
       }
-
+      li a {
+        display: block;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        color: #00796b; /* Pastel green */
+      }
+      li a:hover {
+        background-color: #004d40; /* Darker green */
+        color: #ffffff;
+      }
       .container {
         width: 1000px;
-        background: #fff;
         padding: 30px;
         margin: 30px;
         border-radius: 15px;
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
       }
 
       h1 {
@@ -49,19 +67,13 @@
         justify-content: space-around;
       }
 
-      .claims-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-      }
-
       .claim-card {
         background: white;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.15);
+        padding: 30px; /* Increased padding */
+        border-radius: 15px;
+        box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease-in-out;
-        font-size: 18px;
+        font-size: 22px; /* Increased font size */
       }
       .claim-card-header {
         display: flex;
@@ -74,19 +86,32 @@
       }
 
       .claim-card p {
-        margin: 5px;
-        color: #626262;
-      }
-
-      .claim-card b.date {
-        color: #626262;
+        /* Increased spacing */
+        color: grey;
+        font-size: 16px; /* Bigger text */
       }
 
       .claim-card b.price {
-        font-size: 22px;
-        color: #d32f2f;
+        font-size: 32px; /* Bigger price */
+        color: #3200fa;
         font-weight: bold;
         display: block;
+        margin-top: 10px; /* More spacing above price */
+      }
+
+      .claim-card-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 22px; /* Increased font size */
+      }
+
+      .claims-container {
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(400px, 1fr)
+        ); /* Bigger cards */
+        gap: 30px; /* More spacing between cards */
       }
 
       .status {
@@ -96,7 +121,6 @@
         font-size: 14px;
         display: inline-block;
       }
-
       .pending {
         background: #ffcc00;
         color: #333;
@@ -129,6 +153,14 @@
     </style>
   </head>
   <body>
+    <nav class="navbar">
+      <ul>
+        <li><a href="claims.html">Claims</a></li>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#support">Support</a></li>
+        <li><a href="#partners">Partners</a></li>
+      </ul>
+    </nav>
     <div class="container">
       <h1>Claims</h1>
 
@@ -148,7 +180,7 @@
           </div>
 
           <p>
-            Submitted: <b class="date">March 15, 2024</b>
+            <b class="date">March 15, 2024</b>
             <b class="price">R1,500</b>
           </p>
           <span class="status pending"
@@ -164,7 +196,7 @@
             <p>Flood Incident</p>
           </div>
           <p>
-            Processed: <b class="date">Feb 28 - Mar 21, 2024</b>
+            <b class="date">Feb 28 - Mar 21, 2024</b>
             <b class="price">R3,000</b>
           </p>
           <span class="status approved"
@@ -180,7 +212,7 @@
             <p>Theft</p>
           </div>
           <p>
-            period: <b class="date">Feb 15 - June 15, 2024</b>
+            <b class="date">Feb 15 - June 15, 2024</b>
             <b class="price">R5,500</b>
           </p>
           <span class="status rejected"
