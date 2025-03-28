@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Michroma&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
         margin: 0;
@@ -14,6 +20,9 @@
         position: sticky;
         top: 0;
         background-color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
       }
       ul {
         list-style-type: none;
@@ -22,8 +31,8 @@
         overflow: hidden;
         display: flex;
         justify-content: right;
+        align-items: center;
         font-size: 20px;
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
       }
       li a {
         display: block;
@@ -136,18 +145,37 @@
       .vehicle-table tr:nth-child(even) {
         background-color: #e0f2f1; /* Very light pastel green */
       }
+      .logo-container {
+        display: flex;
+        align-items: center;
+        margin-left: 24px;
+        gap: 6px;
+      }
       .logo {
         width: 100px;
-        height: 100px;
+        height: 80px;
+      }
+      .logo-text {
+        font-family: "Michroma", sans-serif;
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: center;
       }
     </style>
   </head>
   <body>
     <nav class="navbar">
-      <img src="images/logo.png" alt="" class="logo" />
+      <div class="logo-container">
+        <img
+          src="https://static.vecteezy.com/system/resources/thumbnails/046/887/565/small_2x/a-black-and-white-car-icon-on-a-white-background-vector.jpg"
+          alt=""
+          class="logo"
+        />
+        <p class="logo-text">swift insurance</p>
+      </div>
       <ul>
         <li><a href="claims.html">Claims</a></li>
-        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
         <li><a href="#support">Support</a></li>
         <li><a href="#partners">Partners</a></li>
       </ul>
@@ -179,7 +207,7 @@
         <div class="card-header">
           <h2 class="dashboard-card-title">Policy</h2>
           <img
-            src="https://cdn-icons-png.flaticon.com/256/1456/1456842.png"
+            src="https://cdn-icons-png.flaticon.com/512/4436/4436485.png"
             alt="Policy Icon"
           />
         </div>
