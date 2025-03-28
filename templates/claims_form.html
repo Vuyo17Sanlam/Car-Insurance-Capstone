@@ -7,13 +7,15 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #e6f4ea;
+        background-color: #e0f7fa;
         color: #2d572c;
-        margin: 40px;
+        margin: 0px;
       }
       .container {
         max-width: 800px;
         margin: auto;
+        margin-top: 44px;
+
         padding: 20px;
         background: #d9f2e6;
         border-radius: 10px;
@@ -53,6 +55,7 @@
         border-left: 5px solid #2d572c;
         margin-bottom: 20px;
         font-size: 14px;
+        margin-top: 24px;
       }
       .submit-button {
         width: 200px;
@@ -70,9 +73,70 @@
         justify-content: center;
         width: 100%;
       }
+      nav {
+        position: sticky;
+        top: 0;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 6px;
+        overflow: hidden;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        font-size: 20px;
+      }
+      .navbar li a {
+        display: block;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        color: #00796b; /* Pastel green */
+      }
+      .navbar li a:hover {
+        background-color: #004d40; /* Darker green */
+        color: #ffffff;
+      }
+      .logo-container {
+        display: flex;
+        align-items: center;
+        margin-left: 24px;
+        gap: 6px;
+      }
+      .logo {
+        width: 100px;
+        height: 80px;
+      }
+      .logo-text {
+        font-family: "Michroma", sans-serif;
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
+    <nav class="navbar">
+      <div class="logo-container">
+        <img
+          src="https://static.vecteezy.com/system/resources/thumbnails/046/887/565/small_2x/a-black-and-white-car-icon-on-a-white-background-vector.jpg"
+          alt=""
+          class="logo"
+        />
+        <p class="logo-text">swift insurance</p>
+      </div>
+      <ul>
+        <li><a href="claims.html">Claims</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="#support">Support</a></li>
+        <li><a href="#partners">Partners</a></li>
+      </ul>
+    </nav>
     <div class="container">
       <h1>Car Insurance Claim Form</h1>
       <p>Please fill out the details below to submit your insurance claim.</p>
@@ -80,13 +144,14 @@
       <label for="vehicle">Select Vehicle</label>
       <select id="vehicle">
         <option value="">-- Select Your Vehicle --</option>
-        <option value="Car1">Car 1</option>
-        <option value="Car2">Car 2</option>
+        <option value="Car1">Toyota Corolla</option>
+        <option value="Car2">Suzuki Swift</option>
       </select>
 
       <label for="policy">Select Policy</label>
       <select id="policy">
         <option value="">-- Select Policy --</option>
+        <option value="policy1">Comprehensive Cover</option>
       </select>
 
       <label>What Happened?</label>
