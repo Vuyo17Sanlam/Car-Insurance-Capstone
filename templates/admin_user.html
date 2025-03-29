@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: rgb(205, 220, 222);
+        color: white;
+        margin: 0;
+        padding: 0;
+      }
+      .header {
+        background-color: #1f3b8b;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .header a {
+        color: white;
+        text-decoration: none;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 100px;
+        padding: 20px;
+        width: 600px;
+      }
+      .box {
+        background-color: #ffffff;
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        width: 400px;
+        height: 250px;
+      }
+      .claim {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0;
+      }
+      .claim-price {
+        font-size: 50px;
+        font-weight: bold;
+        margin-top: 60px;
+      }
+      .buttons {
+        margin-top: 10px;
+        display: flex;
+        gap: 20px;
+      }
+      .approve {
+        background-color: green;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .reject {
+        background-color: red;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .documents button {
+        background-color: #4a7db3;
+        color: white;
+        padding: 10px;
+        border: none;
+        width: 100px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .doc {
+        display: flex;
+        justify-content: space-between;
+      }
+      .view {
+        width: 100px;
+        height: 40px;
+      }
+      .images {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+      }
+      .images img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="#">User Dashboard</a>
+      <a href="#">back</a>
+    </div>
+    <div class="container">
+      <div class="box">
+        <p class="claim">Estimated Claim</p>
+        <p class="claim-price">R20 354</p>
+        <div class="buttons">
+          <button class="approve">Approve</button>
+          <button class="reject">Reject</button>
+        </div>
+      </div>
+      <div class="box">
+        <p class="policy-text"><b>Policy and Coverage</b></p>
+        <p>Comprehensive Car Insurance</p>
+        <p>
+          Includes accidental damage, fire, and theft coverage. Excludes wear
+          and tear.
+        </p>
+      </div>
+      <div class="box">
+        <p><b>Uploaded Documents</b></p>
+        <div class="doc">
+          <p>Affidavit</p>
+          <button class="view">View</button>
+        </div>
+        <div class="doc">
+          <p>Affidavit</p>
+          <button class="view">View</button>
+        </div>
+        <div class="doc">
+          <p>Affidavit</p>
+          <button class="view">View</button>
+        </div>
+        <div class="doc">
+          <p>Affidavit</p>
+          <button class="view">View</button>
+        </div>
+      </div>
+      <div class="box">
+        <p><b>Images</b></p>
+        <div class="images">
+          <img src="car1.jpg" alt="car" />
+          <img src="car1.jpg" alt="car" />
+          <img src="car1.jpg" alt="car" />
+          <img src="car1.jpg" alt="car" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
