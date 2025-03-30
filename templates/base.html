@@ -63,8 +63,8 @@
         text-align: center;
       }
     </style>
+    {% block head_content %} {% endblock %}
   </head>
-  {% block head_content %} {% endblock %}
   <body>
     <nav class="navbar">
       <div class="logo-container">
@@ -76,8 +76,8 @@
         <p class="logo-text">swift insurance</p>
       </div>
       <ul>
-        <li><a href="claims.html">Claims</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="/claims">Claims</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
         <li><a href="#support">Support</a></li>
         <li><a href="#partners">Partners</a></li>
       </ul>
