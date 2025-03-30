@@ -11,7 +11,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    # Initialize the D
+    # Initialize the DB
     db.init_app(app)
 
     with app.app_context():
