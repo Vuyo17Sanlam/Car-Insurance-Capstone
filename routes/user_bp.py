@@ -1,5 +1,6 @@
-from extensions import db
 from flask import Blueprint, render_template, request
+
+from extensions import db
 from models.user import User
 
 user_bp = Blueprint("user_bp", __name__)

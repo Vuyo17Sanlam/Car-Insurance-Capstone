@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f7fc;
+        color: #333;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #1e3a8a;
+        color: white;
+        padding: 15px 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .navbar h2 {
+        margin: 0;
+        font-size: 22px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        transition: 0.3s;
+      }
+      .nav-links a:hover {
+        color: #90caf9;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 30px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .stats-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+      }
+      .card {
+        flex: 1;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .charts-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+      }
+      .chart-box {
+        flex: 1;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 200px;
+      }
+
+      .chart-box img {
+        width: 500px;
+      }
+      .activity-feed {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <h2>Admin Panel</h2>
+      <div class="nav-links">
+        <a href="/admin_dashboard">Dashboard</a>
+        <a href="/admin_claims">Claims</a>
+        <a href="#">Settings</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="stats-container">
+        <div class="card">
+          <h3>Total Users</h3>
+          <p>1,250</p>
+        </div>
+        <div class="card">
+          <h3>Active Users</h3>
+          <p>850</p>
+        </div>
+        <div class="card">
+          <h3>New Registrations</h3>
+          <p>30 Today</p>
+        </div>
+      </div>
+      <div class="charts-container">
+        <div class="chart-box">
+          <img
+            src="https://media-hosting.imagekit.io/7da4ea84f8dd4208/screenshot_1743400675814.png?Expires=1838008677&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=pOMEVCVETCnAiWpu6dh4Hph8s7OZqgdV~a5VS1iaSuXI-M0r3Aw~3GXLQnzeGUaY612tgOesp3qsQKeNDnEEEgNou72yt1neiKRAhJcqxpMgs3vE56HK1XTEJckfBHXx-TVFaO-Twu9hPJUXGoAVLDZbPhc6HiXmKReWaPGggCykP4h5YrvevLIraexJy7M7Q-Rx2lLaXKze71qMV6KP674-C3C5MgBTZv8e1AzKEsxeGfXSR8oXucS-M5NM7xLKaFXpk107RxL1CS6iBh4LI4Bwp1AJzxh5GVLaGlga4pZt2Zw0i4D5XAIaYfyhYozQL3Br3Auqj0Uf1h4Ba7HH4g__"
+          />
+        </div>
+        <div class="chart-box">
+          <img
+            src="https://media-hosting.imagekit.io/91f88cdde2d841b3/screenshot_1743400506442.png?Expires=1838008508&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=BJey049~z9CQ~DJTNfVm2k-VkMepVM1CcL3~3r~ZRsBKYfpP7y9EDJ4sTfWCH7wTQ9Cx-d7wltJFt8cAF1q7he5jdLahqP6loK8u5b4kGHwijub~td1yC5FjmOpxui1IF7JONQDuDJQjsGlG~CalDIGsQzDta0gL-TVupk2bzgUgPRJP3OhPK8XPzCga73v89lkxxL2JgK6QoGgWvKJ8MmheNPbVz4ZuzLJAMcHbm4o~F3F01noQ3xpG9C90vr2mr0yJqd6wePLrB~s2FUUskFnmcGi7j1Lfzjb5Hts~KfJ3uzbqLJ80bGNyytg~1w5ihlg7ShQiifUutdo1IhqCdg__"
+          />
+        </div>
+      </div>
+      <div class="activity-feed">
+        <h3>Recent Activity</h3>
+        <ul>
+          <li>Admin approved Claim #20240315</li>
+          <li>Admin rejected Claim #20240314</li>
+          <li>User JohnDoe registered</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

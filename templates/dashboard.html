@@ -152,7 +152,7 @@
   }
 </style>
 {% endblock %} {% block content %} {% for user in users %}
-<h1 class="greeting">Hello, {{user.name}}</h1>
+<h1 class="greeting">Hello, {{user.name}} {{user.surname}}</h1>
 {% endfor %}
 <h1 class="welcome">Welcome To Your Dashboard</h1>
 <div class="dashboard-cards-container">
