@@ -114,6 +114,9 @@
     font-size: 20px;
     color: #00796b; /* Pastel green */
   }
+  .vehicle-info h3 {
+    color: #00796b;
+  }
   .vehicle-table {
     margin-top: 16px;
   }
@@ -150,6 +153,23 @@
     margin-bottom: 0;
     text-align: center;
   }
+  .vehicle-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+  }
+  .vehicle-card img {
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+  }
+  .vehicle-info {
+    margin-top: 8px;
+  }
 </style>
 {% endblock %} {% block content %} {% for user in users %}
 <h1 class="greeting">Hello, {{user.name}}</h1>
@@ -158,20 +178,42 @@
 <div class="dashboard-cards-container">
   <div class="dashboard-card">
     <div class="card-header">
-      <h2 class="dashboard-card-title">Premium</h2>
+      <h2 class="dashboard-card-title">Premiums</h2>
       <img
         src="https://static.vecteezy.com/system/resources/previews/023/647/295/non_2x/a-premium-download-icon-of-financial-insurance-vector.jpg"
         alt="Insurance Icon"
       />
     </div>
     <div class="card-content">
-      <div class="card-text">
-        <span class="desc">Total monthly premium amount:</span>
-        <span class="amount">R5000</span>
-      </div>
-      <div class="card-text">
-        <span class="desc">Premium due date:</span>
-        <span class="date">1st of every month</span>
+      <div class="row">
+        <div class="col-md-6">
+          <div
+            class="card"
+            style="
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              margin-bottom: 16px;
+            "
+          >
+            <div class="card-body">
+              <h5 class="desc">Next Payment Date</h5>
+              <p class="amount">01 April</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div
+            class="card"
+            style="
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              margin-bottom: 16px;
+            "
+          >
+            <div class="card-body">
+              <h5 class="desc">Total Amount Due</h5>
+              <p class="amount">2500</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -210,23 +252,32 @@
       />
     </div>
     <div class="card-content">
-      <div class="vehicle-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Make and Model</th>
-              <th>Registration Number</th>
-              <th>VIN Number</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Toyota Corolla</td>
-              <td>ABC1234</td>
-              <td>1HGCM82633A123456</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="d-flex flex-wrap">
+        <div class="vehicle-card">
+          <img
+            class="car"
+            src="https://static.vecteezy.com/system/resources/previews/029/946/422/non_2x/white-modern-car-isolated-on-transparent-background-3d-rendering-illustration-free-png.png"
+            alt="Vehicle 1"
+          />
+          <div class="vehicle-info">
+            <h3>Make: Toyota</h3>
+            <h3>Model: Corolla</h3>
+            <h3>Year: 2020</h3>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <img
+            class="car"
+            src="https://bbgroup.co.za/honda/wp-content/uploads/2023/10/2023_TypeR_Model.png"
+            alt="Vehicle 2"
+          />
+          <div class="vehicle-info">
+            <h3>Make: Honda</h3>
+            <h3>Model: Civic</h3>
+            <h3>Year: 2019</h3>
+          </div>
+        </div>
+        <!-- Add more vehicle cards as needed -->
       </div>
     </div>
   </div>
