@@ -1,6 +1,5 @@
 from extensions import db
 from flask import Blueprint, render_template, request
-from models.claims import Claim
 from models.user import User
 
 user_bp = Blueprint("user_bp", __name__)
