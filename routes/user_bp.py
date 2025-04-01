@@ -27,12 +27,16 @@ def get_dashboard_after():
 
 @user_bp.get("/claims")
 def claims_page():
-    return render_template("claims.html")
+    users = User.query.all()
+    users_dictionary = [user.to_dict() for user in users]
+    return render_template("claims.html", users=users_dictionary)
 
 
 @user_bp.get("/claims_form")
 def claim_forms():
-    return render_template("claims_form.html")
+    users = User.query.all()
+    users_dictionary = [user.to_dict() for user in users]
+    return render_template("claims_form.html", user=users_dictionary)
 
 
 @user_bp.get("/new")
