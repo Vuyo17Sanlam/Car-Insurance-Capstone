@@ -6,7 +6,7 @@
         color: #2d572c;
         margin: 0px;
       }
-      .container {
+      form {
         max-width: 800px;
         margin: auto;
         margin-top: 44px;
@@ -26,7 +26,7 @@
       select,
       input,
       textarea {
-        width: 100%;
+        width: 90%;
         padding: 10px;
         margin-top: 5px;
         border: 1px solid #2d572c;
@@ -116,7 +116,10 @@
     </style>
   </head>
 {% endblock %} {% block content %}
-    <div class="container">
+<form
+  action="{{url_for('user_bp.create_claim')}}"
+  method="POST"
+  class="form-container">
       <h1>Car Insurance Claim Form</h1>
       <p>Please fill out the details below to submit your insurance claim.</p>
 
@@ -135,17 +138,16 @@
 
       <label>What Happened?</label>
       <div class="radio-group">
-        <input type="radio" name="incident" value="Theft" /> Theft
-        <input type="radio" name="incident" value="Accident" /> Accident
-        <input type="radio" name="incident" value="Natural Disaster" /> Natural
-        Disaster
+       <label> <input type="radio" name="cause" value="Theft" /> Theft</label>
+        <label>  <input type="radio" name="cause" value="Accident" /> Accident</label>
+         <label> <input type="radio" name="cause" value="Natural Disaster" /> Natural Disaster</label>
       </div>
 
       <label for="description">Description of Incident</label>
       <textarea id="description"></textarea>
 
       <label for="date">Date of Incident</label>
-      <input type="date" id="date" />
+      <input type="date" id="date" name="date"/>
 
       <label for="address">Address of Incident</label>
       <input type="text" id="address" />
@@ -179,5 +181,5 @@
       <div class="button-container">
         <button class="submit-button" type="submit">Submit Claim</button>
       </div>
-    </div>
+    </form>
 {% endblock %}
