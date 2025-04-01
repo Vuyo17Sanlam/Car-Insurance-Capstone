@@ -10,6 +10,13 @@
       href="https://fonts.googleapis.com/css2?family=Michroma&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
       body {
         margin: 0;
@@ -30,7 +37,7 @@
         padding: 6px;
         overflow: hidden;
         display: flex;
-        justify-content: right;
+        justify-content: center;
         align-items: center;
         font-size: 20px;
       }
@@ -62,6 +69,20 @@
         margin-bottom: 0;
         text-align: center;
       }
+      .username {
+        color: #00796b;
+      }
+      .user {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        margin-right: 30px;
+      }
+      .fa-circle-user {
+        text-align: center;
+        color: #00796b;
+        font-size: 25px;
+      }
     </style>
     {% block head_content %} {% endblock %}
   </head>
@@ -81,6 +102,12 @@
         <li><a href="#support">Support</a></li>
         <li><a href="#partners">Partners</a></li>
       </ul>
+      <div class="user">
+        <i class="fa-solid fa-circle-user"></i>
+        {% for user in users %}
+        <p class="username">{{user.name}}</p>
+        {% endfor %}
+      </div>
     </nav>
     {% block content %} {% endblock %}
   </body>

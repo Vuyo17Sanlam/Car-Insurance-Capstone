@@ -64,7 +64,7 @@
     padding: 24px;
     padding-top: 0px;
     margin-top: 0;
-    width: 30%;
+    margin-bottom: 30px;
     border-radius: 16px;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -72,9 +72,9 @@
   }
   .vehicle-container {
     display: flex;
-    width: 100%;
+    width: 90%;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 0px;
   }
   .dashboard-card:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -88,11 +88,12 @@
   .card-header {
     display: flex;
     gap: 30px;
-    justify-content: center;
+    justify-content: left;
   }
   .card-header img {
     width: 48px;
     height: 48px;
+    margin-top: 10px;
   }
   .card-content {
     display: flex;
@@ -170,16 +171,22 @@
   .vehicle-info {
     margin-top: 8px;
   }
+  .card-icon {
+    height: 30px;
+  }
+  .heading {
+    color: black;
+    font-size: 15px;
+  }
 </style>
-{% endblock %} {% block content %} {% for user in users %}
-<h1 class="greeting">Hello, {{user.name}}</h1>
-{% endfor %}
+{% endblock %} {% block content %} {% for user in users %} {% endfor %}
 <h1 class="welcome">Welcome To Your Dashboard</h1>
 <div class="dashboard-cards-container">
   <div class="dashboard-card">
     <div class="card-header">
       <h2 class="dashboard-card-title">Premiums</h2>
       <img
+        class="card-icon"
         src="https://static.vecteezy.com/system/resources/previews/023/647/295/non_2x/a-premium-download-icon-of-financial-insurance-vector.jpg"
         alt="Insurance Icon"
       />
@@ -222,64 +229,99 @@
     <div class="card-header">
       <h2 class="dashboard-card-title">Policy</h2>
       <img
+        class="card-icon"
         src="https://cdn-icons-png.flaticon.com/512/4436/4436485.png"
-        alt="Policy Icon"
+        alt="Insurance Icon"
       />
     </div>
     <div class="card-content">
-      <div class="card-text">
-        <span class="desc">Policy Number:</span>
-        <span class="amount">123456789</span>
-      </div>
-      <div class="card-text">
-        <span class="desc">Policy Type:</span>
-        <span class="amount">Comprehensive</span>
-      </div>
-      <div class="card-text">
-        <span class="desc">Coverage:</span>
-        <span class="amount">Full Coverage</span>
+      <div class="row">
+        <div class="col-md-6">
+          <div
+            class="card"
+            style="
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              margin-bottom: 16px;
+            "
+          >
+            <div class="card-body">
+              <h5 class="desc">Policy Number</h5>
+              <p class="amount">123456788</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div
+            class="card"
+            style="
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              margin-bottom: 16px;
+            "
+          >
+            <div class="card-body">
+              <h5 class="desc">Type</h5>
+              <p class="amount">Comprehensive</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div
+            class="card"
+            style="
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              margin-bottom: 16px;
+            "
+          >
+            <div class="card-body">
+              <h5 class="desc">Coverage</h5>
+              <p class="amount">Full Coverage</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="vehicle-container">
-  <div class="dashboard-card-vehicle" style="width: 70%">
-    <div class="card-header">
-      <h2 class="dashboard-card-title">Vehicle(s)</h2>
-      <img
-        src="https://cdn-icons-png.flaticon.com/256/1456/1456842.png"
-        alt="Vehicle Icon"
-      />
-    </div>
-    <div class="card-content">
-      <div class="d-flex flex-wrap">
-        <div class="vehicle-card">
-          <img
-            class="car"
-            src="https://static.vecteezy.com/system/resources/previews/029/946/422/non_2x/white-modern-car-isolated-on-transparent-background-3d-rendering-illustration-free-png.png"
-            alt="Vehicle 1"
-          />
-          <div class="vehicle-info">
-            <h3>Make: Toyota</h3>
-            <h3>Model: Corolla</h3>
-            <h3>Year: 2020</h3>
+  <div class="vehicle-container">
+    <div class="dashboard-card-vehicle" style="width: 70%">
+      <div class="card-header">
+        <h2 class="dashboard-card-title">Vehicle(s)</h2>
+        <img
+          class="card-icon"
+          src="https://cdn-icons-png.flaticon.com/256/1456/1456842.png"
+          alt="Vehicle Icon"
+        />
+      </div>
+      <div class="card-content">
+        <div class="d-flex flex-wrap">
+          <div class="vehicle-card">
+            <img
+              class="car"
+              src="https://static.vecteezy.com/system/resources/previews/029/946/422/non_2x/white-modern-car-isolated-on-transparent-background-3d-rendering-illustration-free-png.png"
+              alt="Vehicle 1"
+            />
+            <div class="vehicle-info">
+              <h3><span class="heading">Make:</span> Toyota</h3>
+              <h3><span class="heading">Model:</span> Corolla</h3>
+              <h3><span class="heading">Year: </span> 2020</h3>
+            </div>
           </div>
-        </div>
-        <div class="vehicle-card">
-          <img
-            class="car"
-            src="https://bbgroup.co.za/honda/wp-content/uploads/2023/10/2023_TypeR_Model.png"
-            alt="Vehicle 2"
-          />
-          <div class="vehicle-info">
-            <h3>Make: Honda</h3>
-            <h3>Model: Civic</h3>
-            <h3>Year: 2019</h3>
+          <div class="vehicle-card">
+            <img
+              class="car"
+              src="https://bbgroup.co.za/honda/wp-content/uploads/2023/10/2023_TypeR_Model.png"
+              alt="Vehicle 2"
+            />
+            <div class="vehicle-info">
+              <h3><span class="heading">Make:</span> Honda</h3>
+              <h3><span class="heading">Model:</span> Civic</h3>
+              <h3><span class="heading">Year: </span> 2019</h3>
+            </div>
           </div>
+          <!-- Add more vehicle cards as needed -->
         </div>
-        <!-- Add more vehicle cards as needed -->
       </div>
     </div>
   </div>
+
+  {% endblock %}
 </div>
-{% endblock %}
