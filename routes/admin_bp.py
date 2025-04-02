@@ -16,3 +16,10 @@ def admin_claims_page():
     claims = Claim.query.all()
     claim_dict = [claim.to_dict() for claim in claims]
     return render_template("admin_claims.html", claim_dict=claim_dict)
+
+
+@admin_bp.get("/admin_user")
+def admin_user_claims_page():
+    claims = Claim.query.all()
+    claim_dict = [claim.to_dict() for claim in claims]
+    return render_template("admin_user.html", claim_dict=claim_dict)

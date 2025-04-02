@@ -4,15 +4,12 @@ from extensions import db
 
 
 class Claim(db.Model):
-    __tablename__ = "claims"
-    id = db.Column(
-        db.String(50), primary_key=True, default=lambda: str(uuid.uuid4())
-    )  # uuid will generate random id for us | random ids to protect people from attacking our data
-    # safeguards data and migration is easier
+    __tablename__ = "car_claims"
+    id = db.Column(db.String(100), primary_key=True)
     name = db.Column(db.String(100))
-    dte = db.Column(db.Date)
-    cause = db.Column(db.String(100))
-    amount = db.Column(db.Float)
+    incident = db.Column(db.String(100))
+    date = db.Column(db.String(100))
+    amount = db.Column(db.String(100))
     status = db.Column(db.String(100))
 
     # Object -> Dict
@@ -20,8 +17,8 @@ class Claim(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "dte": self.dte,
-            "cause": self.cause,
+            "incident": self.incident,
+            "date": self.date,
             "amount": self.amount,
             "status": self.status,
         }

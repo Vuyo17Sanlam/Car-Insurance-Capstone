@@ -62,7 +62,17 @@
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
+      }
+      .card h3 {
+        font-size: 16px;
+        font-weight: normal;
+        color: #666;
+      }
+      .card p {
+        font-size: 28px;
+        font-weight: bold;
+        color: #1e3a8a;
+        margin-top: 5px;
       }
       .charts-container {
         display: flex;
@@ -75,11 +85,6 @@
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 200px;
-      }
-
-      .chart-box img {
-        width: 500px;
       }
       .activity-feed {
         background: white;
@@ -93,7 +98,7 @@
     <div class="navbar">
       <h2>Admin Panel</h2>
       <div class="nav-links">
-        <a href="/admin_dashboard">Dashboard</a>
+        <a href="#">Dashboard</a>
         <a href="/admin_claims">Claims</a>
         <a href="#">Settings</a>
       </div>
@@ -115,14 +120,10 @@
       </div>
       <div class="charts-container">
         <div class="chart-box">
-          <img
-            src="https://media-hosting.imagekit.io/7da4ea84f8dd4208/screenshot_1743400675814.png?Expires=1838008677&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=pOMEVCVETCnAiWpu6dh4Hph8s7OZqgdV~a5VS1iaSuXI-M0r3Aw~3GXLQnzeGUaY612tgOesp3qsQKeNDnEEEgNou72yt1neiKRAhJcqxpMgs3vE56HK1XTEJckfBHXx-TVFaO-Twu9hPJUXGoAVLDZbPhc6HiXmKReWaPGggCykP4h5YrvevLIraexJy7M7Q-Rx2lLaXKze71qMV6KP674-C3C5MgBTZv8e1AzKEsxeGfXSR8oXucS-M5NM7xLKaFXpk107RxL1CS6iBh4LI4Bwp1AJzxh5GVLaGlga4pZt2Zw0i4D5XAIaYfyhYozQL3Br3Auqj0Uf1h4Ba7HH4g__"
-          />
+          <canvas id="claimsChart"></canvas>
         </div>
         <div class="chart-box">
-          <img
-            src="https://media-hosting.imagekit.io/91f88cdde2d841b3/screenshot_1743400506442.png?Expires=1838008508&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=BJey049~z9CQ~DJTNfVm2k-VkMepVM1CcL3~3r~ZRsBKYfpP7y9EDJ4sTfWCH7wTQ9Cx-d7wltJFt8cAF1q7he5jdLahqP6loK8u5b4kGHwijub~td1yC5FjmOpxui1IF7JONQDuDJQjsGlG~CalDIGsQzDta0gL-TVupk2bzgUgPRJP3OhPK8XPzCga73v89lkxxL2JgK6QoGgWvKJ8MmheNPbVz4ZuzLJAMcHbm4o~F3F01noQ3xpG9C90vr2mr0yJqd6wePLrB~s2FUUskFnmcGi7j1Lfzjb5Hts~KfJ3uzbqLJ80bGNyytg~1w5ihlg7ShQiifUutdo1IhqCdg__"
-          />
+          <canvas id="statusPieChart"></canvas>
         </div>
       </div>
       <div class="activity-feed">
@@ -134,5 +135,42 @@
         </ul>
       </div>
     </div>
+    <script>
+      const ctx = document.getElementById("claimsChart").getContext("2d");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "Claims Filed",
+              data: [30, 40, 25, 50, 60, 35],
+              backgroundColor: "#1e88e5",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+      });
+      const pieCtx = document.getElementById("statusPieChart").getContext("2d");
+      new Chart(pieCtx, {
+        type: "pie",
+        data: {
+          labels: ["Pending", "Approved", "Rejected"],
+          datasets: [
+            {
+              data: [30, 50, 20],
+              backgroundColor: ["#ffcc00", "#4caf50", "#e53935"],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+      });
+    </script>
   </body>
 </html>
