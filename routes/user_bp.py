@@ -62,9 +62,14 @@ def claim_forms():
     return render_template("claims_form.html", user=users_dictionary)
 
 
-# @user_bp.get("/new")
-# def add_claim_page():
-#     return render_template("claims_form.html")
+@user_bp.get("/support")
+def user_support():
+    return render_template("support.html")
+
+
+@user_bp.get("/new")
+def add_claim_page():
+    return render_template("claims_form.html")
 
 
 # usrs = {"name": "Inga", "amount": 10_000, "status": "pending"}

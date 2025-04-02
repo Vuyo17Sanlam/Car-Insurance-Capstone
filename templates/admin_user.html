@@ -31,6 +31,8 @@
         gap: 100px;
         padding: 20px;
         width: 600px;
+        margin: 50px auto; /* Centers the container */
+        justify-content: center; /* Ensures grid items are centered */
       }
       .box {
         background-color: #ffffff;
@@ -40,6 +42,7 @@
         width: 400px;
         height: 250px;
       }
+
       .claim {
         font-size: 24px;
         font-weight: bold;
@@ -70,6 +73,11 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
+      }
+      .policy-type {
+        font-size: 30px;
+        font-weight: bold;
+        margin-top: 0;
       }
       .documents button {
         background-color: #4a7db3;
@@ -104,7 +112,7 @@
   <body>
     <div class="header">
       <a href="#">User Dashboard</a>
-      <a href="#">back</a>
+      <a href="/admin_claims">back</a>
     </div>
     <div class="container">
       <div class="box">
@@ -116,8 +124,7 @@
         </div>
       </div>
       <div class="box">
-        <p class="policy-text"><b>Policy and Coverage</b></p>
-        <p>Comprehensive Car Insurance</p>
+        <p class="policy-type">Comprehensive Car Insurance</p>
         <p>
           Includes accidental damage, fire, and theft coverage. Excludes wear
           and tear.
@@ -145,10 +152,22 @@
       <div class="box">
         <p><b>Images</b></p>
         <div class="images">
-          <img src="car1.jpg" alt="car" />
-          <img src="car1.jpg" alt="car" />
-          <img src="car1.jpg" alt="car" />
-          <img src="car1.jpg" alt="car" />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtePoQceW9S9jwF5yjaQmEWVcLMjHYRBVts7bP2eiL2gwtOQMiTn2gwgbThPCBhxfMw8E&usqp=CAU"
+            alt="car"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtePoQceW9S9jwF5yjaQmEWVcLMjHYRBVts7bP2eiL2gwtOQMiTn2gwgbThPCBhxfMw8E&usqp=CAU"
+            alt="car"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtePoQceW9S9jwF5yjaQmEWVcLMjHYRBVts7bP2eiL2gwtOQMiTn2gwgbThPCBhxfMw8E&usqp=CAU"
+            alt="car"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtePoQceW9S9jwF5yjaQmEWVcLMjHYRBVts7bP2eiL2gwtOQMiTn2gwgbThPCBhxfMw8E&usqp=CAU"
+            alt="car"
+          />
         </div>
       </div>
     </div>
