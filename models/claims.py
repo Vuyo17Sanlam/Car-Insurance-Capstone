@@ -4,21 +4,34 @@ from extensions import db
 
 
 class Claim(db.Model):
-    __tablename__ = "car_claims"
-    id = db.Column(db.String(100), primary_key=True)
-    name = db.Column(db.String(100))
-    incident = db.Column(db.String(100))
-    date = db.Column(db.String(100))
-    amount = db.Column(db.String(100))
-    status = db.Column(db.String(100))
+    __tablename__ = "claims"
 
-    # Object -> Dict
+    claim_id = db.Column(
+        db.String(255), primary_key=True, default=lambda: str(uuid.uuid4())
+    )
+    policy_id = db.Column(
+        db.String(255), db.ForeignKey("policies.policy_id"), nullable=False
+    )
+    user_id = db.Column(db.String(255), db.ForeignKey("users.user_id"), nullable=False)
+    incident = db.Column(
+        db.String(50), nullable=False
+    )  # e.g., theft, accident, natural disaster
+    incident_date = db.Column(db.Date, nullable=False)
+    claim_amount = db.Column(db.Numeric(10, 2))
+    claim_status = db.Column(db.String(40), default="Pending")
+    description = db.Column(db.Text)
+
+    # Convert object to dictionary
     def to_dict(self):
         return {
-            "id": self.id,
-            "name": self.name,
+            "claim_id": self.claim_id,
+            "policy_id": self.policy_id,
+            "user_id": self.user_id,
             "incident": self.incident,
-            "date": self.date,
-            "amount": self.amount,
-            "status": self.status,
+            "incident_date": self.incident_date.strftime("%Y-%m-%d")
+            if self.incident_date
+            else None,
+            "claim_amount": float(self.claim_amount) if self.claim_amount else None,
+            "claim_status": self.claim_status,
+            "description": self.description,
         }

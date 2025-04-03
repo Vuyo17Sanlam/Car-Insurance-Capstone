@@ -131,14 +131,13 @@
           </tr>
         </thead>
         <tbody>
-          {% for claim in claim_dict %}
+          {% for claim2 in claim_dict %}
           <tr onclick="window.location='admin_user'">
-            <td>{{claim.id}}</td>
-            <td>{{claim.name}}</td>
-            <td>{{claim.incident}}</td>
-            <td>{{claim.date}}</td>
-            <td>R{{claim.amount}}</td>
-            <td><span class="status pending">{{claim.status}}</span></td>
+            <td>{{claim2.claim_id}}</td>
+            <td>{{claim2.incident}}</td>
+            <td>{{claim2.incident_date}}</td>
+            <td>R{{claim2.claim_amount}}</td>
+            <td><span class="status pending">{{claim2.claim_status}}</span></td>
           </tr>
           {% endfor %}
         </tbody>
