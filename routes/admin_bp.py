@@ -13,8 +13,8 @@ def admin_page():
 
 @admin_bp.get("/admin_claims")
 def admin_claims_page():
-    claims = Claim.query.all()
-    claim_dict = [claim.to_dict() for claim in claims]
+    claims1 = Claim.query.all()
+    claim_dict = [claim.to_dict() for claim in claims1]
     return render_template("admin_claims.html", claim_dict=claim_dict)
 
 
