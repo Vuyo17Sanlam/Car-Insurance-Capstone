@@ -11,3 +11,4 @@ class Config:
     # mssql+pyodbc://@<server_name>/<db_name>?driver=<driver_name>
     SQLALCHEMY_DATABASE_URI = environ.get("LOCAL_DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = environ.get("SECRET_KEY")
