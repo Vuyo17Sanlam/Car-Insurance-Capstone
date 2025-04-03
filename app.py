@@ -1,6 +1,7 @@
 from config import Config
 from extensions import db
 from flask import Flask
+from flask_login import LoginManager
 from models.user import User
 from routes.admin_bp import admin_bp
 from routes.user_bp import claims_page, user_bp
@@ -15,6 +16,16 @@ def create_app():
 
     # Initialize the DB
     db.init_app(app)
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+    login_manager.login_view = (
+        "user_bp.login_page"  # Redirects unauthorized users to the login page
+    )
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(user_id)  # Maintain tokens for specific user
+
     with app.app_context():
         try:
             result = db.session.execute(text("SELECT * from clients")).fetchall()
