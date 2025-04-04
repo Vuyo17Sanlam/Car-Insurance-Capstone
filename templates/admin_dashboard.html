@@ -107,7 +107,7 @@
       <div class="stats-container">
         <div class="card">
           <h3>Total Users</h3>
-          <p>1,250</p>
+          <p>{{no_user}}</p>
         </div>
         <div class="card">
           <h3>Active Users</h3>
@@ -136,15 +136,20 @@
       </div>
     </div>
     <script>
+      // Convert monthly_counts (list of [month, count]) into Chart.js format
+      const claimsByMonth = {{ monthly_counts | tojson }};
+      const labels = claimsByMonth.map(item => item[0]);
+      const dataValues = claimsByMonth.map(item => item[1]);
+
       const ctx = document.getElementById("claimsChart").getContext("2d");
       new Chart(ctx, {
         type: "bar",
         data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          labels: labels,
           datasets: [
             {
               label: "Claims Filed",
-              data: [30, 40, 25, 50, 60, 35],
+              data: dataValues,
               backgroundColor: "#1e88e5",
             },
           ],
@@ -154,6 +159,8 @@
           maintainAspectRatio: false,
         },
       });
+
+      const statusCounts = {{ status_counts | tojson }};
       const pieCtx = document.getElementById("statusPieChart").getContext("2d");
       new Chart(pieCtx, {
         type: "pie",
@@ -161,7 +168,11 @@
           labels: ["Pending", "Approved", "Rejected"],
           datasets: [
             {
-              data: [30, 50, 20],
+              data: [
+                statusCounts.pending || 0,
+                statusCounts.approved || 0,
+                statusCounts.rejected || 0
+              ],
               backgroundColor: ["#ffcc00", "#4caf50", "#e53935"],
             },
           ],

@@ -1,13 +1,14 @@
-from config import Config
-from extensions import db
 from flask import Flask
 from flask_login import LoginManager
-from models.user import User
-from routes.admin_bp import admin_bp
-from routes.user_bp import claims_page, user_bp
 
 # from routes.car_insurance_bp import car_insurance_bp
 from sqlalchemy.sql import text
+
+from config import Config
+from extensions import db
+from models.user import User
+from routes.admin_bp import admin_bp
+from routes.user_bp import claims_page, user_bp
 
 
 def create_app():
@@ -28,8 +29,8 @@ def create_app():
 
     with app.app_context():
         try:
-            result = db.session.execute(text("SELECT * from clients")).fetchall()
-            print("Connection successful:", result)
+            result = db.session.execute(text("SELECT * from users")).fetchall()
+            print("Connection sucScessful:", result)
         except Exception as e:
             print("Error connecting to the database:", e)
 

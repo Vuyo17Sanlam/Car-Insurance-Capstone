@@ -1,10 +1,11 @@
-from constants import STATUS_CODE
-from extensions import db
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from constants import STATUS_CODE
+from extensions import db
 from models.claims import Claim
 from models.user import User
-from werkzeug.security import check_password_hash, generate_password_hash
 
 user_bp = Blueprint("user_bp", __name__)
 
@@ -35,15 +36,23 @@ def signup_page():
 @user_bp.post("/signup")
 def submit_signup_page():
     try:
-        # check if password and confirm password match
-        if request.form.get("password") != request.form.get("confirm"):
+        # check if password and cofirm password match
+        if request.form.get("password_hash") != request.form.get("confirm"):
             raise ValueError("Password does not match")
 
-        password = request.form.get("password")
+        password = request.form.get("password_hash")
         hashed_password = generate_password_hash(password)  # 16 -> salt length
         data = {
-            "username": request.form.get("username"),
-            "password": hashed_password,
+            "user_name": request.form.get("user_name"),
+            "password_hash": hashed_password,
+            "surname": request.form.get("surname"),
+            "id_number": request.form.get("id_number"),
+            "dob": request.form.get("dob"),
+            "gender": request.form.get("gender"),
+            "email": request.form.get("email"),
+            "phone_no": request.form.get("phone_no"),
+            "address": request.form.get("address"),
+            "title": request.form.get("title"),
         }
         new_user = User(**data)
         db.session.add(new_user)
@@ -62,24 +71,24 @@ def login_page():
 
 @user_bp.post("/login")
 def submit_login_page():
-    username = request.form.get("username")
-    password = request.form.get("password")  # abc@123
+    user_name = request.form.get("user_name")
+    password_hash = request.form.get("password_hash")
     try:
         # 🛡️ Validations
-        if not username:
+        if not user_name:
             raise ValueError("Username must be filled")
 
-        if not password:
+        if not password_hash:
             raise ValueError("Password must be filled")
 
-        user_from_db = User.query.filter_by(username=username).first()
+        user_from_db = User.query.filter_by(user_name=user_name).first()
 
         print(user_from_db)
 
         if not user_from_db:
             raise ValueError("Credentials are invalid")
 
-        if not check_password_hash(user_from_db.password, password):
+        if not check_password_hash(user_from_db.password_hash, password_hash):
             raise ValueError("Credentials are invalid")
         login_user(user_from_db)
         flash("Login successful", "success")

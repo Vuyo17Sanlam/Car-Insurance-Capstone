@@ -134,6 +134,7 @@
           {% for claim2 in claim_dict %}
           <tr onclick="window.location='admin_user'">
             <td>{{claim2.claim_id}}</td>
+            <td>{{claim2.user_name}}</td>
             <td>{{claim2.incident}}</td>
             <td>{{claim2.incident_date}}</td>
             <td>R{{claim2.claim_amount}}</td>
