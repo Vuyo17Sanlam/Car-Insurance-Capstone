@@ -1,11 +1,10 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask_login import login_required, login_user, logout_user
-from werkzeug.security import check_password_hash, generate_password_hash
-
 from constants import STATUS_CODE
 from extensions import db
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import login_required, login_user, logout_user
 from models.claims import Claim
 from models.user import User
+from werkzeug.security import check_password_hash, generate_password_hash
 
 user_bp = Blueprint("user_bp", __name__)
 
@@ -124,6 +123,11 @@ def claim_forms():
 @user_bp.get("/support")
 def user_support():
     return render_template("support.html")
+
+
+@user_bp.get("/partners")
+def partners():
+    return render_template("partners.html")
 
 
 @user_bp.get("/new")
