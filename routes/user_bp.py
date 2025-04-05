@@ -134,23 +134,23 @@ def add_claim_page():
 # usrs = {"name": "Inga", "amount": 10_000, "status": "pending"}
 
 
-# @user_bp.post("/")  # HOF
-# def create_claim():
-#     data = {
-#         "name": usrs["name"],
-#         "dte": request.form.get("date"),
-#         "cause": request.form.get("cause"),
-#         "amount": usrs["amount"],
-#         "status": usrs["status"],
-#     }
-#     # data = request.get_json()  # body
-#     new_claim = Claim(**data)
+@user_bp.post("/")  # HOF
+def create_claim():
+    data = {
+        "name": users["name"],
+        "date": request.form.get("date"),
+        "cause": request.form.get("cause"),
+        "amount": users["amount"],
+        "status": users["status"],
+    }
+    # data = request.get_json()  # body
+    new_claim = Claim(**data)
 
-#     try:
-#         # print(new_movie, new_movie.to_dict())
-#         db.session.add(new_claim)
-#         db.session.commit()
-#         return redirect(url_for("user_bp.claims_page"))
-#     except Exception as e:
-#         db.session.rollback()  # Undo: Restore the data | After commit cannot undo
-#         return {"message": str(e)}, STATUS_CODE["SERVER_ERROR"]
+    try:
+        # print(new_movie, new_movie.to_dict())
+        db.session.add(new_claim)
+        db.session.commit()
+        return redirect(url_for("user_bp.claims_page"))
+    except Exception as e:
+        db.session.rollback()  # Undo: Restore the data | After commit cannot undo
+        return {"message": str(e)}, STATUS_CODE["SERVER_ERROR"]

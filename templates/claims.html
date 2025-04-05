@@ -1,186 +1,546 @@
 {% extends "base.html" %} {% block head_content %}
 <style>
+  :root {
+    --primary-color: #2563eb;
+    --primary-light: #3b82f6;
+    --primary-dark: #1d4ed8;
+    --secondary-color: #10b981;
+    --accent-color: #f59e0b;
+    --background-light: #f8fafc;
+    --background-dark: #e2e8f0;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+  }
+
   body {
     margin: 0;
-    font-family: "Roboto", sans-serif;
-    background-color: #e0f7fa; /* Pastel blue background */
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    line-height: 1.5;
   }
 
-  .container {
-    max-width: 1000px; /* Ensures the container has a fixed width */
-    padding: 30px;
-    margin: 30px auto; /* Centers it horizontally */
-    border-radius: 15px;
-    background: white;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  .dashboard-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
   }
 
-  h1 {
-    text-align: center;
-    color: #0277bd;
-    font-size: 28px;
-    margin-bottom: 20px;
-  }
-
-  .summary {
-    background: #e3f2fd;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-weight: bold;
-    color: #01579b;
+  .claims-header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+  }
+
+  .new-claim-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: var(--card-shadow);
+  }
+
+  .new-claim-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .stat-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stat-approved {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+  }
+
+  .stat-pending {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning-color);
+  }
+
+  .stat-rejected {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--error-color);
+  }
+
+  .stat-content {
+    flex: 1;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+  }
+
+  .claims-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
   }
 
   .claim-card {
     background: white;
-    padding: 30px; /* Increased padding */
-    padding-top: 0px;
-    border-radius: 15px;
-    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease-in-out;
-    font-size: 22px; /* Increased font size */
-  }
-  .claim-card-header {
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    border-top: 4px solid transparent;
   }
 
   .claim-card:hover {
-    transform: scale(1.08);
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
   }
 
-  .claim-card p {
-    /* Increased spacing */
-    color: grey;
-    font-size: 16px; /* Bigger text */
+  .claim-card.pending {
+    border-top-color: var(--warning-color);
   }
 
-  .claim-card b.price {
-    font-size: 32px; /* Bigger price */
-    color: #3200fa;
-    font-weight: bold;
-    display: block;
-    margin-top: 10px; /* More spacing above price */
+  .claim-card.approved {
+    border-top-color: var(--success-color);
   }
 
-  .claim-card-header {
+  .claim-card.rejected {
+    border-top-color: var(--error-color);
+  }
+
+  .claim-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--background-dark);
     display: flex;
     justify-content: space-between;
-    font-size: 22px; /* Increased font size */
+    align-items: center;
   }
 
-  .claims-container {
-    display: grid;
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(400px, 1fr)
-    ); /* Bigger cards */
-    gap: 30px; /* More spacing between cards */
+  .claim-id {
+    font-weight: 600;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  .status {
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 12px;
-    font-size: 14px;
-    display: inline-block;
-  }
-  .pending {
-    background: #ffcc00;
-    color: #333;
-  }
-  .approved {
-    background: #4caf50;
-    color: white;
-  }
-  .rejected {
-    background: #e53935;
-    color: white;
+  .claim-type {
+    font-weight: 600;
+    color: var(--primary-color);
+    background-color: rgba(37, 99, 235, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
   }
 
-  .new-claim-btn {
-    display: block;
-    background: #0288d1;
-    color: white;
-    padding: 14px;
-    text-align: center;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 20px;
-    transition: background 0.3s ease-in-out;
+  .claim-body {
+    padding: 1.5rem;
   }
 
-  .new-claim-btn:hover {
-    background: #01579b;
+  .claim-date {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .claim-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0.5rem 0;
+  }
+
+  .claim-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .status-pending {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning-color);
+  }
+
+  .status-approved {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+  }
+
+  .status-rejected {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--error-color);
+  }
+
+  @media (max-width: 768px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .claims-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .claims-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
   }
 </style>
 {% endblock %} {% block content %}
-<div class="container">
-  <h1>Claims</h1>
-
-  <div class="summary">
-    <div><i class="fa-solid fa-thumbs-up"></i> Approved: <b>2</b></div>
-    <div><i class="fa-solid fa-hourglass-half"></i> Pending: <b>1</b></div>
-    <div><i class="fa-solid fa-xmark"></i> Rejected: <b>0</b></div>
+<div class="dashboard-container">
+  <div class="claims-header">
+    <h1 class="section-title">Your Claims</h1>
+    <a href="/claims_form" class="new-claim-btn">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        width="20"
+        height="20"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      New Claim
+    </a>
   </div>
 
-  <div class="claims-container">
-    <div class="claim-card">
-      <div class="claim-card-header">
-        <p>
-          <b><i class="fa-solid fa-file"></i> #20240315</b>
-        </p>
-        <p>Car Accident</p>
+  <!-- Stats Summary -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon stat-approved">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
       </div>
-
-      <p>
-        <b class="date">March 15, 2024</b>
-        <b class="price">R1,500</b>
-      </p>
-      <span class="status pending"
-        ><i class="fa-solid fa-hourglass-half"></i> Pending</span
-      >
+      <div class="stat-content">
+        <p class="stat-label">Approved Claims</p>
+        <p class="stat-value">2</p>
+      </div>
     </div>
 
-    <div class="claim-card">
-      <div class="claim-card-header">
-        <p>
-          <b><i class="fa-solid fa-file"></i> #20240315</b>
-        </p>
-        <p>Flood Incident</p>
+    <div class="stat-card">
+      <div class="stat-icon stat-pending">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
       </div>
-      <p>
-        <b class="date">Feb 28 - Mar 21, 2024</b>
-        <b class="price">R3,000</b>
-      </p>
-      <span class="status approved"
-        ><i class="fa-solid fa-thumbs-up"></i> Approved</span
-      >
+      <div class="stat-content">
+        <p class="stat-label">Pending Claims</p>
+        <p class="stat-value">1</p>
+      </div>
     </div>
 
-    <div class="claim-card">
-      <div class="claim-card-header">
-        <p>
-          <b><i class="fa-solid fa-file"></i> #20240315</b>
-        </p>
-        <p>Theft</p>
+    <div class="stat-card">
+      <div class="stat-icon stat-rejected">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
       </div>
-      <p>
-        <b class="date">Feb 15 - June 15, 2024</b>
-        <b class="price">R5,500</b>
-      </p>
-      <span class="status rejected"
-        ><i class="fa-solid fa-xmark"></i> Rejected</span
-      >
+      <div class="stat-content">
+        <p class="stat-label">Rejected Claims</p>
+        <p class="stat-value">0</p>
+      </div>
     </div>
   </div>
 
-  <a href="/claims_form" class="new-claim-btn">+ New Claim</a>
+  <!-- Claims List -->
+  <div class="claims-grid">
+    <!-- Pending Claim -->
+    <div class="claim-card pending">
+      <div class="claim-header">
+        <div class="claim-id">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+            ></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          #20240315
+        </div>
+        <div class="claim-type">Car Accident</div>
+      </div>
+      <div class="claim-body">
+        <p class="claim-date">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          March 15, 2024
+        </p>
+        <p class="claim-amount">R1,500</p>
+        <span class="claim-status status-pending">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Pending
+        </span>
+      </div>
+    </div>
+
+    <!-- Approved Claim -->
+    <div class="claim-card approved">
+      <div class="claim-header">
+        <div class="claim-id">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+            ></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          #20240228
+        </div>
+        <div class="claim-type">Flood Incident</div>
+      </div>
+      <div class="claim-body">
+        <p class="claim-date">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          Feb 28 - Mar 21, 2024
+        </p>
+        <p class="claim-amount">R3,000</p>
+        <span class="claim-status status-approved">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+          Approved
+        </span>
+      </div>
+    </div>
+
+    <!-- Rejected Claim -->
+    <div class="claim-card rejected">
+      <div class="claim-header">
+        <div class="claim-id">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+            ></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          #20240215
+        </div>
+        <div class="claim-type">Theft</div>
+      </div>
+      <div class="claim-body">
+        <p class="claim-date">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          Feb 15 - June 15, 2024
+        </p>
+        <p class="claim-amount">R5,500</p>
+        <span class="claim-status status-rejected">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          Rejected
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
 
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"
+></script>
 {% endblock %}

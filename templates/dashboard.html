@@ -1,280 +1,405 @@
 {% extends "base.html" %} {% block head_content %}
 <style>
+  :root {
+    --primary-color: #2563eb;
+    --primary-light: #3b82f6;
+    --primary-dark: #1d4ed8;
+    --secondary-color: #10b981;
+    --accent-color: #f59e0b;
+    --background-light: #f8fafc;
+    --background-dark: #e2e8f0;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
   body {
     margin: 0;
-    font-family: "Roboto", sans-serif;
-    background-color: #e0f7fa; /* Pastel blue background */
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    line-height: 1.5;
   }
+
   nav {
     position: sticky;
     top: 0;
-    background-color: #ffffff;
+    background-color: white;
     display: flex;
     justify-content: space-between;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    box-shadow: var(--card-shadow);
+    padding: 0 2rem;
+    z-index: 50;
   }
+
   ul {
     list-style-type: none;
     margin: 0;
-    padding: 6px;
-    overflow: hidden;
+    padding: 0;
     display: flex;
-    justify-content: right;
+    gap: 1rem;
     align-items: center;
-    font-size: 20px;
   }
+
   li a {
     display: block;
     text-align: center;
-    padding: 14px 20px;
+    padding: 1.25rem 1.5rem;
     text-decoration: none;
-    color: #00796b; /* Pastel green */
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-radius: 0.5rem;
   }
+
   li a:hover {
-    background-color: #004d40; /* Darker green */
-    color: #ffffff;
+    background-color: var(--background-dark);
+    color: var(--primary-color);
   }
+
   .greeting,
   .welcome {
     text-align: center;
-    margin-top: 40px;
-    color: #00796b; /* Darker grey */
+    margin-top: 2rem;
+    color: var(--text-dark);
   }
-  .dashboard-cards-container {
-  display: flex;
-    flex-wrap: wrap;
-    padding: 0 58px;
-    /* justify-content: center; */
-    gap: 24px;
-    max-width: 1200px;
-    margin: 0px auto;
-  }
-  .dashboard-card {
-    display: flex;
-    flex-direction: column;
-    padding: 24px;
-    margin-top: 0px;
-    width: 50%;
-    border-radius: 16px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-out;
-  }
-  .dashboard-card-vehicle {
-    display: flex;
-    flex-direction: column;
-    padding: 24px;
-    padding-top: 0px;
-    margin-top: 0;
-    margin-bottom: 30px;
-    border-radius: 16px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-out;
-  }
-  .vehicle-container {
-    display: flex;
-    width: 90%;
-    justify-content: center;
-    margin-top: 0px;
-  }
-  .dashboard-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transform: scale(1.05);
-  }
-  .dashboard-card-title {
-    font-weight: 800;
-    font-size: 28px;
-    color: #37474f; /* Darker grey */
-  }
-  .card-header {
-   display: flex;
-    gap: 15px;
-    justify-content: left;
-  }
-  .card-header img {
-    width: 48px;
-    height: 48px;
-    margin-top: 5px;
-  }
-  .card-content {
-    display: flex;
-    justify-content: space-between;
-  }
-    .vehicle-card-content {
 
-    width:100%;
+  .dashboard-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
   }
-  .card-text {
+
+  .section-header {
     display: flex;
-    justify-content: space-between;
-    font-size: 16px;
-    color: #555555;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
-  .desc {
+
+  .section-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--primary-color);
+  }
+
+  .section-title {
+    font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 0px;
+    color: var(--text-dark);
+    margin: 0;
   }
-  .amount,
-  .date {
-    font-family: "Poppins", sans-serif;
-    font-weight: bolder;
-    font-size: 30px;
-    color: #00796b; /* Pastel green */
+
+  .premiums-section {
+    margin-bottom: 3rem;
   }
-  .vehicle-info h3 {
-    color: #00796b;
+
+  .premium-cards {
+    display: flex;
+    gap: 1.5rem;
   }
-  .vehicle-table {
-    margin-top: 16px;
+
+  .premium-card {
+    flex: 1;
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .vehicle-table table {
-    width: 100%;
-    border-collapse: collapse;
+
+  .premium-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
   }
-  .vehicle-table th,
-  .vehicle-table td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+
+  .card-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
   }
-  .vehicle-table th {
-    background-color: #b2dfdb; /* Light pastel green */
-    font-weight: bold;
+
+  .card-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
   }
-  .vehicle-table tr:nth-child(even) {
-    background-color: #e0f2f1; /* Very light pastel green */
+
+  .vehicles-section {
+    margin-bottom: 3rem;
   }
+
+  .vehicle-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .vehicle-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .vehicle-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .vehicle-image-container {
+    height: 200px;
+    background: var(--background-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .vehicle-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .vehicle-details {
+    padding: 1.5rem;
+  }
+
+  .vehicle-make-model {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 0.5rem 0;
+  }
+
+  .vehicle-specs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .spec-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .spec-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .spec-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
   .logo-container {
     display: flex;
     align-items: center;
-    margin-left: 24px;
-    gap: 6px;
+    gap: 0.75rem;
   }
+
   .logo {
-    width: 100px;
-    height: 80px;
+    height: 2.5rem;
   }
+
   .logo-text {
-    font-family: "Michroma", sans-serif;
-    margin-top: 0;
-    margin-bottom: 0;
-    text-align: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin: 0;
   }
-  .vehicle-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 16px;
+
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
-  .vehicle-pic {
-    width: 200px;
-    height: 200px;
-    border-radius: 8px;
+
+  .badge-primary {
+    background-color: var(--primary-light);
+    color: white;
   }
-  .vehicle-info {
-    margin-top: 8px;
-    display: flex;
-    flex-wrap: wrap;
-    gap:80px;
+
+  .badge-secondary {
+    background-color: var(--secondary-color);
+    color: white;
   }
-  .card-icon {
-       width: 48px;
-    height: 48px;
-    margin-top: 5px;
-  }
-  .heading {
-    color: black;
-    font-size: 15px;
-  }
-  .hold-cards{
-    display:flex;
-    gap:30px;
-  }
-  .card-cont{
-    margin-top: 70px;
+
+  @media (max-width: 768px) {
+    .premium-cards {
+      flex-direction: column;
+    }
+
+    .vehicle-cards {
+      grid-template-columns: 1fr;
+    }
+
+    nav {
+      padding: 0 1rem;
+    }
+
+    li a {
+      padding: 1rem;
+    }
   }
 </style>
-{% endblock %} {% block content %} {% for user in users %} {% endfor %}
-
-<div class="dashboard-cards-container">
-  <div class="card-cont">
-    <div class="card-header">
-
-      <img
-        class="card-icon"
-        src="https://cdn-icons-png.flaticon.com/512/910/910730.png"
-        alt="Insurance Icon"
-      />
-             <h1 class="dashboard-card-title">Premiums</h1>
+{% endblock %} {% block content %}
+<div class="dashboard-container">
+  <!-- Premiums Section -->
+  <section class="premiums-section">
+    <div class="section-header">
+      <svg
+        class="section-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"
+        />
+      </svg>
+      <h2 class="section-title">Your Premiums</h2>
     </div>
-  <div class="hold-cards">
-      <div class="dashboard-card">
-        <h5 class="desc">Next Payment Date</h5>
-        <p class="amount">01 April</p>
+
+    <div class="premium-cards">
+      <div class="premium-card">
+        <p class="card-label">Next Payment Date</p>
+        <p class="card-value">April 1</p>
+        <div class="badge badge-primary" style="margin-top: 0.5rem">
+          Upcoming
+        </div>
       </div>
-      <div class="dashboard-card">
-        <h5 class="desc">Total Amount Due</h5>
-        <p class="amount">2500</p>
+
+      <div class="premium-card">
+        <p class="card-label">Total Amount Due</p>
+        <p class="card-value">$2,500</p>
+      </div>
+
+      <div class="premium-card">
+        <p class="card-label">Payment Method</p>
+        <p class="card-value">VISA •••• 4242</p>
+        <div class="badge badge-secondary" style="margin-top: 0.5rem">
+          Active
+        </div>
       </div>
     </div>
-</div>
-<div class="vehicle-card">
-  <div class="card-header">
-     <img
-            class="card-icon"
-            src="https://png.pngtree.com/png-vector/20220724/ourmid/pngtree-auto-insurance-icon-auto-insurance-protection-car-vector-png-image_38128876.png"
-            alt="Vehicle Icon"
+  </section>
+
+  <!-- Vehicles Section -->
+  <section class="vehicles-section">
+    <div class="section-header">
+      <svg
+        class="section-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+        />
+      </svg>
+      <h2 class="section-title">Your Vehicles</h2>
+    </div>
+
+    <div class="vehicle-cards">
+      <!-- Vehicle 1 -->
+      <div class="vehicle-card">
+        <div class="vehicle-image-container">
+          <img
+            class="vehicle-image"
+            src="https://static.vecteezy.com/system/resources/previews/029/946/422/non_2x/white-modern-car-isolated-on-transparent-background-3d-rendering-illustration-free-png.png"
+            alt="Toyota Corolla"
           />
-  <h2 class="dashboard-card-title">Vehicle(s)</h2>
-</div>
-    <div class="vehicle-container">
+        </div>
+        <div class="vehicle-details">
+          <h3 class="vehicle-make-model">Toyota Corolla • 2020</h3>
 
-      <div class="dashboard-card-vehicle" style="width: 70%">
-        <div class="vehicle-card-content">
-          <div class="d-flex flex-wrap">
-            <div class="vehicle-card">
-              <img
-                class="vehicle-pic"
-                src="https://static.vecteezy.com/system/resources/previews/029/946/422/non_2x/white-modern-car-isolated-on-transparent-background-3d-rendering-illustration-free-png.png"
-                alt="Vehicle 1"
-              />
-              <div class="vehicle-info">
-                <h3><span class="heading">Make:</span> Toyota</h3>
-                <h3><span class="heading">Model:</span> Corolla</h3>
-                <h3><span class="heading">Year: </span> 2020</h3>
-                <h3><span class="heading">Policy type: </span> Comprehensive</h3>
-                <h3><span class="heading">Coverage: </span> Full Coverage</h3>
-                <h3><span class="heading">Total claims: </span> 2</h3>
-              </div>
+          <div class="vehicle-specs">
+            <div class="spec-item">
+              <span class="spec-label">Policy Type</span>
+              <span class="spec-value">Comprehensive</span>
             </div>
-            <div class="vehicle-card">
-              <img
-                class="vehicle-pic"
-                src="https://bbgroup.co.za/honda/wp-content/uploads/2023/10/2023_TypeR_Model.png"
-                alt="Vehicle 2"
-              />
-              <div class="vehicle-info">
-                <h3><span class="heading">Make:</span> Honda</h3>
-                <h3><span class="heading">Model:</span> Civic</h3>
-                <h3><span class="heading">Year: </span> 2019</h3>
-                  <h3><span class="heading">Policy type: </span> Comprehensive</h3>
-                    <h3><span class="heading">Coverage: </span> Full Coverage</h3>
-              </div>
+            <div class="spec-item">
+              <span class="spec-label">Coverage</span>
+              <span class="spec-value">Full Coverage</span>
             </div>
-            <!-- Add more vehicle cards as needed -->
+            <div class="spec-item">
+              <span class="spec-label">Claims</span>
+              <span class="spec-value">2 Total</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Status</span>
+              <span class="spec-value">Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vehicle 2 -->
+      <div class="vehicle-card">
+        <div class="vehicle-image-container">
+          <img
+            class="vehicle-image"
+            src="https://bbgroup.co.za/honda/wp-content/uploads/2023/10/2023_TypeR_Model.png"
+            alt="Honda Civic"
+          />
+        </div>
+        <div class="vehicle-details">
+          <h3 class="vehicle-make-model">Honda Civic • 2019</h3>
+
+          <div class="vehicle-specs">
+            <div class="spec-item">
+              <span class="spec-label">Policy Type</span>
+              <span class="spec-value">Comprehensive</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Coverage</span>
+              <span class="spec-value">Full Coverage</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Claims</span>
+              <span class="spec-value">0 Total</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Status</span>
+              <span class="spec-value">Active</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </section>
 </div>
-    {% endblock %}
-  </div>
-</div>
-  <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"
+></script>
+{% endblock %}
