@@ -1,0 +1,257 @@
+{% extends "base.html" %} {% block head_content %}
+<style>
+  body {
+    background-color: #f8fafc;
+  }
+  :root {
+    --primary-color: #1d4ed8;
+    --primary-light: #e0e7ff;
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .partners-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: "Inter", sans-serif;
+  }
+
+  .partners-title {
+    font-size: 3rem;
+
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInDown 1s ease-in-out;
+  }
+
+  .partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 2rem;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+
+  .partner-card {
+    background-color: #fff;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .partner-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .partner-logo {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  .partner-card:hover .partner-logo {
+    transform: scale(1.05);
+  }
+
+  .partner-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .partner-type {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 9999px;
+    margin: 0.5rem 0 1rem 0;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .partner-description {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .partner-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+
+  .partner-link:hover {
+    text-decoration: underline;
+    color: #0f172a;
+  }
+
+  .toggle-details {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .toggle-details:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  .partner-details {
+    display: none;
+    transition: all 0.3s ease;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="partners-container">
+  <h5 class="partners-title">Our Trusted Partners</h5>
+
+  <div class="partners-grid">
+    <!-- Partner 1 -->
+    <div class="partner-card">
+      <img
+        src="https://www.freeiconspng.com/uploads/toyota-logo-png-1.png"
+        alt="Toyota"
+        class="partner-logo"
+      />
+      <button class="toggle-details">See More</button>
+      <div class="partner-details">
+        <h3 class="partner-name">Toyota SA</h3>
+        <span class="partner-type">Manufacturer</span>
+        <p class="partner-description">
+          Official integration partner offering smart repair tracking and
+          service support.
+        </p>
+        <a href="https://www.toyota.co.za" target="_blank" class="partner-link"
+          >Visit Website →</a
+        >
+      </div>
+    </div>
+
+    <!-- Partner 2 -->
+    <div class="partner-card">
+      <img
+        src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/092019/discovery_logo_0.png"
+        alt="Discovery Insure"
+        class="partner-logo"
+      />
+      <button class="toggle-details">See More</button>
+      <div class="partner-details">
+        <h3 class="partner-name">Discovery Insure</h3>
+        <span class="partner-type">Insurance Provider</span>
+        <p class="partner-description">
+          Seamless policy syncing for faster claim handling and dynamic driver
+          scoring.
+        </p>
+        <a
+          href="https://www.discovery.co.za"
+          target="_blank"
+          class="partner-link"
+          >Visit Website →</a
+        >
+      </div>
+    </div>
+
+    <!-- Partner 3 -->
+    <div class="partner-card">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYry4f8KWQJbqawohd9IeQ6Hm3DVkJnFulyg&s"
+        alt="Standard Bank"
+        class="partner-logo"
+      />
+      <button class="toggle-details">See More</button>
+      <div class="partner-details">
+        <h3 class="partner-name">Standard Bank</h3>
+        <span class="partner-type">Financial Services</span>
+        <p class="partner-description">
+          Embedded financing solutions help users get quotes, finance, and cover
+          — all in one place.
+        </p>
+        <a
+          href="https://www.standardbank.co.za"
+          target="_blank"
+          class="partner-link"
+          >Visit Website →</a
+        >
+      </div>
+    </div>
+
+    <!-- Partner 4 -->
+    <div class="partner-card">
+      <img
+        src="https://securitypro.co.za/wp-content/uploads/2021/09/tracker_logo.png"
+        alt="Tracker"
+        class="partner-logo"
+      />
+      <button class="toggle-details">See More</button>
+      <div class="partner-details">
+        <h3 class="partner-name">Trackerr</h3>
+        <span class="partner-type">Vehicle Tracking</span>
+        <p class="partner-description">
+          Integrated vehicle recovery and real-time tracking service for
+          policyholders.
+        </p>
+        <a href="https://www.netstar.co.za" target="_blank" class="partner-link"
+          >Visit Website →</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll(".toggle-details").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const details = btn.nextElementSibling;
+      const isVisible = details.style.display === "block";
+      details.style.display = isVisible ? "none" : "block";
+      btn.textContent = isVisible ? "See More" : "See Less";
+    });
+  });
+</script>
+{% endblock %}
