@@ -14,15 +14,13 @@ user_bp = Blueprint("user_bp", __name__)
 
 
 @user_bp.get("/")
+def get_home():
+    return render_template("home.html")
+
+
 @login_required
-def get_dashboard():
-    users = User.query.all()
-    users_dictionary = [user.to_dict() for user in users]
-    return render_template("dashboard.html", users=users_dictionary)
-
-
 @user_bp.get("/dashboard")
-def get_dashboard_after():
+def get_dashboard():
     users = User.query.all()
     users_dictionary = [user.to_dict() for user in users]
     return render_template("dashboard.html", users=users_dictionary)
@@ -138,7 +136,7 @@ def add_claim_page():
 def create_claim():
     data = {
         "name": users["name"],
-        "date": request.form.get("date"),
+        "dte": request.form.get("date"),
         "cause": request.form.get("cause"),
         "amount": users["amount"],
         "status": users["status"],

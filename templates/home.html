@@ -1,0 +1,347 @@
+<style>
+  :root {
+    --primary-color: #2563eb;
+    --primary-light: #3b82f6;
+    --primary-dark: #1d4ed8;
+    --secondary-color: #10b981;
+    --accent-color: #f59e0b;
+    --background-light: #f8fafc;
+    --background-dark: #e2e8f0;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  body {
+    margin: 0;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    line-height: 1.5;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--card-shadow);
+    padding: 0 2rem;
+    z-index: 50;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  li a {
+    display: block;
+    text-align: center;
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-radius: 0.5rem;
+  }
+
+  li a:hover {
+    background-color: var(--background-dark);
+    color: var(--primary-color);
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo {
+    height: 2.5rem;
+  }
+
+  .logo-text {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin: 0;
+  }
+
+  .auth-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+  }
+
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--primary-dark);
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+  }
+
+  .btn-outline:hover {
+    background-color: var(--background-dark);
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5rem 2rem;
+    background: linear-gradient(
+      to bottom,
+      white 0%,
+      var(--background-light) 100%
+    );
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-image {
+    max-width: 800px;
+    width: 100%;
+    margin-top: 3rem;
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow);
+  }
+
+  .features {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .features-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 3rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .feature-icon {
+    width: 3rem;
+    height: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 1rem 0;
+  }
+
+  .feature-description {
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.25rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+    }
+
+    nav {
+      padding: 0 1rem;
+    }
+
+    li a {
+      padding: 1rem;
+    }
+
+    .auth-buttons {
+      gap: 0.5rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+    }
+  }
+</style>
+
+<nav>
+  <div class="logo-container">
+    <img
+      class="logo"
+      src="https://static.vecteezy.com/system/resources/thumbnails/046/887/565/small_2x/a-black-and-white-car-icon-on-a-white-background-vector.jpg"
+      alt="Logo"
+    />
+    <h1 class="logo-text">Swift Insurance</h1>
+  </div>
+
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Coverage</a></li>
+    <li><a href="#">Partners</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+
+  <div class="auth-buttons">
+    <button class="btn btn-outline" onclick="window.location.href='/login'">
+      Login
+    </button>
+    <button class="btn btn-primary" onclick="window.location.href='/signup'">
+      Sign Up
+    </button>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <h1 class="hero-title">Smart Car Insurance for the Modern Driver</h1>
+    <p class="hero-subtitle">
+      Get personalized coverage at competitive rates with our AI-powered
+      insurance platform. Sign up in minutes and save up to 30% on your car
+      insurance.
+    </p>
+    <div class="auth-buttons">
+      <button class="btn btn-primary">Get a Free Quote</button>
+      <button class="btn btn-outline">Learn More</button>
+    </div>
+  </section>
+
+  <section class="features">
+    <h2 class="features-title">Why Choose Swift Insurance?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <svg
+          class="feature-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 10V3L4 14h7v7l9-11h-7z"
+          />
+        </svg>
+        <h3 class="feature-title">Instant Coverage</h3>
+        <p class="feature-description">
+          Get covered in minutes with our fully digital onboarding process. No
+          paperwork, no waiting.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <svg
+          class="feature-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <h3 class="feature-title">Fair Pricing</h3>
+        <p class="feature-description">
+          Pay only for what you need. Our AI analyzes your driving habits to
+          offer you the best rate.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <svg
+          class="feature-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+          />
+        </svg>
+        <h3 class="feature-title">24/7 Protection</h3>
+        <p class="feature-description">
+          Our claims team is available around the clock to assist you whenever
+          you need help.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"
+></script>
