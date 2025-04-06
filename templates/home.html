@@ -1,3 +1,4 @@
+{% extends "home_base.html" %} {% block head_content %}
 <style>
   :root {
     --primary-color: #2563eb;
@@ -21,60 +22,6 @@
     background-color: var(--background-light);
     color: var(--text-dark);
     line-height: 1.5;
-  }
-
-  nav {
-    position: sticky;
-    top: 0;
-    background-color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--card-shadow);
-    padding: 0 2rem;
-    z-index: 50;
-  }
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  li a {
-    display: block;
-    text-align: center;
-    padding: 1.25rem 1.5rem;
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 500;
-    transition: all 0.2s ease;
-    border-radius: 0.5rem;
-  }
-
-  li a:hover {
-    background-color: var(--background-dark);
-    color: var(--primary-color);
-  }
-
-  .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .logo {
-    height: 2.5rem;
-  }
-
-  .logo-text {
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--primary-color);
-    margin: 0;
   }
 
   .auth-buttons {
@@ -225,34 +172,7 @@
     }
   }
 </style>
-
-<nav>
-  <div class="logo-container">
-    <img
-      class="logo"
-      src="https://static.vecteezy.com/system/resources/thumbnails/046/887/565/small_2x/a-black-and-white-car-icon-on-a-white-background-vector.jpg"
-      alt="Logo"
-    />
-    <h1 class="logo-text">Swift Insurance</h1>
-  </div>
-
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Coverage</a></li>
-    <li><a href="#">Partners</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Contact</a></li>
-  </ul>
-
-  <div class="auth-buttons">
-    <button class="btn btn-outline" onclick="window.location.href='/login'">
-      Login
-    </button>
-    <button class="btn btn-primary" onclick="window.location.href='/signup'">
-      Sign Up
-    </button>
-  </div>
-</nav>
+{% endblock %} {% block content %}
 
 <main>
   <section class="hero">
@@ -345,3 +265,4 @@
   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
   crossorigin="anonymous"
 ></script>
+{% endblock %}

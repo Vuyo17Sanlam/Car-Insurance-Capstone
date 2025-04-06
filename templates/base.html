@@ -27,7 +27,7 @@
       body {
         margin: 0;
         font-family: "Roboto", sans-serif;
-        background-color: #e0f7fa; /* Pastel blue background */
+        background-color: #e0f7fa;
       }
       nav {
         position: sticky;
@@ -53,18 +53,19 @@
         text-align: center;
         padding: 14px 20px;
         text-decoration: none;
-        color: #00796b; /* Pastel green */
+        color: #00796b;
       }
       li a:hover {
-        background-color: #004d40; /* Darker green */
+        background-color: #004d40;
         color: #ffffff;
       }
 
       .logo-container {
         display: flex;
         align-items: center;
-        margin-left: 24px;
+        margin-left: 0px;
         gap: 6px;
+        width: 400px;
       }
       .logo {
         width: 100px;
@@ -76,6 +77,14 @@
         margin-bottom: 0;
         text-align: center;
       }
+      .logo-text-footer {
+        font-family: "Michroma", sans-serif;
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: center;
+        color: #2563eb;
+      }
+
       .username {
         color: #00796b;
         margin-top: 10px;
@@ -92,11 +101,13 @@
         font-size: 25px;
         margin-top: 12px;
       }
+
+      /* FOOTER STYLES */
       .insurance-footer {
         background-color: #1a1a1a;
         color: #ffffff;
-        padding: 40px 20px 20px;
-        font-family: "Segoe UI", sans-serif;
+        padding: 60px 0 20px;
+        font-family: "Inter", sans-serif;
         position: static;
         bottom: 0;
         width: 100%;
@@ -104,14 +115,37 @@
 
       .footer-content {
         display: flex;
-        justify-content: space-evenly;
-        gap: 80px;
+        justify-content: space-between;
+        align-items: flex-start;
         max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        gap: 60px;
+      }
+
+      .footer-logo-section {
+        flex: 0 0 250px;
+        margin-left: -20px;
+        padding-left: 20px;
+      }
+
+      .footer-sections {
+        display: flex;
+
+        gap: 40px;
+        flex: 1;
+        justify-content: flex-start;
+        margin-right: -20px;
+      }
+
+      .footer-section {
+        min-width: 160px;
       }
 
       .footer-section h4 {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         font-size: 18px;
+        font-weight: 600;
         border-bottom: 2px solid #3b82f6;
         display: inline-block;
         padding-bottom: 5px;
@@ -120,6 +154,11 @@
       .footer-section ul {
         list-style: none;
         padding: 0;
+        margin: 0;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 12px;
       }
 
       .footer-section ul li a {
@@ -127,39 +166,94 @@
         text-decoration: none;
         font-size: 14px;
         transition: color 0.3s;
+        display: block;
       }
 
       .footer-section ul li a:hover {
-        color: #00b894;
+        color: #3b82f6;
       }
 
-      .footer-section p {
+      .contact-info li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        color: #ccc;
         font-size: 14px;
-        line-height: 1.6;
+      }
+
+      .contact-info i {
+        width: 16px;
+        color: #3b82f6;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
       }
 
       .social-icons a {
         color: #ccc;
-        margin-right: 10px;
         font-size: 18px;
-        transition: color 0.3s;
+        transition: all 0.3s;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .social-icons a:hover {
-        color: #00b894;
+        color: white;
+        background: #3b82f6;
+        transform: translateY(-3px);
       }
 
       .footer-bottom {
         text-align: center;
-        margin-top: 30px;
+        margin-top: 60px;
         font-size: 13px;
         color: #888;
         border-top: 1px solid #333;
-        padding-top: 15px;
+        padding-top: 20px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 20px;
+        padding-right: 20px;
       }
-      .footer-logo {
-        width: 80px;
-        width: 90px;
+
+      .footer-slogan {
+        color: #aaa;
+        font-size: 14px;
+        margin-top: 15px;
+        font-style: italic;
+      }
+
+      @media (max-width: 768px) {
+        .footer-content {
+          flex-direction: column;
+          gap: 40px;
+        }
+
+        .footer-logo-section {
+          margin-left: 0;
+          padding-left: 0;
+        }
+
+        .footer-sections {
+          flex-direction: column;
+          gap: 30px;
+          margin-right: 0;
+          justify-content: flex-start;
+        }
+
+        .footer-section {
+          min-width: 100%;
+        }
       }
     </style>
     {% block head_content %} {% endblock %}
@@ -184,7 +278,6 @@
         {% if current_user.is_authenticated %}
         <li><a href="/logout">Logout</a></li>
         <li>
-          <!-- currentuser->comes from login manager -->
           <div class="user">
             <i class="fa-solid fa-circle-user"></i>
             <p class="username">{{current_user.user_name}}</p>
@@ -212,44 +305,52 @@
     {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
     <footer class="insurance-footer">
       <div class="footer-content">
-        <div class="logo-container">
-          <img
-            class="logo"
-            src="{{ url_for('static', filename='images/white_logo.png') }}"
-            alt="White Logo"
-          />
-          <p class="logo-text">swift insurance</p>
-        </div>
-        <div class="footer-section">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#">Get a Quote</a></li>
-            <li><a href="#">Claims</a></li>
-            <li><a href="#">FAQs</a></li>
-          </ul>
+        <div class="footer-logo-section">
+          <div class="logo-container">
+            <img
+              class="logo"
+              src="{{ url_for('static', filename='images/blue_logo.png') }}"
+              alt="White Logo"
+            />
+            <p class="logo-text-footer">swift insurance</p>
+          </div>
         </div>
 
-        <div class="footer-section">
-          <h4>Legal</h4>
-          <ul>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">POPIA Info</a></li>
-            <li><a href="#">Terms of Use</a></li>
-          </ul>
-        </div>
+        <div class="footer-sections">
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#">Get a Quote</a></li>
+              <li><a href="#">Claims</a></li>
+              <li><a href="#">FAQs</a></li>
+            </ul>
+          </div>
 
-        <div class="footer-section">
-          <h4>Contact</h4>
-          <p>Email: help@insuranceza.co.za</p>
-          <p>Call: 0800 123 456</p>
-        </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">POPIA Info</a></li>
+              <li><a href="#">Terms of Use</a></li>
+            </ul>
+          </div>
 
-        <div class="footer-section">
-          <h4>Follow Us</h4>
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <div class="footer-section">
+            <h4>Contact</h4>
+            <ul class="contact-info">
+              <li><i class="fas fa-envelope"></i> help@insuranceza.co.za</li>
+              <li><i class="fas fa-phone"></i> 0800 123 456</li>
+              <li><i class="fas fa-map-marker-alt"></i> Johannesburg, SA</li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-x-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
           </div>
         </div>
       </div>
