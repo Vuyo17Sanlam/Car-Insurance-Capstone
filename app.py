@@ -40,7 +40,6 @@ def create_app():
     # app.register_blueprint(movies_bp, url_prefix="/movies")  # Refactor - Mailability ⬆️
     # app.register_blueprint(car_insurance_bp)  # Refactor - Mailability ⬆️
     # app.register_blueprint(user_bp, url_prefix="/movie-list")
-
     return app
 
 
