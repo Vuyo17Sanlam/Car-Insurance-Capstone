@@ -1,14 +1,17 @@
+from config import Config
+from extensions import db
 from flask import Flask
 from flask_login import LoginManager
+from models.user import User
+from routes.admin_bp import admin_bp
+from routes.car_insurance_bp import car_insurance_bp
+from routes.user_bp import claims_page, user_bp
+from sqlalchemy.orm import Session
 
 # from routes.car_insurance_bp import car_insurance_bp
 from sqlalchemy.sql import text
 
-from config import Config
-from extensions import db
-from models.user import User
-from routes.admin_bp import admin_bp
-from routes.user_bp import claims_page, user_bp
+session = Session()
 
 
 def create_app():
@@ -37,6 +40,8 @@ def create_app():
     # Flask - Blueprints
     app.register_blueprint(user_bp)
     app.register_blueprint(admin_bp)
+    app.register_blueprint(car_insurance_bp)
+
     # app.register_blueprint(movies_bp, url_prefix="/movies")  # Refactor - Mailability ⬆️
     # app.register_blueprint(car_insurance_bp)  # Refactor - Mailability ⬆️
     # app.register_blueprint(user_bp, url_prefix="/movie-list")
