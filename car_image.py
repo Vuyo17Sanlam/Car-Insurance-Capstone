@@ -12,11 +12,9 @@ def get_car_image(make, model, year=None):
     if response.status_code == 200:
         root = ET.fromstring(response.content)
         image_url = root.text
-        print(f"Image URL: {image_url}")
-        webbrowser.open(image_url)  # Opens the image in your browser
+        return image_url
     else:
-        print("Failed to fetch image.")
+        return "failed to return the image"
 
 
-# Example usage:
 get_car_image("Polo", "TSI", "2020")

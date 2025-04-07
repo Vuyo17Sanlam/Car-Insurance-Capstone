@@ -235,16 +235,19 @@
     </div>
 
     <div class="vehicle-cards">
+      {% for car in vehicles_list %}
       <div class="vehicle-card">
         <div class="vehicle-image-container">
           <img
             class="vehicle-image"
-            src="https://static.vecteezy.com/system/resources/previews/029/946/422/non_2x/white-modern-car-isolated-on-transparent-background-3d-rendering-illustration-free-png.png"
+            src="{{car.car_image}}"
             alt="Toyota Corolla"
           />
         </div>
         <div class="vehicle-details">
-          <h3 class="vehicle-make-model">Toyota Corolla • 2020</h3>
+          <h3 class="vehicle-make-model">
+            {{car.make}} {{car.model}} • {{car.year}}
+          </h3>
 
           <div class="vehicle-specs">
             <div class="spec-item">
@@ -256,47 +259,17 @@
               <span class="spec-value">Full Coverage</span>
             </div>
             <div class="spec-item">
-              <span class="spec-label">Claims</span>
-              <span class="spec-value">2 Total</span>
+              <span class="spec-label">license plate</span>
+              <span class="spec-value">{{car.license_plate}}</span>
             </div>
             <div class="spec-item">
-              <span class="spec-label">Status</span>
-              <span class="spec-value">Active</span>
+              <span class="spec-label">VIN</span>
+              <span class="spec-value">{{car.vin}}</span>
             </div>
           </div>
         </div>
       </div>
-      <div class="vehicle-card">
-        <div class="vehicle-image-container">
-          <img
-            class="vehicle-image"
-            src="https://bbgroup.co.za/honda/wp-content/uploads/2023/10/2023_TypeR_Model.png"
-            alt="Honda Civic"
-          />
-        </div>
-        <div class="vehicle-details">
-          <h3 class="vehicle-make-model">Honda Civic • 2019</h3>
-
-          <div class="vehicle-specs">
-            <div class="spec-item">
-              <span class="spec-label">Policy Type</span>
-              <span class="spec-value">Comprehensive</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Coverage</span>
-              <span class="spec-value">Full Coverage</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Claims</span>
-              <span class="spec-value">0 Total</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">Status</span>
-              <span class="spec-value">Active</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </section>
 </div>

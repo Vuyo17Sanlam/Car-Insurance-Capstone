@@ -10,6 +10,7 @@ from extensions import db
 from models.claims import Claim
 from models.policies import Policy
 from models.user import User
+from models.vehicles import Vehicles
 
 user_bp = Blueprint("user_bp", __name__)
 
@@ -27,6 +28,12 @@ def get_home():
 def get_dashboard():
     # Get all policies for the current user
     policies = Policy.query.filter_by(user_id=current_user.user_id).all()
+
+    all_vehicles = Vehicles.query.filter_by(user_id=current_user.user_id).all()
+    vehicles_list = [
+        {**car.to_dict(), "car_image": get_car_image(car.make, car.model, car.year)}
+        for car in all_vehicles
+    ]
 
     # Calculate total premium
     total_premium = sum(float(policy.premium) for policy in policies)
@@ -61,6 +68,7 @@ def get_dashboard():
         users=users_dictionary,
         total_premium=total_premium,
         next_month_date=next_month_date,
+        vehicles_list=vehicles_list,
     )
 
 
@@ -226,3 +234,21 @@ def partners_page():
 @user_bp.get("/insurance_form")
 def insurance_form_page():
     return render_template("insurance_form.html")
+
+
+import xml.etree.ElementTree as ET
+
+import requests
+
+
+def get_car_image(make, model, year=None):
+    search_term = f"{make} {model} {year}" if year else f"{make} {model}"
+    url = f"http://www.carimagery.com/api.asmx/GetImageUrl?searchTerm={search_term.replace(' ', '+')}"
+
+    response = requests.get(url)
+    if response.status_code == 200:
+        root = ET.fromstring(response.content)
+        image_url = root.text
+        return image_url
+    else:
+        return "failed to return the image"
