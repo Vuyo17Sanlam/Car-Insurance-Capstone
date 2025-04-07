@@ -18,47 +18,10 @@
 
   body {
     margin: 0;
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: "Inter", sans-serif;
     background-color: var(--background-light);
     color: var(--text-dark);
     line-height: 1.5;
-  }
-
-  nav {
-    position: sticky;
-    top: 0;
-    background-color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--card-shadow);
-    padding: 0 2rem;
-    z-index: 50;
-  }
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  li a {
-    display: block;
-    text-align: center;
-    padding: 1.25rem 1.5rem;
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 500;
-    transition: all 0.2s ease;
-    border-radius: 0.5rem;
-  }
-
-  li a:hover {
-    background-color: var(--background-dark);
-    color: var(--primary-color);
   }
 
   .greeting,
@@ -206,27 +169,10 @@
     color: var(--text-dark);
   }
 
-  .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .logo {
-    height: 2.5rem;
-  }
-
-  .logo-text {
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--primary-color);
-    margin: 0;
-  }
-
   .badge {
     display: inline-block;
     padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
+    border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -263,30 +209,19 @@
 </style>
 {% endblock %} {% block content %}
 <div class="dashboard-container">
-  <!-- Premiums Section -->
   <section class="premiums-section">
     <div class="section-header">
-      <svg
-        class="section-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"
-        />
-      </svg>
+      <i
+        class="fa-solid fa-hand-holding-dollar"
+        style="color: #2563eb; font-size: 35px"
+      ></i>
       <h2 class="section-title">Your Premiums</h2>
     </div>
 
     <div class="premium-cards">
       <div class="premium-card">
         <p class="card-label">Next Payment Date</p>
-        <p class="card-value">April 1</p>
+        <p class="card-value">{{next_month_date}}</p>
         <div class="badge badge-primary" style="margin-top: 0.5rem">
           Upcoming
         </div>
@@ -294,7 +229,7 @@
 
       <div class="premium-card">
         <p class="card-label">Total Amount Due</p>
-        <p class="card-value">$2,500</p>
+        <p class="card-value">R {{total_premium}}</p>
       </div>
 
       <div class="premium-card">
@@ -307,28 +242,13 @@
     </div>
   </section>
 
-  <!-- Vehicles Section -->
   <section class="vehicles-section">
     <div class="section-header">
-      <svg
-        class="section-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-        />
-      </svg>
+      <i class="fa-solid fa-car" style="color: #2563eb; font-size: 35px"></i>
       <h2 class="section-title">Your Vehicles</h2>
     </div>
 
     <div class="vehicle-cards">
-      <!-- Vehicle 1 -->
       <div class="vehicle-card">
         <div class="vehicle-image-container">
           <img
@@ -360,8 +280,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Vehicle 2 -->
       <div class="vehicle-card">
         <div class="vehicle-image-container">
           <img

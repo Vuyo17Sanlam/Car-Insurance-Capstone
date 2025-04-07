@@ -13,15 +13,15 @@ class Claim(db.Model):
         db.String(255), db.ForeignKey("policies.policy_id"), nullable=False
     )
     user_id = db.Column(db.String(255), db.ForeignKey("users.user_id"), nullable=False)
-    incident = db.Column(
-        db.String(50), nullable=False
-    )  # e.g., theft, accident, natural disaster
+    incident = db.Column(db.String(50), nullable=False)
     incident_date = db.Column(db.Date, nullable=False)
     claim_amount = db.Column(db.Numeric(10, 2))
     claim_status = db.Column(db.String(40), default="Pending")
     description = db.Column(db.Text)
+    claim_duration = db.Column(
+        db.String(255), default="Not Available"
+    )  # Default value for claim_duration
 
-    # Convert object to dictionary
     def to_dict(self):
         return {
             "claim_id": self.claim_id,
@@ -34,4 +34,5 @@ class Claim(db.Model):
             "claim_amount": float(self.claim_amount) if self.claim_amount else None,
             "claim_status": self.claim_status,
             "description": self.description,
+            "claim_duration": self.claim_duration,
         }

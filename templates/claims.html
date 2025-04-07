@@ -21,7 +21,7 @@
 
   body {
     margin: 0;
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: "Inter", sans-serif;
     background-color: var(--background-light);
     color: var(--text-dark);
     line-height: 1.5;
@@ -179,7 +179,7 @@
     color: var(--primary-color);
     background-color: rgba(37, 99, 235, 0.1);
     padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
+    border-radius: 20px;
     font-size: 0.875rem;
   }
 
@@ -208,7 +208,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    border-radius: 9999px;
+    border-radius: 20px;
     font-size: 0.875rem;
     font-weight: 600;
   }
@@ -249,92 +249,49 @@
   <div class="claims-header">
     <h1 class="section-title">Your Claims</h1>
     <a href="/claims_form" class="new-claim-btn">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        width="20"
-        height="20"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-          clip-rule="evenodd"
-        />
-      </svg>
+      <i class="fa-solid fa-plus"></i>
+
       New Claim
     </a>
   </div>
 
-  <!-- Stats Summary -->
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-icon stat-approved">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-          <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </svg>
+        <i
+          class="fa-solid fa-circle-check"
+          style="color: #63e6be; font-size: 25px"
+        ></i>
       </div>
       <div class="stat-content">
         <p class="stat-label">Approved Claims</p>
-        <p class="stat-value">2</p>
+        <p class="stat-value">{{approved_num}}</p>
       </div>
     </div>
 
     <div class="stat-card">
       <div class="stat-icon stat-pending">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="12" cy="12" r="10"></circle>
-          <polyline points="12 6 12 12 16 14"></polyline>
-        </svg>
+        <i
+          class="fa-solid fa-clock"
+          style="color: #f59e0b; font-size: 25px"
+        ></i>
       </div>
       <div class="stat-content">
         <p class="stat-label">Pending Claims</p>
-        <p class="stat-value">1</p>
+        <p class="stat-value">{{pending_num}}</p>
       </div>
     </div>
 
     <div class="stat-card">
       <div class="stat-icon stat-rejected">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
+        <i
+          class="fa-solid fa-xmark"
+          style="color: #ef4444; font-size: 25px"
+        ></i>
       </div>
       <div class="stat-content">
         <p class="stat-label">Rejected Claims</p>
-        <p class="stat-value">0</p>
+        <p class="stat-value">{{rejected_num}}</p>
       </div>
     </div>
   </div>
@@ -342,199 +299,103 @@
   <!-- Claims List -->
   <div class="claims-grid">
     <!-- Pending Claim -->
+    {% for pending_claim in pending_claims %}
     <div class="claim-card pending">
       <div class="claim-header">
         <div class="claim-id">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            ></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-          </svg>
-          #20240315
+          <i
+            class="fa-regular fa-file"
+            style="color: #1e293b; font-size: 20px"
+          ></i>
+          {{pending_claim.claim_id}}
         </div>
-        <div class="claim-type">Car Accident</div>
+        <div class="claim-type">{{pending_claim.incident}}</div>
       </div>
       <div class="claim-body">
         <p class="claim-date">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          March 15, 2024
+          <i
+            class="fa-regular fa-calendar"
+            style="color: #64748b; font-size: 20px"
+          ></i>
+          {{pending_claim.claim_duration}}
         </p>
-        <p class="claim-amount">R1,500</p>
+        <p class="claim-amount">R {{pending_claim.claim_amount}}</p>
         <span class="claim-status status-pending">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
+          <i
+            class="fa-solid fa-clock"
+            style="color: #f59e0b; font-size: 25px"
+          ></i>
           Pending
         </span>
       </div>
     </div>
+    {% endfor %}
 
     <!-- Approved Claim -->
+    {% for approved_claim in approved_claims %}
     <div class="claim-card approved">
       <div class="claim-header">
         <div class="claim-id">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            ></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-          </svg>
-          #20240228
+          <i
+            class="fa-regular fa-file"
+            style="color: #1e293b; font-size: 20px"
+          ></i>
+          {{approved_claim.claim_id}}
         </div>
-        <div class="claim-type">Flood Incident</div>
+        <div class="claim-type">{{approved_claim.incident}}</div>
       </div>
       <div class="claim-body">
         <p class="claim-date">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          Feb 28 - Mar 21, 2024
+          <i
+            class="fa-regular fa-calendar"
+            style="color: #64748b; font-size: 20px"
+          ></i>
+          {{approved_claim.claim_duration}}
         </p>
-        <p class="claim-amount">R3,000</p>
+        <p class="claim-amount">R {{approved_claim.claim_amount}}</p>
         <span class="claim-status status-approved">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-          </svg>
+          <i
+            class="fa-solid fa-circle-check"
+            style="color: #63e6be; font-size: 25px"
+          ></i>
           Approved
         </span>
       </div>
     </div>
+    {% endfor %}
 
     <!-- Rejected Claim -->
+    {% for rejected_claim in rejected_claims %}
     <div class="claim-card rejected">
       <div class="claim-header">
         <div class="claim-id">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            ></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-          </svg>
-          #20240215
+          <i
+            class="fa-regular fa-file"
+            style="color: #1e293b; font-size: 20px"
+          ></i>
+          {{rejected_claim.claim_id}}
         </div>
-        <div class="claim-type">Theft</div>
+        <div class="claim-type">{{rejected_claim.incident}}</div>
       </div>
       <div class="claim-body">
         <p class="claim-date">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          Feb 15 - June 15, 2024
+          <i
+            class="fa-regular fa-calendar"
+            style="color: #64748b; font-size: 20px"
+          ></i>
+          {{rejected_claim.claim_duration}}
         </p>
-        <p class="claim-amount">R5,500</p>
+        <p class="claim-amount">R {{rejected_claim.claim_amount}}</p>
         <span class="claim-status status-rejected">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
+          <i
+            class="fa-solid fa-xmark"
+            style="color: #ef4444; font-size: 25px"
+          ></i>
           Rejected
         </span>
       </div>
     </div>
+    {% endfor %}
   </div>
 </div>
 

@@ -25,14 +25,12 @@
     color: var(--primary-color);
     text-align: center;
     margin-bottom: 3rem;
-    animation: fadeInDown 1s ease-in-out;
   }
 
   .partners-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: 2rem;
-    animation: fadeIn 1.5s ease-in-out;
   }
 
   .partner-card {
@@ -40,7 +38,6 @@
     border-radius: 1.5rem;
     padding: 2rem;
     box-shadow: var(--card-shadow);
-    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,7 +55,6 @@
     height: 140px;
     object-fit: contain;
     margin-bottom: 1.5rem;
-    transition: transform 0.3s ease;
   }
 
   .partner-card:hover .partner-logo {
@@ -124,134 +120,51 @@
     display: none;
     transition: all 0.3s ease;
   }
-
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 </style>
 {% endblock %} {% block content %}
 <div class="partners-container">
   <h5 class="partners-title">Our Trusted Partners</h5>
 
   <div class="partners-grid">
-    <!-- Partner 1 -->
     <div class="partner-card">
+      <a href="https://www.toyota.co.za" target="_blank" class="partner-link"
+          >
       <img
         src="https://www.freeiconspng.com/uploads/toyota-logo-png-1.png"
         alt="Toyota"
         class="partner-logo"
-      />
-      <button class="toggle-details">See More</button>
-      <div class="partner-details">
-        <h3 class="partner-name">Toyota SA</h3>
-        <span class="partner-type">Manufacturer</span>
-        <p class="partner-description">
-          Official integration partner offering smart repair tracking and
-          service support.
-        </p>
-        <a href="https://www.toyota.co.za" target="_blank" class="partner-link"
-          >Visit Website →</a
+      /></a
         >
       </div>
+
+    <div class="partner-card">
+      <a href="https://www.discovery.co.za" class="partner-link">
+        <img
+          src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/092019/discovery_logo_0.png"
+          alt="Discovery Insure"
+          class="partner-logo"
+        />
+      </a>
     </div>
 
-    <!-- Partner 2 -->
     <div class="partner-card">
-      <img
-        src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/092019/discovery_logo_0.png"
-        alt="Discovery Insure"
-        class="partner-logo"
-      />
-      <button class="toggle-details">See More</button>
-      <div class="partner-details">
-        <h3 class="partner-name">Discovery Insure</h3>
-        <span class="partner-type">Insurance Provider</span>
-        <p class="partner-description">
-          Seamless policy syncing for faster claim handling and dynamic driver
-          scoring.
-        </p>
-        <a
-          href="https://www.discovery.co.za"
-          target="_blank"
-          class="partner-link"
-          >Visit Website →</a
-        >
-      </div>
+      <a href="https://www.standardbank.co.za" class="partner-link"
+        ><img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYry4f8KWQJbqawohd9IeQ6Hm3DVkJnFulyg&s"
+          alt="Standard Bank"
+          class="partner-logo"
+      /></a>
     </div>
 
-    <!-- Partner 3 -->
     <div class="partner-card">
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYry4f8KWQJbqawohd9IeQ6Hm3DVkJnFulyg&s"
-        alt="Standard Bank"
-        class="partner-logo"
-      />
-      <button class="toggle-details">See More</button>
-      <div class="partner-details">
-        <h3 class="partner-name">Standard Bank</h3>
-        <span class="partner-type">Financial Services</span>
-        <p class="partner-description">
-          Embedded financing solutions help users get quotes, finance, and cover
-          — all in one place.
-        </p>
-        <a
-          href="https://www.standardbank.co.za"
-          target="_blank"
-          class="partner-link"
-          >Visit Website →</a
-        >
-      </div>
+      <a href="https://www.tracker.co.za/" class="partner-link"
+        ><img
+          src="https://securitypro.co.za/wp-content/uploads/2021/09/tracker_logo.png"
+          alt="Tracker"
+          class="partner-logo"
+      /></a>
     </div>
-
-    <!-- Partner 4 -->
-    <div class="partner-card">
-      <img
-        src="https://securitypro.co.za/wp-content/uploads/2021/09/tracker_logo.png"
-        alt="Tracker"
-        class="partner-logo"
-      />
-      <button class="toggle-details">See More</button>
-      <div class="partner-details">
-        <h3 class="partner-name">Trackerr</h3>
-        <span class="partner-type">Vehicle Tracking</span>
-        <p class="partner-description">
-          Integrated vehicle recovery and real-time tracking service for
-          policyholders.
-        </p>
-        <a href="https://www.netstar.co.za" target="_blank" class="partner-link"
-          >Visit Website →</a
-        >
-      </div>
-    </div>
+</div>
   </div>
 </div>
-
-<script>
-  document.querySelectorAll(".toggle-details").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const details = btn.nextElementSibling;
-      const isVisible = details.style.display === "block";
-      details.style.display = isVisible ? "none" : "block";
-      btn.textContent = isVisible ? "See More" : "See Less";
-    });
-  });
-</script>
 {% endblock %}
