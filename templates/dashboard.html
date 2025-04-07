@@ -1,129 +1,117 @@
 {% extends "base.html" %} {% block head_content %}
 <style>
-  :root {
-    --primary-color: #2563eb;
-    --primary-light: #3b82f6;
-    --primary-dark: #1d4ed8;
-    --secondary-color: #10b981;
-    --accent-color: #f59e0b;
-    --background-light: #f8fafc;
-    --background-dark: #e2e8f0;
-    --text-dark: #1e293b;
-    --text-light: #64748b;
-    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-      0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  }
-
   body {
     margin: 0;
     font-family: "Inter", sans-serif;
-    background-color: var(--background-light);
-    color: var(--text-dark);
-    line-height: 1.5;
+    background-color: #f8fafc;
+    color: #1e293b;
+    line-height: 24px;
   }
 
   .greeting,
   .welcome {
     text-align: center;
-    margin-top: 2rem;
-    color: var(--text-dark);
+    margin-top: 32px;
+    color: #1e293b;
   }
 
   .dashboard-container {
     max-width: 1400px;
-    margin: 2rem auto;
-    padding: 0 2rem;
+    margin: 32px auto;
+    padding: 0 32px;
   }
 
   .section-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: 16px;
+    margin-bottom: 24px;
   }
 
   .section-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    color: #2563eb;
   }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: 24px;
     font-weight: 700;
-    color: var(--text-dark);
+    color: #1e293b;
     margin: 0;
   }
 
   .premiums-section {
-    margin-bottom: 3rem;
+    margin-bottom: 48px;
   }
 
   .premium-cards {
     display: flex;
-    gap: 1.5rem;
+    gap: 24px;
   }
 
   .premium-card {
     flex: 1;
     background: white;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: var(--card-shadow);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .premium-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--card-shadow-hover);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
   .card-label {
-    font-size: 0.875rem;
-    color: var(--text-light);
+    font-size: 14px;
+    color: #64748b;
     font-weight: 500;
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
   }
 
   .card-value {
-    font-size: 2rem;
+    font-size: 32px;
     font-weight: 700;
-    color: var(--primary-color);
+    color: #2563eb;
     margin: 0;
   }
 
   .vehicles-section {
-    margin-bottom: 3rem;
+    margin-bottom: 48px;
   }
 
   .vehicle-cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 1.5rem;
+    gap: 24px;
   }
 
   .vehicle-card {
     background: white;
-    border-radius: 1rem;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: var(--card-shadow);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .vehicle-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--card-shadow-hover);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
   .vehicle-image-container {
     height: 200px;
-    background: var(--background-dark);
+    background: #e2e8f0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: 16px;
   }
 
   .vehicle-image {
@@ -133,21 +121,21 @@
   }
 
   .vehicle-details {
-    padding: 1.5rem;
+    padding: 24px;
   }
 
   .vehicle-make-model {
-    font-size: 1.25rem;
+    font-size: 20px;
     font-weight: 700;
-    color: var(--text-dark);
-    margin: 0 0 0.5rem 0;
+    color: #1e293b;
+    margin: 0 0 8px 0;
   }
 
   .vehicle-specs {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-    margin-top: 1rem;
+    gap: 12px;
+    margin-top: 16px;
   }
 
   .spec-item {
@@ -156,36 +144,36 @@
   }
 
   .spec-label {
-    font-size: 0.75rem;
-    color: var(--text-light);
+    font-size: 12px;
+    color: #64748b;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
   .spec-value {
-    font-size: 0.875rem;
+    font-size: 14px;
     font-weight: 600;
-    color: var(--text-dark);
+    color: #1e293b;
   }
 
   .badge {
     display: inline-block;
-    padding: 0.25rem 0.75rem;
+    padding: 4px 12px;
     border-radius: 20px;
-    font-size: 0.75rem;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
   .badge-primary {
-    background-color: var(--primary-light);
+    background-color: #3b82f6;
     color: white;
   }
 
   .badge-secondary {
-    background-color: var(--secondary-color);
+    background-color: #10b981;
     color: white;
   }
 
@@ -199,11 +187,11 @@
     }
 
     nav {
-      padding: 0 1rem;
+      padding: 0 16px;
     }
 
     li a {
-      padding: 1rem;
+      padding: 16px;
     }
   }
 </style>
@@ -222,9 +210,8 @@
       <div class="premium-card">
         <p class="card-label">Next Payment Date</p>
         <p class="card-value">{{next_month_date}}</p>
-        <div class="badge badge-primary" style="margin-top: 0.5rem">
-          Upcoming
-        </div>
+        <br />
+        <div class="badge badge-primary" style="margin-top: 8px">Upcoming</div>
       </div>
 
       <div class="premium-card">
@@ -235,9 +222,8 @@
       <div class="premium-card">
         <p class="card-label">Payment Method</p>
         <p class="card-value">VISA •••• 4242</p>
-        <div class="badge badge-secondary" style="margin-top: 0.5rem">
-          Active
-        </div>
+        <br />
+        <div class="badge badge-secondary" style="margin-top: 8px">Active</div>
       </div>
     </div>
   </section>

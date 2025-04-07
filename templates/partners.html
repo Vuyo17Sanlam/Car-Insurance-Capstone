@@ -3,58 +3,49 @@
   body {
     background-color: #f8fafc;
   }
-  :root {
-    --primary-color: #1d4ed8;
-    --primary-light: #e0e7ff;
-    --text-dark: #1f2937;
-    --text-light: #6b7280;
-    --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.15);
-  }
 
   .partners-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 32px;
     font-family: "Inter", sans-serif;
   }
 
   .partners-title {
-    font-size: 3rem;
-
-    color: var(--primary-color);
+    font-size: 48px;
+    color: #1d4ed8;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 48px;
   }
 
   .partners-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(3,1fr);
+    gap: 32px;
   }
 
   .partner-card {
     background-color: #fff;
-    border-radius: 1.5rem;
-    padding: 2rem;
-    box-shadow: var(--card-shadow);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .partner-card:hover {
     transform: translateY(-6px);
-    box-shadow: var(--card-shadow-hover);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
 
   .partner-logo {
     width: 140px;
     height: 140px;
     object-fit: contain;
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
+    transition: transform 0.3s ease;
   }
 
   .partner-card:hover .partner-logo {
@@ -62,34 +53,34 @@
   }
 
   .partner-name {
-    font-size: 1.25rem;
+    font-size: 20px;
     font-weight: 700;
-    color: var(--text-dark);
+    color: #1f2937;
   }
 
   .partner-type {
-    background-color: var(--primary-light);
-    color: var(--primary-color);
-    font-size: 0.75rem;
-    padding: 0.3rem 0.7rem;
+    background-color: #e0e7ff;
+    color: #1d4ed8;
+    font-size: 12px;
+    padding: 5px 11px;
     border-radius: 9999px;
-    margin: 0.5rem 0 1rem 0;
+    margin: 8px 0 16px 0;
     text-transform: uppercase;
     font-weight: 600;
   }
 
   .partner-description {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    margin-bottom: 1rem;
-    line-height: 1.5;
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 16px;
+    line-height: 24px;
   }
 
   .partner-link {
-    color: var(--primary-color);
+    color: #1d4ed8;
     font-weight: 600;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 14px;
     transition: color 0.3s ease;
   }
 
@@ -100,19 +91,19 @@
 
   .toggle-details {
     background-color: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    padding: 0.5rem 1rem;
+    color: #1d4ed8;
+    border: 2px solid #1d4ed8;
+    padding: 8px 16px;
     border-radius: 9999px;
     cursor: pointer;
     font-weight: 600;
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
+    font-size: 14px;
+    margin-bottom: 16px;
     transition: all 0.3s ease;
   }
 
   .toggle-details:hover {
-    background-color: var(--primary-color);
+    background-color: #1d4ed8;
     color: white;
   }
 
@@ -127,15 +118,13 @@
 
   <div class="partners-grid">
     <div class="partner-card">
-      <a href="https://www.toyota.co.za" target="_blank" class="partner-link"
-          >
-      <img
-        src="https://www.freeiconspng.com/uploads/toyota-logo-png-1.png"
-        alt="Toyota"
-        class="partner-logo"
-      /></a
-        >
-      </div>
+      <a href="https://www.toyota.co.za" target="_blank" class="partner-link"></a>
+        <img
+          src="https://www.freeiconspng.com/uploads/toyota-logo-png-1.png"
+          alt="Toyota"
+          class="partner-logo"
+      /></a>
+    </div>
 
     <div class="partner-card">
       <a href="https://www.discovery.co.za" class="partner-link">
@@ -164,7 +153,6 @@
           class="partner-logo"
       /></a>
     </div>
-</div>
   </div>
 </div>
 {% endblock %}
