@@ -23,16 +23,11 @@
   }
 
   body {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: "Inter", sans-serif;
     background-color: var(--background);
     margin: 0;
     color: var(--text-primary);
     line-height: 1.5;
-    background-image: radial-gradient(
-      circle at 10% 20%,
-      rgba(37, 99, 235, 0.05) 0%,
-      rgba(37, 99, 235, 0.05) 90%
-    );
   }
 
   .form-container {
@@ -90,7 +85,6 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     font-size: 0.9375rem;
-    transition: all 0.2s ease;
     background-color: white;
   }
 
@@ -124,7 +118,6 @@
     width: auto;
     margin: 0;
     accent-color: var(--primary);
-    transform: scale(1.2);
   }
 
   .radio-option label {
@@ -169,7 +162,6 @@
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
     display: block;
     margin: 2rem auto 0;
   }
@@ -187,61 +179,6 @@
   /* Floating label effect */
   .form-group:focus-within label {
     color: var(--primary);
-  }
-
-  /* Navbar styles */
-  nav {
-    position: sticky;
-    top: 0;
-    background-color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--shadow-sm);
-    padding: 0 2rem;
-    z-index: 50;
-  }
-
-  .navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .navbar li a {
-    display: block;
-    text-align: center;
-    padding: 1rem 1.25rem;
-    text-decoration: none;
-    color: var(--text-primary);
-    font-weight: 500;
-    transition: all 0.2s ease;
-    border-radius: var(--radius-sm);
-  }
-
-  .navbar li a:hover {
-    background-color: var(--background);
-    color: var(--primary);
-  }
-
-  .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .logo {
-    height: 2.5rem;
-  }
-
-  .logo-text {
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--primary);
-    margin: 0;
   }
 
   /* Responsive adjustments */
@@ -266,58 +203,6 @@
     .navbar li a {
       padding: 0.75rem;
     }
-  }
-
-  /* Animation */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  form {
-    animation: fadeIn 0.4s ease-out forwards;
-  }
-
-  .form-group {
-    opacity: 0;
-    animation: fadeIn 0.4s ease-out forwards;
-  }
-
-  .form-group:nth-child(1) {
-    animation-delay: 0.1s;
-  }
-  .form-group:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  .form-group:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-  .radio-group {
-    animation-delay: 0.4s;
-  }
-  .form-group:nth-child(5) {
-    animation-delay: 0.5s;
-  }
-  .form-group:nth-child(6) {
-    animation-delay: 0.6s;
-  }
-  .form-group:nth-child(7) {
-    animation-delay: 0.7s;
-  }
-  .requirements {
-    animation-delay: 0.8s;
-  }
-  .form-group:nth-child(9) {
-    animation-delay: 0.9s;
-  }
-  .button-container {
-    animation-delay: 1s;
   }
 </style>
 {% endblock %} {% block content %}
