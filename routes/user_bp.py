@@ -31,7 +31,12 @@ def get_dashboard():
 
     all_vehicles = Vehicles.query.filter_by(user_id=current_user.user_id).all()
     vehicles_list = [
-        {**car.to_dict(), "car_image": get_car_image(car.make, car.model, car.year)}
+        # {**car.to_dict(), "car_image": get_car_image(car.make, car.model, car.year)}
+        # for car in all_vehicles
+        {
+            **car.to_dict(),
+            "car_image": "https://th.bing.com/th/id/OIP.ulEALEOzZVq-UvXKfp0HFAHaHk?rs=1&pid=ImgDetMain",
+        }
         for car in all_vehicles
     ]
 
