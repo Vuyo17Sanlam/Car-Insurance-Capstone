@@ -1,10 +1,16 @@
+import re
+from datetime import datetime, timedelta
+
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required, login_user, logout_user
+from werkzeug.security import check_password_hash, generate_password_hash
+
 from constants import STATUS_CODE
 from extensions import db
-from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask_login import login_required, login_user, logout_user
 from models.claims import Claim
+from models.policies import Policy
 from models.user import User
-from werkzeug.security import check_password_hash, generate_password_hash
+from models.vehicles import Vehicles
 
 user_bp = Blueprint("user_bp", __name__)
 
@@ -20,9 +26,55 @@ def get_home():
 @login_required
 @user_bp.get("/dashboard")
 def get_dashboard():
+    # Get all policies for the current user
+    policies = Policy.query.filter_by(user_id=current_user.user_id).all()
+
+    all_vehicles = Vehicles.query.filter_by(user_id=current_user.user_id).all()
+    vehicles_list = [
+        # {**car.to_dict(), "car_image": get_car_image(car.make, car.model, car.year)}
+        # for car in all_vehicles
+        {
+            **car.to_dict(),
+            "car_image": "https://th.bing.com/th/id/OIP.ulEALEOzZVq-UvXKfp0HFAHaHk?rs=1&pid=ImgDetMain",
+        }
+        for car in all_vehicles
+    ]
+
+    # Calculate total premium
+    total_premium = sum(float(policy.premium) for policy in policies)
+
+    # Get today's date and monthly payment day from the first policy
+    today = datetime.today()
+    first_policy = policies[0] if policies else None
+    day = (
+        first_policy.monthly_payment_day if first_policy else 1
+    )  # default to 1 if no policy
+
+    # Calculate next month's payment date
+    next_month = today.month + 1 if today.month < 12 else 1
+    year = today.year if today.month < 12 else today.year + 1
+
+    try:
+        next_payment = datetime(year, next_month, day)
+    except ValueError:
+        next_payment = datetime(
+            year, next_month, 28
+        )  # fallback if day is invalid (e.g. Feb 30)
+
+    # Format date as string
+    next_month_date = next_payment.strftime("%B %d")
+
+    # Fetch all users (if needed for the dashboard)
     users = User.query.all()
     users_dictionary = [user.to_dict() for user in users]
-    return render_template("dashboard.html", users=users_dictionary)
+
+    return render_template(
+        "dashboard.html",
+        users=users_dictionary,
+        total_premium=total_premium,
+        next_month_date=next_month_date,
+        vehicles_list=vehicles_list,
+    )
 
 
 @user_bp.get("/signup")
@@ -104,11 +156,32 @@ def logout_page():
     return redirect(url_for("user_bp.submit_login_page"))
 
 
+@login_required
 @user_bp.get("/claims")
 def claims_page():
-    users = User.query.all()
-    users_dictionary = [user.to_dict() for user in users]
-    return render_template("claims.html", users=users_dictionary)
+    user_claims = Claim.query.filter_by(user_id=current_user.user_id).all()
+
+    approved_claims = [
+        claim for claim in user_claims if claim.claim_status == "Approved"
+    ]
+    pending_claims = [claim for claim in user_claims if claim.claim_status == "Pending"]
+    rejected_claims = [
+        claim for claim in user_claims if claim.claim_status == "Rejected"
+    ]
+
+    pending_num = len(pending_claims)
+    approved_num = len(approved_claims)
+    rejected_num = len(rejected_claims)
+
+    return render_template(
+        "claims.html",
+        approved_claims=approved_claims,
+        pending_claims=pending_claims,
+        rejected_claims=rejected_claims,
+        pending_num=pending_num,
+        approved_num=approved_num,
+        rejected_num=rejected_num,
+    )
 
 
 @user_bp.get("/claims_form")
@@ -161,3 +234,26 @@ def create_claim():
 @user_bp.get("/partners")
 def partners_page():
     return render_template("partners.html")
+
+
+@user_bp.get("/insurance_form")
+def insurance_form_page():
+    return render_template("insurance_form.html")
+
+
+import xml.etree.ElementTree as ET
+
+import requests
+
+
+def get_car_image(make, model, year=None):
+    search_term = f"{make} {model} {year}" if year else f"{make} {model}"
+    url = f"http://www.carimagery.com/api.asmx/GetImageUrl?searchTerm={search_term.replace(' ', '+')}"
+
+    response = requests.get(url)
+    if response.status_code == 200:
+        root = ET.fromstring(response.content)
+        image_url = root.text
+        return image_url
+    else:
+        return "failed to return the image"

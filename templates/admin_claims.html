@@ -132,7 +132,9 @@
         </thead>
         <tbody>
           {% for claim2 in claim_dict %}
-          <tr onclick="window.location='admin_user'">
+          <tr
+            onclick="window.location.href='/admin_user/{{ claim2.claim_id }}'"
+          >
             <td>{{claim2.claim_id}}</td>
             <td>{{claim2.user_name}}</td>
             <td>{{claim2.incident}}</td>

@@ -117,14 +117,14 @@
     <div class="container">
       <div class="box">
         <p class="claim">Estimated Claim</p>
-        <p class="claim-price">R20 354</p>
+        <p class="claim-price">R {{claim.claim_amount}}</p>
         <div class="buttons">
           <button class="approve">Approve</button>
           <button class="reject">Reject</button>
         </div>
       </div>
       <div class="box">
-        <p class="policy-type">Comprehensive Car Insurance</p>
+        <p class="policy-type">{{policy.coverage_type}}</p>
         <p>
           Includes accidental damage, fire, and theft coverage. Excludes wear
           and tear.
@@ -134,40 +134,29 @@
         <p><b>Uploaded Documents</b></p>
         <div class="doc">
           <p>Affidavit</p>
-          <button class="view">View</button>
+          <button
+            class="view"
+            onclick="window.open('{{ document.affidavit }}', '_blank')"
+          >
+            View
+          </button>
         </div>
         <div class="doc">
-          <p>Affidavit</p>
-          <button class="view">View</button>
-        </div>
-        <div class="doc">
-          <p>Affidavit</p>
-          <button class="view">View</button>
-        </div>
-        <div class="doc">
-          <p>Affidavit</p>
-          <button class="view">View</button>
+          <p>Police Report</p>
+          <button
+            class="view"
+            onclick="window.open('{{ document.police_report }}', '_blank')"
+          >
+            View
+          </button>
         </div>
       </div>
       <div class="box">
         <p><b>Images</b></p>
         <div class="images">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtePoQceW9S9jwF5yjaQmEWVcLMjHYRBVts7bP2eiL2gwtOQMiTn2gwgbThPCBhxfMw8E&usqp=CAU"
-            alt="car"
-          />
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtePoQceW9S9jwF5yjaQmEWVcLMjHYRBVts7bP2eiL2gwtOQMiTn2gwgbThPCBhxfMw8E&usqp=CAU"
-            alt="car"
-          />
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtePoQceW9S9jwF5yjaQmEWVcLMjHYRBVts7bP2eiL2gwtOQMiTn2gwgbThPCBhxfMw8E&usqp=CAU"
-            alt="car"
-          />
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtePoQceW9S9jwF5yjaQmEWVcLMjHYRBVts7bP2eiL2gwtOQMiTn2gwgbThPCBhxfMw8E&usqp=CAU"
-            alt="car"
-          />
+          {% for image in images %}
+          <img src="{{image}}" alt="{{image}}" />
+          {% endfor %}
         </div>
       </div>
     </div>

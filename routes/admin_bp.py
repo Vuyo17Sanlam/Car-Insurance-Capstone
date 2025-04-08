@@ -1,4 +1,5 @@
 import calendar
+import json
 from collections import defaultdict
 from datetime import datetime
 
@@ -6,6 +7,8 @@ from flask import Blueprint, render_template, request
 
 from extensions import db
 from models.claims import Claim
+from models.documents import Document
+from models.policies import Policy
 from models.user import User
 
 admin_bp = Blueprint("admin_bp", __name__)
@@ -50,14 +53,10 @@ def admin_page():
 
 @admin_bp.get("/admin_claims")
 def admin_claims_page():
-    # Fetch all users and build a lookup dictionary
     all_users = User.query.all()
     user_lookup = {user.user_id: user.user_name for user in all_users}
 
-    # Fetch all claims
     claims = Claim.query.all()
-
-    # Convert claims to dict and add user_name from lookup
     claim_dicts = []
     for claim in claims:
         claim_data = claim.to_dict()
@@ -67,8 +66,33 @@ def admin_claims_page():
     return render_template("admin_claims.html", claim_dict=claim_dicts)
 
 
-@admin_bp.get("/admin_user")
-def admin_user_claims_page():
-    claims = Claim.query.all()
-    claim_dict = [claim.to_dict() for claim in claims]
-    return render_template("admin_user.html", claim_dict=claim_dict)
+@admin_bp.route("/admin_user/<claim_id>")
+def admin_user_claims_page(claim_id):
+    # Fetch the claim
+    claim = Claim.query.filter_by(claim_id=claim_id).first()
+
+    if not claim:
+        return "Claim not found", 404
+
+    # Fetch related user, policy, and documents
+    user = User.query.filter_by(user_id=claim.user_id).first()
+    policy = Policy.query.filter_by(policy_id=claim.policy_id).first()
+    document = Document.query.filter_by(claim_id=claim.claim_id).first()
+
+    images = []
+    if document and document.images:
+        try:
+            image_dict = json.loads(document.images)
+            images = list(image_dict.values())
+        except Exception as e:
+            print("Error parsing images JSON:", e)
+
+    # Pass data to the template
+    return render_template(
+        "admin_user.html",
+        claim=claim,
+        user=user,
+        policy=policy,
+        document=document,
+        images=images,
+    )
