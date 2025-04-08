@@ -1,10 +1,11 @@
-from constants import STATUS_CODE
-from extensions import db
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from constants import STATUS_CODE
+from extensions import db
 from models.claims import Claim
 from models.user import User
-from werkzeug.security import check_password_hash, generate_password_hash
 
 user_bp = Blueprint("user_bp", __name__)
 
