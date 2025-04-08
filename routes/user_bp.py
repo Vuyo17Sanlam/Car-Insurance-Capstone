@@ -54,7 +54,7 @@ def submit_signup_page():
         new_user = User(**data)
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for("user_bp.insurance_form_page"))
+        return redirect(url_for("car_insurance_bp.insurance_form_page"))
     except Exception as e:
         db.session.rollback()  # Undo: Restore the data | After commit cannot undo
         print(str(e))
