@@ -194,6 +194,20 @@
       padding: 16px;
     }
   }
+  .new-claim-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #2563eb;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
 </style>
 {% endblock %} {% block content %}
 <div class="dashboard-container">
@@ -220,10 +234,9 @@
       </div>
 
       <div class="premium-card">
-        <p class="card-label">Payment Method</p>
-        <p class="card-value">VISA •••• 4242</p>
+        <p class="card-label">Premium Frequency</p>
+        <p class="card-value">Monthly</p>
         <br />
-        <div class="badge badge-secondary" style="margin-top: 8px">Active</div>
       </div>
     </div>
   </section>
@@ -232,6 +245,9 @@
     <div class="section-header">
       <i class="fa-solid fa-car" style="color: #2563eb; font-size: 35px"></i>
       <h2 class="section-title">Your Vehicles</h2>
+      <a href="/insurance_form" class="new-claim-btn">
+        <i class="fa-solid fa-plus"></i> New Vehicle
+      </a>
     </div>
 
     <div class="vehicle-cards">
