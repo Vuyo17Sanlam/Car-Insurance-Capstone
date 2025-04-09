@@ -1,16 +1,17 @@
-import re
 from datetime import datetime, timedelta
+from email import policy
 
-from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask_login import current_user, login_required, login_user, logout_user
-from werkzeug.security import check_password_hash, generate_password_hash
-
+# import requests
 from constants import STATUS_CODE
 from extensions import db
+from flask import Blueprint, flash, json, redirect, render_template, request, url_for
+from flask_login import current_user, login_required, login_user, logout_user
 from models.claims import Claim
+from models.documents import Document
 from models.policies import Policy
 from models.user import User
 from models.vehicles import Vehicles
+from werkzeug.security import check_password_hash, generate_password_hash
 
 user_bp = Blueprint("user_bp", __name__)
 
@@ -106,7 +107,7 @@ def submit_signup_page():
         new_user = User(**data)
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for("car_insurance_bp.insurance_form_page"))
+        return redirect(url_for("user_bp.login_page"))
     except Exception as e:
         db.session.rollback()  # Undo: Restore the data | After commit cannot undo
         print(str(e))
@@ -186,9 +187,25 @@ def claims_page():
 
 @user_bp.get("/claims_form")
 def claim_forms():
-    users = User.query.all()
-    users_dictionary = [user.to_dict() for user in users]
-    return render_template("claims_form.html", user=users_dictionary)
+    # Query the database for vehicles insured by the current user
+    # vehicles = (
+    #     db.session.query(Vehicles)
+    #     .join(Policy)
+    #     .filter(Policy.user_id == current_user.user_id)
+    #     .all()
+    # )
+    all_vehicles = Vehicles.query.filter_by(user_id=current_user.user_id).all()
+    vehicles_list = [
+        # {**car.to_dict(), "car_image": get_car_image(car.make, car.model, car.year)}
+        # for car in all_vehicles
+        {
+            **car.to_dict(),
+            "car_image": "https://th.bing.com/th/id/OIP.ulEALEOzZVq-UvXKfp0HFAHaHk?rs=1&pid=ImgDetMain",
+        }
+        for car in all_vehicles
+    ]
+
+    return render_template("claims_form.html", vehicles_list=vehicles_list)
 
 
 @user_bp.get("/support")
@@ -209,26 +226,71 @@ def add_claim_page():
 # usrs = {"name": "Inga", "amount": 10_000, "status": "pending"}
 
 
-@user_bp.post("/")  # HOF
-def create_claim():
-    data = {
-        "name": users["name"],
-        "dte": request.form.get("date"),
-        "cause": request.form.get("cause"),
-        "amount": users["amount"],
-        "status": users["status"],
-    }
-    # data = request.get_json()  # body
-    new_claim = Claim(**data)
-
+@user_bp.post("/claims")  # HOF
+def submit_claim():
+    vehicle_id = request.form.get("vehicle")
+    print(vehicle_id)
     try:
-        # print(new_movie, new_movie.to_dict())
+        vehicle_id = request.form.get("vehicle")
+        policy = Policy.query.filter_by(
+            vehicle_id=vehicle_id,  # Fixed the typo here
+        ).first()
+
+        if not policy:
+            flash("No active policy found for this vehicle", "error")
+            return redirect(url_for("user_bp.claim_forms"))
+        claim_data = {
+            "policy_id": policy.policy_id,
+            "user_id": current_user.user_id,
+            "incident": request.form.get("incident"),
+            "incident_date": request.form.get("incident_date"),
+            "description": request.form.get("description"),
+        }
+        new_claim = Claim(**claim_data)
         db.session.add(new_claim)
+        db.session.commit()
+
+        police_report = request.form["police_report"]
+        affidavit = request.form["affidavit"]
+        images = request.form.getlist("images[]")
+
+        # Convert list of image URLs to a JSON string
+        count = 0
+        images_json = {f"url{count + i}": str(img) for i, img in enumerate(images)}
+        data = {
+            "claim_id": new_claim.claim_id,
+            "images": json.dumps(images_json),
+            "affidavit": affidavit,
+            "police_report": police_report,
+        }
+
+        # Create a new document instance
+        new_document = Document(**data)
+        db.session.add(new_document)
         db.session.commit()
         return redirect(url_for("user_bp.claims_page"))
     except Exception as e:
+        print(e)
         db.session.rollback()  # Undo: Restore the data | After commit cannot undo
-        return {"message": str(e)}, STATUS_CODE["SERVER_ERROR"]
+        return redirect(url_for("user_bp.claim_forms"))
+    # data = {
+    #     "name": users["name"],
+    #     "dte": request.form.get("date"),
+    #     "cause": request.form.get("cause"),
+    #     "amount": users["amount"],
+    #     "status": users["status"],
+    # }
+    # # data = request.get_json()  # body
+    # new_claim = Claim(**data)
+
+    # try:
+    #     # print(new_movie, new_movie.to_dict())
+    #     db.session.add(new_claim)
+    #     db.session.commit()
+    #     return redirect(url_for("user_bp.claims_page"))
+    # except Exception as e:
+    #     db.session.rollback()  # Undo: Restore the data | After commit cannot undo
+    #     return {"message": str(e)}, STATUS_CODE["SERVER_ERROR"]
 
 
 @user_bp.get("/partners")
@@ -241,19 +303,19 @@ def insurance_form_page():
     return render_template("insurance_form.html")
 
 
-import xml.etree.ElementTree as ET
+# import xml.etree.ElementTree as ET
 
-import requests
+# import requests
 
 
-def get_car_image(make, model, year=None):
-    search_term = f"{make} {model} {year}" if year else f"{make} {model}"
-    url = f"http://www.carimagery.com/api.asmx/GetImageUrl?searchTerm={search_term.replace(' ', '+')}"
+# def get_car_image(make, model, year=None):
+#     search_term = f"{make} {model} {year}" if year else f"{make} {model}"
+#     url = f"http://www.carimagery.com/api.asmx/GetImageUrl?searchTerm={search_term.replace(' ', '+')}"
 
-    response = requests.get(url)
-    if response.status_code == 200:
-        root = ET.fromstring(response.content)
-        image_url = root.text
-        return image_url
-    else:
-        return "failed to return the image"
+#     response = requests.get(url)
+#     if response.status_code == 200:
+#         root = ET.fromstring(response.content)
+#         image_url = root.text
+#         return image_url
+#     else:
+#         return "failed to return the image"

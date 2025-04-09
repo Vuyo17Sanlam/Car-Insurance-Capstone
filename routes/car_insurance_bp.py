@@ -7,7 +7,6 @@ from flask_login import current_user, login_required, login_user, logout_user
 from models.policies import Policy
 from models.user import User
 from models.vehicles import Vehicles
-from werkzeug.security import check_password_hash, generate_password_hash
 
 car_insurance_bp = Blueprint("car_insurance_bp", __name__)
 
@@ -36,9 +35,6 @@ def submit_vehicle_details():
             "user_id": current_user.user_id,
         }
 
-        # Print the data to debug
-        print(data)
-
         new_vehicle = Vehicles(**data)
         db.session.add(new_vehicle)
         db.session.commit()
@@ -55,9 +51,9 @@ def submit_vehicle_details():
         elif coverage_type == "third-party-fire-theft":
             premium_amount = 4000
 
-        # Create a new policy instance
+        # Create a new policy
         pol_data = {
-            "user_id": current_user.user_id,  # Replace with actual user ID
+            "user_id": current_user.user_id,
             "vehicle_id": new_vehicle.vehicle_id,
             "start_date": datetime.now(),
             "premium": premium_amount,
@@ -68,7 +64,7 @@ def submit_vehicle_details():
         db.session.add(new_policy)
         db.session.commit()
 
-        return redirect(url_for("user_bp.login_page"))
+        return redirect(url_for("user_bp.get_dashboard"))
     except Exception as e:
         print(e)
         db.session.rollback()  # Undo: Restore the data | After commit cannot undo

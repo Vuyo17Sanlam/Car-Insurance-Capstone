@@ -280,7 +280,14 @@
       </ul>
       <ul class="nav-link-container">
         {% if current_user.is_authenticated %}
-        <li><a href="/logout">Logout</a></li>
+        <li>
+          <a href="/logout"
+            ><i
+              class="fa-solid fa-arrow-right-from-bracket"
+              style="transform: scaleX(-1)"
+            ></i
+          ></a>
+        </li>
         <li>
           <div class="user">
             <i class="fa-solid fa-circle-user"></i>
