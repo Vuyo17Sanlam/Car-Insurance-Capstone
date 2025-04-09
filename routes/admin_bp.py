@@ -3,7 +3,7 @@ import json
 from collections import defaultdict
 from datetime import datetime
 
-from flask import Blueprint, render_template, request
+from flask import Blueprint, redirect, render_template, request, url_for
 
 from extensions import db
 from models.claims import Claim
@@ -21,26 +21,22 @@ def admin_page():
     user_list = list(user_dict)
     no_user = len(user_list)
 
-    # Get all claims
     claims = Claim.query.all()
 
-    # Initialize all months with 0
-    monthly_counts = {month: 0 for month in calendar.month_abbr[1:]}  # Jan to Dec
+    monthly_counts = {month: 0 for month in calendar.month_abbr[1:]}
 
     status_counts = {"pending": 0, "approved": 0, "rejected": 0}
 
     for claim in claims:
         if claim.incident_date:
-            month_str = calendar.month_abbr[claim.incident_date.month]  # e.g. "Jan"
+            month_str = calendar.month_abbr[claim.incident_date.month]
             monthly_counts[month_str] += 1
 
-        # Count statuses (case-insensitive)
         status = claim.claim_status.lower()
         if status in status_counts:
             status_counts[status] += 1
 
-    # Convert dict to list of (month, count) in calendar order
-    ordered_months = list(calendar.month_abbr[1:])  # Jan to Dec
+    ordered_months = list(calendar.month_abbr[1:])
     monthly_data = [[month, monthly_counts[month]] for month in ordered_months]
 
     return render_template(
@@ -68,13 +64,11 @@ def admin_claims_page():
 
 @admin_bp.route("/admin_user/<claim_id>")
 def admin_user_claims_page(claim_id):
-    # Fetch the claim
     claim = Claim.query.filter_by(claim_id=claim_id).first()
 
     if not claim:
         return "Claim not found", 404
 
-    # Fetch related user, policy, and documents
     user = User.query.filter_by(user_id=claim.user_id).first()
     policy = Policy.query.filter_by(policy_id=claim.policy_id).first()
     document = Document.query.filter_by(claim_id=claim.claim_id).first()
@@ -87,7 +81,6 @@ def admin_user_claims_page(claim_id):
         except Exception as e:
             print("Error parsing images JSON:", e)
 
-    # Pass data to the template
     return render_template(
         "admin_user.html",
         claim=claim,
@@ -96,3 +89,15 @@ def admin_user_claims_page(claim_id):
         document=document,
         images=images,
     )
+
+
+# @admin_bp.post("/admin_user/<claim_id>")
+# def update_claim_status(claim_id):
+#     claim_id = request.form["claim_id"]
+#     new_status = request.form["status"]
+
+#     claim = Claim.query.filter_by(claim_id=claim_id).first()
+#     if claim:
+#         claim.claim_status = new_status
+#         db.session.commit()
+#     return redirect(url_for("admin_bp.update_claim_status", claim_id=claim_id))

@@ -3,162 +3,435 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Dashboard</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: rgb(205, 220, 222);
-        color: white;
-        margin: 0;
-        padding: 0;
-      }
-      .header {
-        background-color: #1f3b8b;
-        padding: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 18px;
-        font-weight: bold;
-      }
-      .header a {
-        color: white;
-        text-decoration: none;
-      }
-      .container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 100px;
-        padding: 20px;
-        width: 600px;
-        margin: 50px auto; /* Centers the container */
-        justify-content: center; /* Ensures grid items are centered */
-      }
-      .box {
-        background-color: #ffffff;
-        color: black;
-        padding: 20px;
-        border-radius: 10px;
-        width: 400px;
-        height: 250px;
-      }
+    <title>Admin Dashboard | DriveShield</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+     <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+<style>
+  body {
+    font-family: "Inter", sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    margin: 0;
+    padding: 0;
+  }
 
-      .claim {
-        font-size: 24px;
-        font-weight: bold;
-        margin: 0;
-      }
-      .claim-price {
-        font-size: 50px;
-        font-weight: bold;
-        margin-top: 60px;
-      }
-      .buttons {
-        margin-top: 10px;
-        display: flex;
-        gap: 20px;
-      }
-      .approve {
-        background-color: green;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      .reject {
-        background-color: red;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      .policy-type {
-        font-size: 30px;
-        font-weight: bold;
-        margin-top: 0;
-      }
-      .documents button {
-        background-color: #4a7db3;
-        color: white;
-        padding: 10px;
-        border: none;
-        width: 100px;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      .doc {
-        display: flex;
-        justify-content: space-between;
-      }
-      .view {
-        width: 100px;
-        height: 40px;
-      }
-      .images {
-        display: flex;
-        gap: 10px;
-        overflow-x: auto;
-      }
-      .images img {
-        width: 200px;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 5px;
-      }
-    </style>
+  .admin-header {
+    background-color: white;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .admin-header a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .admin-header a:hover {
+    color: #1d4ed8;
+  }
+
+  .admin-container {
+    max-width: 1400px;
+    margin: 32px auto;
+    padding: 0 32px;
+  }
+
+  .claim-section {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 32px;
+  }
+
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .image-slider-container {
+    position: relative;
+    margin: 16px 0;
+  }
+
+  .image-slider {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 16px 0;
+  }
+
+  .image-slider img {
+    width: 300px;
+    height: 300px;
+    border-radius: 12px;
+    object-fit: cover;
+    scroll-snap-align: start;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+
+  .image-slider img:hover {
+    transform: scale(1.02);
+  }
+
+  .scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+  }
+
+  .scroll-button:hover {
+    opacity: 1;
+    background-color: #1d4ed8;
+  }
+
+  .scroll-button.left {
+    left: -20px;
+  }
+
+  .scroll-button.right {
+    right: -20px;
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .dashboard-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  .claim-amount {
+    font-size: 48px;
+    font-weight: 700;
+    color: #2563eb;
+    margin: 16px 0;
+  }
+
+  .policy-type {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 16px 0;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .btn-approve {
+    background-color: #10b981;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-approve:hover {
+    background-color: #0e9f72;
+  }
+
+  .btn-reject {
+    background-color: #ef4444;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-reject:hover {
+    background-color: #dc2626;
+  }
+
+  .documents-list {
+    margin-top: 16px;
+  }
+
+  .document-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .document-item:last-child {
+    border-bottom: none;
+  }
+
+  .document-item a {
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .btn-view {
+    background-color: #2563eb;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-view:hover {
+    background-color: #1d4ed8;
+  }
+
+  .claim-description {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  .description-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1e293b;
+  }
+
+  .description-text {
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .image-slider img {
+      width: 250px;
+      height: 250px;
+    }
+
+    .scroll-button {
+      width: 32px;
+      height: 32px;
+    }
+
+    .scroll-button.left {
+      left: -8px;
+    }
+
+    .scroll-button.right {
+      right: -8px;
+    }
+  }
+
+  .documents-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-top: 24px;
+    width: 450px;
+  }
+
+  .documents-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .documents-title svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .document-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .document-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    color: black;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .document-link:hover {
+    background-color: #e2e8f0;
+    color: #1d4ed8;
+  }
+
+  .document-link svg {
+    width: 20px;
+    height: 20px;
+  }
+</style>
+
+
   </head>
   <body>
-    <div class="header">
-      <a href="#">User Dashboard</a>
-      <a href="/admin_claims">back</a>
+    <header class="admin-header">
+      <a href="#">
+
+        Admin Dashboard
+      </a>
+      <a href="/admin_claims">
+
+        Back to Claims
+      </a>
+    </header>
+
+    <div class="admin-container">
+      <!-- Images Section -->
+      <section class="claim-section">
+        <h2 class="section-title">
+          <i class="fa-solid fa-image"></i>
+          Accident Images
+        </h2>
+        <div class="image-slider-container">
+          <div class="image-slider" id="imageSlider">
+            {% for image in images %}
+            <img src="{{ image }}" alt="Accident image" />
+            {% endfor %}
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Dashboard Grid -->
+      <div class="dashboard-grid">
+        <!-- Policy Type Card -->
+        <div class="dashboard-card">
+          <h3 class="section-title">
+           <i class="fa-regular fa-bookmark"></i>
+            Policy Details
+          </h3>
+          <div class="policy-type">{{policy.coverage_type}}</div>
+          <p>Comprehensive coverage with roadside assistance</p>
+        </div>
+
+        <!-- Documents Card -->
+        <div class="dashboard-card">
+          <h3 class="section-title">
+           <i class="fa-regular fa-file"></i>
+            Claim Description
+          </h3>
+          <div class="documents-list">
+            <p class="description-text">{{claim.description}}</p>
+          </div>
+        </div>
+
+        <!-- Claim Amount Card -->
+        <div class="dashboard-card">
+          <h3 class="section-title">
+            <i class="fa-solid fa-money-bills"></i>
+            Claim Estimate
+          </h3>
+          <div class="claim-amount">R {{claim.claim_amount}}</div>
+          <div class="action-buttons">
+            <button class="btn-approve">Approve</button>
+            <button class="btn-reject">Reject</button>
+          </div>
+        </div>
+      </div>
+
+         <div class="documents-section">
+      <h3 class="documents-title">
+         <i class="fa-regular fa-file"></i>
+        Claim Documents
+      </h3>
+      <div class="document-links">
+        <a href="{{ document.affidavit }}" target="_blank" class="document-link">
+          <i class="fa-regular fa-file"></i>
+           Affidavit
+        </a>
+        <a href="{{ document.police_report }}" target="_blank" class="document-link">
+           <i class="fa-regular fa-file"></i>
+           Police Report
+        </a>
+      </div>
+
     </div>
-    <div class="container">
-      <div class="box">
-        <p class="claim">Estimated Claim</p>
-        <p class="claim-price">R {{claim.claim_amount}}</p>
-        <div class="buttons">
-          <button class="approve">Approve</button>
-          <button class="reject">Reject</button>
-        </div>
-      </div>
-      <div class="box">
-        <p class="policy-type">{{policy.coverage_type}}</p>
-        <p>
-          Includes accidental damage, fire, and theft coverage. Excludes wear
-          and tear.
-        </p>
-      </div>
-      <div class="box">
-        <p><b>Uploaded Documents</b></p>
-        <div class="doc">
-          <p>Affidavit</p>
-          <button
-            class="view"
-            onclick="window.open('{{ document.affidavit }}', '_blank')"
-          >
-            View
-          </button>
-        </div>
-        <div class="doc">
-          <p>Police Report</p>
-          <button
-            class="view"
-            onclick="window.open('{{ document.police_report }}', '_blank')"
-          >
-            View
-          </button>
-        </div>
-      </div>
-      <div class="box">
-        <p><b>Images</b></p>
-        <div class="images">
-          {% for image in images %}
-          <img src="{{image}}" alt="{{image}}" />
-          {% endfor %}
-        </div>
-      </div>
-    </div>
+
+
   </body>
 </html>
