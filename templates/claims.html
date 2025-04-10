@@ -288,11 +288,8 @@
     <div class="claim-card pending">
       <div class="claim-header">
         <div class="claim-id">
-          <i
-            class="fa-regular fa-file"
-            style="color: #1e293b; font-size: 20px"
-          ></i>
-          {{pending_claim.claim_id}}
+          <i class="fa-solid fa-car"></i>
+          {{pending_claim.vehicle_name}}
         </div>
         <div class="claim-type">{{pending_claim.incident}}</div>
       </div>
@@ -325,7 +322,7 @@
             class="fa-regular fa-file"
             style="color: #1e293b; font-size: 20px"
           ></i>
-          {{approved_claim.claim_id}}
+          {{approved_claim.vehicle_name}}
         </div>
         <div class="claim-type">{{approved_claim.incident}}</div>
       </div>

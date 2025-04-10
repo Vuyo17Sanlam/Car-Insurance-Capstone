@@ -43,8 +43,6 @@ def get_dashboard():
 
     all_vehicles = Vehicles.query.filter_by(user_id=current_user.user_id).all()
     vehicles_list = [
-        # {**car.to_dict(), "car_image": get_car_image(car.make, car.model, car.year)}
-        # for car in all_vehicles
         {
             **car.to_dict(),
             "car_image": "https://th.bing.com/th/id/OIP.ulEALEOzZVq-UvXKfp0HFAHaHk?rs=1&pid=ImgDetMain",
@@ -58,23 +56,28 @@ def get_dashboard():
     # Get today's date and monthly payment day from the first policy
     today = datetime.today()
     first_policy = policies[0] if policies else None
-    day = (
-        first_policy.monthly_payment_day if first_policy else 1
-    )  # default to 1 if no policy
+
+    if first_policy and first_policy.monthly_payment_day:
+        day = first_policy.monthly_payment_day
+    else:
+        day = None  # Set to None if no valid monthly_payment_day
 
     # Calculate next month's payment date
-    next_month = today.month + 1 if today.month < 12 else 1
-    year = today.year if today.month < 12 else today.year + 1
+    if day is not None:
+        next_month = today.month + 1 if today.month < 12 else 1
+        year = today.year if today.month < 12 else today.year + 1
 
-    try:
-        next_payment = datetime(year, next_month, day)
-    except ValueError:
-        next_payment = datetime(
-            year, next_month, 28
-        )  # fallback if day is invalid (e.g. Feb 30)
+        try:
+            next_payment = datetime(year, next_month, day)
+        except ValueError:
+            next_payment = datetime(
+                year, next_month, 28
+            )  # fallback if day is invalid (e.g. Feb 30)
 
-    # Format date as string
-    next_month_date = next_payment.strftime("%B %d")
+        # Format date as string
+        next_month_date = next_payment.strftime("%B %d")
+    else:
+        next_month_date = "-"  # If no valid day, set to '-'
 
     # Fetch all users (if needed for the dashboard)
     users = User.query.all()
@@ -173,28 +176,42 @@ def logout_page():
 @login_required
 @user_bp.get("/claims")
 def claims_page():
-    user_claims = Claim.query.filter_by(user_id=current_user.user_id).all()
+    # Get all vehicles for the current user
+    user_vehicles = Vehicles.query.filter_by(user_id=current_user.user_id).all()
+    vehicle_dict = {v.vehicle_id: v for v in user_vehicles}
 
-    approved_claims = [
-        claim for claim in user_claims if claim.claim_status == "Approved"
-    ]
-    pending_claims = [claim for claim in user_claims if claim.claim_status == "Pending"]
-    rejected_claims = [
-        claim for claim in user_claims if claim.claim_status == "Rejected"
-    ]
+    # Get vehicle IDs
+    vehicle_ids = list(vehicle_dict.keys())
 
-    pending_num = len(pending_claims)
-    approved_num = len(approved_claims)
-    rejected_num = len(rejected_claims)
+    # Get policies for those vehicles
+    user_policies = Policy.query.filter(Policy.vehicle_id.in_(vehicle_ids)).all()
+    policy_dict = {p.policy_id: p for p in user_policies}
+
+    # Get policy IDs
+    policy_ids = list(policy_dict.keys())
+
+    # Get claims linked to those policies
+    user_claims = Claim.query.filter(Claim.policy_id.in_(policy_ids)).all()
+
+    # Attach vehicle name to each claim
+    for claim in user_claims:
+        policy = policy_dict.get(claim.policy_id)
+        vehicle = vehicle_dict.get(policy.vehicle_id) if policy else None
+        claim.vehicle_name = f"{vehicle.make} {vehicle.model}" if vehicle else "Unknown"
+
+    # Categorize claims by status
+    approved_claims = [c for c in user_claims if c.claim_status == "Approved"]
+    pending_claims = [c for c in user_claims if c.claim_status == "Pending"]
+    rejected_claims = [c for c in user_claims if c.claim_status == "Rejected"]
 
     return render_template(
         "claims.html",
         approved_claims=approved_claims,
         pending_claims=pending_claims,
         rejected_claims=rejected_claims,
-        pending_num=pending_num,
-        approved_num=approved_num,
-        rejected_num=rejected_num,
+        pending_num=len(pending_claims),
+        approved_num=len(approved_claims),
+        rejected_num=len(rejected_claims),
     )
 
 

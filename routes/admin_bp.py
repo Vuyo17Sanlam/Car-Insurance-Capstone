@@ -3,11 +3,13 @@ import json
 from collections import defaultdict
 from datetime import datetime
 
-from extensions import db
 from flask import Blueprint, redirect, render_template, request, url_for
+
+from extensions import db
 from models.claims import Claim
 from models.documents import Document
 from models.policies import Policy
+from models.recent_activity import RecentActivity
 from models.user import User
 
 admin_bp = Blueprint("admin_bp", __name__)
@@ -19,6 +21,9 @@ def admin_page():
     user_dict = [all_user.to_dict() for all_user in all_users]
     user_list = list(user_dict)
     no_user = len(user_list)
+
+    all_activities = RecentActivity.query.limit(3).all()
+    all_activities_dict = [act.to_dict() for act in all_activities]
 
     claims = Claim.query.all()
 
@@ -43,6 +48,7 @@ def admin_page():
         monthly_counts=monthly_data,
         status_counts=status_counts,
         no_user=no_user,
+        all_activities_dict=all_activities_dict,
     )
 
 
@@ -50,12 +56,14 @@ def admin_page():
 def admin_claims_page():
     all_users = User.query.all()
     user_lookup = {user.user_id: user.user_name for user in all_users}
+    user_lookup1 = {user.user_id: user.surname for user in all_users}
 
     claims = Claim.query.all()
     claim_dicts = []
     for claim in claims:
         claim_data = claim.to_dict()
         claim_data["user_name"] = user_lookup.get(claim.user_id, "Unknown")
+        claim_data["surname"] = user_lookup1.get(claim.user_id, "Unknown")
         claim_dicts.append(claim_data)
 
     return render_template("admin_claims.html", claim_dict=claim_dicts)
