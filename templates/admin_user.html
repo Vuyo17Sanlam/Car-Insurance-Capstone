@@ -407,10 +407,12 @@
             Claim Estimate
           </h3>
           <div class="claim-amount">R {{claim.claim_amount}}</div>
+       <form method="POST" action="{{ url_for('admin_bp.update_claim_status', claim_id=claim.claim_id) }}">
           <div class="action-buttons">
-            <button class="btn-approve">Approve</button>
-            <button class="btn-reject">Reject</button>
+            <button class="btn-approve" name="approve">Approve</button>
+            <button class="btn-reject" name="reject">Reject</button>
           </div>
+          </form>
         </div>
       </div>
 

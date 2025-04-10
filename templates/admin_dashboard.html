@@ -8,6 +8,13 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
       body {
@@ -17,14 +24,17 @@
         background: #f4f7fc;
         color: #333;
       }
-      .navbar {
+      nav {
+        position: sticky;
+        top: 0;
+        background-color: white;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #1e3a8a;
-        color: white;
-        padding: 15px 30px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        padding: 0 2rem;
+        z-index: 50;
       }
       .navbar h2 {
         margin: 0;
@@ -43,6 +53,7 @@
       .nav-links a:hover {
         color: #90caf9;
       }
+
       .container {
         width: 90%;
         max-width: 1200px;
@@ -92,17 +103,97 @@
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
+      .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+      .navbar li a {
+        display: block;
+        text-align: center;
+        padding: 1.25rem 1.5rem;
+        text-decoration: none;
+        color: #1e293b;
+
+        transition: all 0.2s ease;
+        border-radius: 0.5rem;
+      }
+      li a:hover {
+        background-color: #e2e8f0;
+        color: #2563eb;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        margin-left: 0px;
+        gap: 6px;
+        width: 400px;
+      }
+      .logo {
+        width: 100px;
+        height: 80px;
+      }
+      .logo-text {
+        font-family: "Michroma", sans-serif;
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: center;
+      }
+      .user {
+        display: flex;
+        margin-top: 10px;
+        margin-right: 30px;
+        gap: 8px;
+      }
+      .fa-circle-user {
+        text-align: center;
+        color: #00796b;
+        font-size: 25px;
+        margin-top: 12px;
+      }
     </style>
   </head>
   <body>
-    <div class="navbar">
-      <h2>Admin Panel</h2>
-      <div class="nav-links">
-        <a href="#">Dashboard</a>
-        <a href="/admin_claims">Claims</a>
-        <a href="#">Settings</a>
+     <nav class="navbar">
+      <div class="logo-container">
+        <img
+          src="https://static.vecteezy.com/system/resources/thumbnails/046/887/565/small_2x/a-black-and-white-car-icon-on-a-white-background-vector.jpg"
+          alt=""
+          class="logo"
+        />
+        <p class="logo-text">swift insurance</p>
       </div>
-    </div>
+      <ul>
+        <li><a href="/admin_claims">Claims</a></li>
+        <li><a href="/admin_dashboard">Dashboard</a></li>
+      </ul>
+      <ul class="nav-link-container">
+        <!-- {% if current_user.is_authenticated %} -->
+        <li>
+          <!-- <a href="/logout" -->
+            <i
+              class="fa-solid fa-arrow-right-from-bracket"
+              style="transform: scaleX(-1)"
+            ></i
+          ></a>
+        </li>
+        <li>
+          <div class="user">
+            <i class="fa-solid fa-circle-user"></i>
+            <!-- <p class="username">{{current_user.user_name}}</p> -->
+          </div>
+          <!-- </li>
+        {% else %}
+        <li><a href="/login">Login</a></li> -->
+          <!-- {% endif %} -->
+          <!-- </li> -->
+        <!-- </li> -->
+      </ul>
+    </nav>
     <div class="container">
       <div class="stats-container">
         <div class="card">

@@ -25,6 +25,16 @@ def get_home():
     return render_template("home.html")
 
 
+@user_bp.get("/partners_home")
+def get_partners_page():
+    return render_template("partners_home.html")
+
+
+@user_bp.get("/support_home")
+def get_support_page():
+    return render_template("support_home.html")
+
+
 @login_required
 @user_bp.get("/dashboard")
 def get_dashboard():
@@ -124,17 +134,17 @@ def login_page():
 
 @user_bp.post("/login")
 def submit_login_page():
-    user_name = request.form.get("user_name")
-    password_hash = request.form.get("password_hash")
+    id_number = request.form.get("id_number", "").strip()
+    password_hash = request.form.get("password_hash", "").strip()
     try:
-        # 🛡️ Validations
-        if not user_name:
-            raise ValueError("Username must be filled")
+        # Validations
+        if not id_number:
+            raise ValueError("ID number is required")
 
         if not password_hash:
-            raise ValueError("Password must be filled")
+            raise ValueError("Password is required")
 
-        user_from_db = User.query.filter_by(user_name=user_name).first()
+        user_from_db = User.query.filter_by(id_number=id_number).first()
 
         print(user_from_db)
 

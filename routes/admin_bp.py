@@ -3,9 +3,8 @@ import json
 from collections import defaultdict
 from datetime import datetime
 
-from flask import Blueprint, redirect, render_template, request, url_for
-
 from extensions import db
+from flask import Blueprint, redirect, render_template, request, url_for
 from models.claims import Claim
 from models.documents import Document
 from models.policies import Policy
@@ -62,7 +61,7 @@ def admin_claims_page():
     return render_template("admin_claims.html", claim_dict=claim_dicts)
 
 
-@admin_bp.route("/admin_user/<claim_id>")
+@admin_bp.get("/admin_user/<claim_id>")
 def admin_user_claims_page(claim_id):
     claim = Claim.query.filter_by(claim_id=claim_id).first()
 
@@ -96,8 +95,28 @@ def admin_user_claims_page(claim_id):
 #     claim_id = request.form["claim_id"]
 #     new_status = request.form["status"]
 
+
 #     claim = Claim.query.filter_by(claim_id=claim_id).first()
 #     if claim:
 #         claim.claim_status = new_status
 #         db.session.commit()
 #     return redirect(url_for("admin_bp.update_claim_status", claim_id=claim_id))
+@admin_bp.post("/admin_user/<claim_id>")
+def update_claim_status(claim_id):
+    claim = Claim.query.filter_by(claim_id=claim_id).first()
+    try:
+        if "approve" in request.form:
+            claim.claim_status = "Approved"
+        elif "reject" in request.form:
+            claim.claim_status = "Rejected"
+        else:
+            return "No action specified", 400
+
+        db.session.commit()  # Save changes to DB
+        return redirect(
+            url_for("admin_bp.admin_claims_page")
+        )  # Redirect to avoid resubmission
+    except Exception as e:
+        print(e)
+        db.session.rollback()  # Undo changes on error
+        return f"Error updating claim: {str(e)}", 500
