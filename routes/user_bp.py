@@ -1,25 +1,18 @@
 from datetime import datetime, timedelta
 from email import policy
 
-<<<<<<< HEAD
 import requests
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, json, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
-=======
-# import requests
->>>>>>> 1e6cc9dd39b577a8589fee5c3959bb94c260db06
 from constants import STATUS_CODE
 from extensions import db
-from flask import Blueprint, flash, json, redirect, render_template, request, url_for
-from flask_login import current_user, login_required, login_user, logout_user
 from models.claims import Claim
 from models.documents import Document
 from models.policies import Policy
 from models.user import User
 from models.vehicles import Vehicles
-from werkzeug.security import check_password_hash, generate_password_hash
 
 user_bp = Blueprint("user_bp", __name__)
 
@@ -96,6 +89,7 @@ def submit_signup_page():
     try:
         # check if password and cofirm password match
         if request.form.get("password_hash") != request.form.get("confirm"):
+            flash("Passwords do not match!", "danger")
             raise ValueError("Password does not match")
 
         password = request.form.get("password_hash")
@@ -115,6 +109,7 @@ def submit_signup_page():
         new_user = User(**data)
         db.session.add(new_user)
         db.session.commit()
+        flash("Account created successfully!", "success")
         return redirect(url_for("user_bp.login_page"))
     except Exception as e:
         db.session.rollback()  # Undo: Restore the data | After commit cannot undo
@@ -313,17 +308,16 @@ def insurance_form_page():
 
 # import xml.etree.ElementTree as ET
 
-import requests
-
+# import requests
 
 # def get_car_image(make, model, year=None):
 #     search_term = f"{make} {model} {year}" if year else f"{make} {model}"
 #     url = f"http://www.carimagery.com/api.asmx/GetImageUrl?searchTerm={search_term.replace(' ', '+')}"
 
-    response = requests.get(url)
-    if response.status_code == 200:
-        root = ET.fromstring(response.content)
-        image_url = root.text
-        return image_url
-    else:
-        return "failed to return the image"
+# response = requests.get(url)
+# if response.status_code == 200:
+#     root = ET.fromstring(response.content)
+#     image_url = root.text
+#     return image_url
+# else:
+#     return "failed to return the image"
