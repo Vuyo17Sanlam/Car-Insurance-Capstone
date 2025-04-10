@@ -259,6 +259,47 @@
           min-width: 100%;
         }
       }
+      .profile-container {
+        position: relative;
+        display: inline-block;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .profile-pic {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 2px;
+        min-width: 180px;
+        z-index: 1;
+          margin-top: 40px;
+      }
+
+      .user:hover .dropdown {
+        display: block;
+      }
+
+      .dropdown a {
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #333;
+
+      }
+
+      .dropdown a:hover {
+        background-color: #f1f1f1;
+      }
     </style>
     {% block head_content %} {% endblock %}
   </head>
@@ -278,26 +319,21 @@
         <li><a href="/support">Support</a></li>
         <li><a href="/partners">Partners</a></li>
       </ul>
-      <ul class="nav-link-container">
-        {% if current_user.is_authenticated %}
-        <li>
-          <a href="/logout"
-            ><i
-              class="fa-solid fa-arrow-right-from-bracket"
-              style="transform: scaleX(-1)"
-            ></i
-          ></a>
-        </li>
-        <li>
-          <div class="user">
-            <i class="fa-solid fa-circle-user"></i>
-            <p class="username">{{current_user.user_name}}</p>
-          </div>
-        </li>
-        {% else %}
-        <li><a href="/login">Login</a></li>
+
+      <div class="profile-container"></div>
+          {% if current_user.is_authenticated %}
+            <div class="user">
+              <i class="fa-solid fa-circle-user"></i>
+              <p class="username">{{current_user.user_name}}</p>
+               <div class="dropdown">
+        <a href="#">Edit Profile</a>
+        <a href="/payment_details">Payment Details</a>
+        <a href="/logout">Logout</a>
+      </div>
+            </div>
+        </div>
         {% endif %}
-      </ul>
+
     </nav>
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %} {% for category, message in messages %}

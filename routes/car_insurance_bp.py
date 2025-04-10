@@ -41,7 +41,6 @@ def submit_vehicle_details():
 
         # Extract policy data from the form
         coverage_type = request.form["coverage_type"]
-        monthly_payment_day = request.form["monthly_payment_day"]
 
         # Determine the premium amount based on coverage type
         if coverage_type == "comprehensive":
@@ -57,7 +56,6 @@ def submit_vehicle_details():
             "vehicle_id": new_vehicle.vehicle_id,
             "start_date": datetime.now(),
             "premium": premium_amount,
-            "monthly_payment_day": monthly_payment_day,
             "coverage_type": coverage_type,
         }
         new_policy = Policy(**pol_data)

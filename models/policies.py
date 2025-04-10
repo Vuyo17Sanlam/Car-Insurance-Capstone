@@ -16,7 +16,7 @@ class Policy(db.Model):
     )
     start_date = db.Column(db.Date, default=datetime.now())
     premium = db.Column(db.Numeric(10, 2), nullable=False)
-    monthly_payment_day = db.Column(db.Integer, nullable=False)
+
     coverage_type = db.Column(db.String(50), nullable=False)
 
     def to_dict(self):
@@ -26,6 +26,5 @@ class Policy(db.Model):
             "vehicle_id": self.vehicle_id,
             "start_date": self.start_date.strftime("%Y-%m-%d"),
             "premium": float(self.premium),
-            "monthly_payment_day": self.monthly_payment_day,
             "coverage_type": self.coverage_type,
         }

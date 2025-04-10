@@ -178,10 +178,9 @@
     <div class="container">
       <div class="insurance-container">
         <div class="page-header">
-          <h1 class="page-title">Customize Your Coverage</h1>
+          <h1 class="page-title">Choose Your Coverage</h1>
           <p class="page-subtitle">
-            Tell us about your vehicle and select your preferred insurance
-            options
+            Tell us about your vehicle and select your preferred coverage type
           </p>
         </div>
 
@@ -351,121 +350,10 @@
             </div>
         </div>
 
-        <label for="monthly_payment_day">Monthly Payment Day:</label>
-        <input type="number" id="monthly_payment_day" name="monthly_payment_day" required>
-          <!-- Additional Options Section -->
-          <div class="form-section">
-            <h3 class="section-title">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-              Additional Options
-            </h3>
-
-            <div class="mb-3 form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="roadside-assistance"
-                name="roadside_assistance"
-              />
-              <label class="form-check-label" for="roadside-assistance">
-                24/7 Roadside Assistance (+R150/month)
-              </label>
-            </div>
-
-            <div class="mb-3 form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="windscreen-cover"
-                name="windscreen_cover"
-                checked
-              />
-              <label class="form-check-label" for="windscreen-cover">
-                Windscreen Cover (Recommended)
-              </label>
-            </div>
-
-            <div class="mb-3 form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="hire-car"
-                name="hire_car"
-              />
-              <label class="form-check-label" for="hire-car">
-                Hire Car After Accident (+R200/month)
-              </label>
-            </div>
-
-            <div class="mb-3 form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="personal-accident"
-                name="personal_accident"
-              />
-              <label class="form-check-label" for="personal-accident">
-                Personal Accident Cover (+R100/month)
-              </label>
-            </div>
-          </div>
-
-          <!-- Excess Options -->
-          <div class="form-section">
-            <h3 class="section-title">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              Excess Options
-            </h3>
-
-            <div class="mb-3">
-              <label for="voluntary-excess" class="form-label"
-                >Voluntary Excess Amount (ZAR)</label
-              >
-              <p class="text-muted" style="font-size: 14px">
-                Choosing a higher excess can lower your premium
-              </p>
-              <select
-                id="voluntary-excess"
-                class="form-select"
-                name="voluntary_excess"
-              >
-                <option value="0">R0 (Standard)</option>
-                <option value="1000">R1,000</option>
-                <option value="2500">R2,500</option>
-                <option value="5000">R5,000</option>
-                <option value="7500">R7,500</option>
-              </select>
-            </div>
-          </div>
-
           <div class="form-actions">
-            <button type="button" class="btn btn-outline-secondary">
+           <a href="/dashboard"><button type="button" class="btn btn-outline-secondary">
               Back
-            </button>
+            </button></a>
             <button type="submit" class="btn btn-primary">
               Continue to Payment
             </button>
