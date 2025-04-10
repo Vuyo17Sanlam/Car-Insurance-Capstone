@@ -1,0 +1,314 @@
+{% extends "home_base.html" %} {% block head_content %}
+<style>
+  body {
+    font-family: "Inter", sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    margin: 0;
+    line-height: 24px;
+  }
+
+  .support-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px;
+  }
+
+  .support-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .support-title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #2563eb;
+  }
+
+  .support-subtitle {
+    font-size: 20px;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  @media (max-width: 768px) {
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+  }
+
+  .section-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #1e293b;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn:hover {
+    background: #1d4ed8;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 16px;
+  }
+
+  .faq-question {
+    font-weight: 500;
+    padding: 12px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .faq-answer {
+    color: #64748b;
+    padding-right: 24px;
+    font-size: 15px;
+    line-height: 25.6px;
+  }
+
+  .contact-methods {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contact-method {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    background: #f8fafc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+  }
+
+  .contact-info h4 {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .contact-info p {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: #64748b;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="support-container">
+  <header class="support-header">
+    <h1 class="support-title">Help Center</h1>
+    <p class="support-subtitle">
+      Find answers to common questions or contact our support team
+    </p>
+  </header>
+
+  <div class="grid-2">
+    <!-- Contact Form -->
+    <div class="card">
+      <h2 class="section-title">
+        <i
+          class="fa-regular fa-envelope"
+          style="color: black; font-size: 30px"
+        ></i>
+        Contact Us
+      </h2>
+
+      <form>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Your name" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="your@email.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="How can we help?" />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Describe your issue"></textarea>
+        </div>
+
+        <button type="submit" class="btn">
+          <i
+            class="fa-solid fa-arrow-up"
+            style="color: white; font-size: 20px"
+          ></i>
+          Send Message
+        </button>
+      </form>
+
+      <div class="contact-methods">
+        <div class="contact-method">
+          <div class="contact-icon">
+            <i
+              class="fa-solid fa-phone"
+              style="color: #2563eb; font-size: 20px"
+            ></i>
+          </div>
+          <div class="contact-info">
+            <h4>Call Support</h4>
+            <p>+27 12 345 6789</p>
+          </div>
+        </div>
+
+        <div class="contact-method">
+          <div class="contact-icon">
+            <i
+              class="fa-regular fa-envelope"
+              style="color: #2563eb; font-size: 20px"
+            ></i>
+          </div>
+          <div class="contact-info">
+            <h4>Email Us</h4>
+            <p>support@swiftinsurance.co.za</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="card">
+      <h2 class="section-title">
+        <i
+          class="fa-regular fa-circle-question"
+          style="color: black; font-size: 30px"
+        ></i>
+        FAQs
+      </h2>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do I reset my password?</span>
+          </div>
+          <div class="faq-answer">
+            Click "Forgot Password" on login and follow the emailed
+            instructions. Links expire after 24 hours.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What payment methods do you accept?</span>
+          </div>
+          <div class="faq-answer">
+            We accept all major credit/debit cards and EFT bank transfers.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do I file a claim?</span>
+          </div>
+          <div class="faq-answer">
+            File through your dashboard or call our 24/7 claims hotline at +27
+            12 345 6789.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I add another driver?</span>
+          </div>
+          <div class="faq-answer">
+            Yes, through your policy dashboard. Additional drivers may affect
+            your premium.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

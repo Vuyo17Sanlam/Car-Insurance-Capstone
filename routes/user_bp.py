@@ -1,15 +1,6 @@
 from datetime import datetime, timedelta
 from email import policy
 
-<<<<<<< HEAD
-import requests
-from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask_login import current_user, login_required, login_user, logout_user
-from werkzeug.security import check_password_hash, generate_password_hash
-
-=======
-# import requests
->>>>>>> 1e6cc9dd39b577a8589fee5c3959bb94c260db06
 from constants import STATUS_CODE
 from extensions import db
 from flask import Blueprint, flash, json, redirect, render_template, request, url_for
@@ -30,6 +21,16 @@ user_bp = Blueprint("user_bp", __name__)
 @user_bp.get("/")
 def get_home():
     return render_template("home.html")
+
+
+@user_bp.get("/partners_home")
+def get_partners_page():
+    return render_template("partners_home.html")
+
+
+@user_bp.get("/support_home")
+def get_support_page():
+    return render_template("support_home.html")
 
 
 @login_required
@@ -129,17 +130,17 @@ def login_page():
 
 @user_bp.post("/login")
 def submit_login_page():
-    user_name = request.form.get("user_name")
-    password_hash = request.form.get("password_hash")
+    id_number = request.form.get("id_number", "").strip()
+    password_hash = request.form.get("password_hash", "").strip()
     try:
-        # 🛡️ Validations
-        if not user_name:
-            raise ValueError("Username must be filled")
+        # Validations
+        if not id_number:
+            raise ValueError("ID number is required")
 
         if not password_hash:
-            raise ValueError("Password must be filled")
+            raise ValueError("Password is required")
 
-        user_from_db = User.query.filter_by(user_name=user_name).first()
+        user_from_db = User.query.filter_by(id_number=id_number).first()
 
         print(user_from_db)
 
@@ -313,17 +314,17 @@ def insurance_form_page():
 
 # import xml.etree.ElementTree as ET
 
-import requests
+# import requests
 
 
 # def get_car_image(make, model, year=None):
 #     search_term = f"{make} {model} {year}" if year else f"{make} {model}"
 #     url = f"http://www.carimagery.com/api.asmx/GetImageUrl?searchTerm={search_term.replace(' ', '+')}"
 
-    response = requests.get(url)
-    if response.status_code == 200:
-        root = ET.fromstring(response.content)
-        image_url = root.text
-        return image_url
-    else:
-        return "failed to return the image"
+# response = requests.get(url)
+# if response.status_code == 200:
+#     root = ET.fromstring(response.content)
+#     image_url = root.text
+#     return image_url
+# else:
+#     return "failed to return the image"
