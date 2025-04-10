@@ -1,18 +1,19 @@
 from datetime import datetime, timedelta
 from email import policy
 
-import requests
-from flask import Blueprint, flash, json, redirect, render_template, request, url_for
-from flask_login import current_user, login_required, login_user, logout_user
-from werkzeug.security import check_password_hash, generate_password_hash
-
 from constants import STATUS_CODE
 from extensions import db
+
+# import requests
+from flask import Blueprint, flash, json, redirect, render_template, request, url_for
+from flask_login import current_user, login_required, login_user, logout_user
 from models.claims import Claim
 from models.documents import Document
+from models.payment_details import Payment
 from models.policies import Policy
 from models.user import User
 from models.vehicles import Vehicles
+from werkzeug.security import check_password_hash, generate_password_hash
 
 user_bp = Blueprint("user_bp", __name__)
 
@@ -35,12 +36,19 @@ def get_support_page():
     return render_template("support_home.html")
 
 
+@user_bp.get("/payment_details")
+def payment_details_page():
+    return render_template("payment.html")
+
+
 @login_required
 @user_bp.get("/dashboard")
 def get_dashboard():
     # Get all policies for the current user
     policies = Policy.query.filter_by(user_id=current_user.user_id).all()
+    payment = Payment.query.filter_by(user_id=current_user.user_id).first()
 
+    card_number = payment.card_number
     all_vehicles = Vehicles.query.filter_by(user_id=current_user.user_id).all()
     vehicles_list = [
         # {**car.to_dict(), "car_image": get_car_image(car.make, car.model, car.year)}
@@ -57,10 +65,8 @@ def get_dashboard():
 
     # Get today's date and monthly payment day from the first policy
     today = datetime.today()
-    first_policy = policies[0] if policies else None
-    day = (
-        first_policy.monthly_payment_day if first_policy else 1
-    )  # default to 1 if no policy
+
+    day = payment.monthly_payment_day if payment else 1  # default to 1 if no policy
 
     # Calculate next month's payment date
     next_month = today.month + 1 if today.month < 12 else 1
@@ -86,6 +92,7 @@ def get_dashboard():
         total_premium=total_premium,
         next_month_date=next_month_date,
         vehicles_list=vehicles_list,
+        card_number=card_number,
     )
 
 
@@ -314,6 +321,23 @@ def partners_page():
 @user_bp.get("/insurance_form")
 def insurance_form_page():
     return render_template("insurance_form.html")
+
+
+@user_bp.post("/payment_details")
+def submit_payment_dets():
+    monthly_payment_day = request.form.get("monthly_payment_day")
+    card_number = request.form.get("card_number")
+
+    data = {
+        "user_id": current_user.user_id,
+        "monthly_payment_day": monthly_payment_day,
+        "card_number": card_number[-4:],
+    }
+
+    new_payment_details = Payment(**data)
+    db.session.add(new_payment_details)
+    db.session.commit()
+    return redirect(url_for("user_bp.get_dashboard"))
 
 
 # import xml.etree.ElementTree as ET

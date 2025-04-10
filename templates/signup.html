@@ -320,22 +320,26 @@ message in messages %}
   });
 
   // Age validation (must be 18+)
-  const dobInput = document.getElementById("dob");
-  dobInput.addEventListener("input", function () {
-    const today = new Date();
-    const birthDate = new Date(this.value);
-    const age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
 
-    // If age is less than 18, show a custom message
-    if (age < 18) {
-      this.setCustomValidity("You must be at least 18 years old.");
-    } else {
-      this.setCustomValidity(""); // Clear custom error message if age is valid
-    }
+  document.addEventListener("DOMContentLoaded", function () {
+    const dobInput = document.getElementById("dob");
+    dobInput.addEventListener("input", function () {
+      const today = new Date();
+      const birthDate = new Date(this.value);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      } // If age is less than 18, show a custom message
+
+      if (age < 18) {
+        this.setCustomValidity("You must be at least 18 years old.");
+      } else {
+        this.setCustomValidity(""); // Clear custom error message if age is valid
+      } // Trigger the validation message
+
+      this.reportValidity();
+    });
   });
 </script>
 {% endblock %}
