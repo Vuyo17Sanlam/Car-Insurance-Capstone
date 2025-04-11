@@ -8,17 +8,23 @@
 
 ### 👤 User Side
 
-#### 1. 🏠 Home Page
+#### 1. 🔐 Admin Login
+
+- **Id Number**: `1234567891238`
+- **Password**: `Jack123`
+- Redirects to User Dashboard upon successful login.
+
+#### 2. 🏠 Home Page
 
 - Overview of Swift Insurance services.
 - Login and Signup buttons in the navbar for easy access.
 
-#### 2. 🔐 Login & Signup
+#### 3. 🔐 Login & Signup
 
 - **Login Page**: Secure login with user credentials.
 - **Signup Page**: Simple registration for new users.
 
-#### 3. 📋 User Dashboard
+#### 4. 📋 User Dashboard
 
 - Displays:
   - Insured vehicles (make, model, policy info).
@@ -27,7 +33,7 @@
 - `New Vehicle` button to add and register new vehicles.
 - Dashboard updates immediately upon submission.
 
-#### 4. 💳 Payment Details
+#### 5. 💳 Payment Details
 
 - Accessible via dropdown under username.
 - Users can input:
@@ -35,7 +41,7 @@
   - Preferred monthly payment date (e.g., 1st, 15th, 31st).
 - Dashboard reflects changes in real-time.
 
-#### 5. 📝 Claims Management
+#### 6. 📝 Claims Management
 
 - Claims page shows all claims in card format.
 - `New Claim` button to submit:
@@ -43,12 +49,12 @@
   - Upload documents (via URLs).
 - Real-time updates reflect claim status changes after admin review.
 
-#### 6. 🛟 Support Page
+#### 7. 🛟 Support Page
 
 - Contact form for user support requests.
 - Displays support email and phone number.
 
-#### 7. 🤝 Partners Page
+#### 8. 🤝 Partners Page
 
 - Partner companies shown in card format.
 - Clicking a card redirects to the partner’s website.
@@ -59,7 +65,7 @@
 
 #### 1. 🔐 Admin Login
 
-- **Username**: `5555555555555`
+- **Id Number**: `5555555555555`
 - **Password**: `Admin123`
 - Redirects to Admin Dashboard upon successful login.
 
@@ -87,7 +93,6 @@
 
 ## 🧱 Built With
 
-- **Frontend**: HTML / CSS
-- **Backend**: Flask
+- **Frontend**: HTML / CSS / JS
+- **Backend**: Flask / JS
 - **Database**: SQL Server (SSMS)
-- **Authentication**: Secure credential handling
