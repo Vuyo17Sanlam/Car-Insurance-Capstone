@@ -91,5 +91,3 @@
 - **Backend**: Flask
 - **Database**: SQL Server (SSMS)
 - **Authentication**: Secure credential handling
-
----
