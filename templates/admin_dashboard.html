@@ -1,391 +1,322 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-      body {
-        margin: 0;
-        font-family: "Inter", sans-serif;
-        background-color: #f8fafc;
-        color: #1e293b;
-        line-height: 24px;
-      }
+{% extends "admin_base.html" %} {% block head_content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    line-height: 24px;
+  }
 
-      nav {
-        position: sticky;
-        top: 0;
-        background-color: white;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-          0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        padding: 0 32px;
-        z-index: 50;
-      }
+  nav {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 0 32px;
+    z-index: 50;
+  }
 
-      .dashboard-container {
-        max-width: 1400px;
-        margin: 32px auto;
-        padding: 0 32px;
-      }
+  .dashboard-container {
+    max-width: 1400px;
+    margin: 32px auto;
+    padding: 0 32px;
+  }
 
-      .section-header {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 24px;
-      }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
 
-      .section-icon {
-        width: 40px;
-        height: 40px;
-        color: #2563eb;
-      }
+  .section-icon {
+    width: 40px;
+    height: 40px;
+    color: #2563eb;
+  }
 
-      .section-title {
-        font-size: 24px;
-        font-weight: 700;
-        color: #1e293b;
-        margin: 0;
-      }
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+  }
 
-      .stats-section {
-        margin-bottom: 48px;
-      }
+  .stats-section {
+    margin-bottom: 48px;
+  }
 
-      .stats-cards {
-        display: flex;
-        gap: 24px;
-      }
+  .stats-cards {
+    display: flex;
+    gap: 24px;
+  }
 
-      .stats-card {
-        flex: 1;
-        background: white;
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-          0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
+  .stats-card {
+    flex: 1;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
 
-      .stats-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-          0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      }
+  .stats-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
 
-      .card-label {
-        font-size: 14px;
-        color: #64748b;
-        font-weight: 500;
-        margin-bottom: 8px;
-      }
+  .card-label {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
 
-      .card-value {
-        font-size: 32px;
-        font-weight: 700;
-        color: #2563eb;
-        margin: 0;
-      }
+  .card-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2563eb;
+    margin: 0;
+  }
 
-      .charts-section {
-        margin-bottom: 48px;
-      }
+  .charts-section {
+    margin-bottom: 48px;
+  }
 
-      .chart-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
-        gap: 24px;
-      }
+  .chart-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    gap: 24px;
+  }
 
-      .chart-card {
-        background: white;
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-          0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      }
+  .chart-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
 
-      .activity-section {
-        margin-bottom: 48px;
-      }
+  .activity-section {
+    margin-bottom: 48px;
+  }
 
-      .activity-card {
-        background: white;
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-          0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      }
+  .activity-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
 
-      .activity-card h3 {
-        font-size: 20px;
-        font-weight: 700;
-        color: #1e293b;
-        margin: 0 0 16px 0;
-      }
+  .activity-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 16px 0;
+  }
 
-      .activity-list {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-      }
+  .activity-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
 
-      .activity-list li {
-        padding: 12px 0;
-        border-bottom: 1px solid #e2e8f0;
-      }
+  .activity-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
 
-      .activity-list li:last-child {
-        border-bottom: none;
-      }
+  .activity-list li:last-child {
+    border-bottom: none;
+  }
 
-      .badge {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
 
-      .badge-primary {
-        background-color: #3b82f6;
-        color: white;
-      }
+  .badge-primary {
+    background-color: #3b82f6;
+    color: white;
+  }
 
-      .badge-secondary {
-        background-color: #10b981;
-        color: white;
-      }
+  .badge-secondary {
+    background-color: #10b981;
+    color: white;
+  }
 
-      .navbar ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-      }
+  .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
 
-      .navbar li a {
-        display: block;
-        text-align: center;
-        padding: 1.25rem 1.5rem;
-        text-decoration: none;
-        color: #1e293b;
-        transition: all 0.2s ease;
-        border-radius: 0.5rem;
-      }
+  .navbar li a {
+    display: block;
+    text-align: center;
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    color: #1e293b;
+    transition: all 0.2s ease;
+    border-radius: 0.5rem;
+  }
 
-      .navbar li a:hover {
-        background-color: #e2e8f0;
-        color: #2563eb;
-      }
+  .navbar li a:hover {
+    background-color: #e2e8f0;
+    color: #2563eb;
+  }
 
-      .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
+  .user-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-      .logo {
-        width: 40px;
-        height: 40px;
-      }
+  .user-icon {
+    color: #2563eb;
+    font-size: 24px;
+  }
 
-      .logo-text {
-        font-size: 20px;
-        font-weight: 700;
-        color: #1e293b;
-        margin: 0;
-      }
+  .username {
+    font-weight: 600;
+    color: #1e293b;
+  }
 
-      .user-container {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
+  @media (max-width: 768px) {
+    .stats-cards {
+      flex-direction: column;
+    }
 
-      .user-icon {
-        color: #2563eb;
-        font-size: 24px;
-      }
+    .chart-cards {
+      grid-template-columns: 1fr;
+    }
 
-      .username {
-        font-weight: 600;
-        color: #1e293b;
-      }
+    nav {
+      padding: 0 16px;
+    }
 
-      @media (max-width: 768px) {
-        .stats-cards {
-          flex-direction: column;
-        }
-
-        .chart-cards {
-          grid-template-columns: 1fr;
-        }
-
-        nav {
-          padding: 0 16px;
-        }
-
-        .navbar li a {
-          padding: 16px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <nav class="navbar">
-      <div class="logo-container">
-        <img
-          src="https://static.vecteezy.com/system/resources/thumbnails/046/887/565/small_2x/a-black-and-white-car-icon-on-a-white-background-vector.jpg"
-          alt=""
-          class="logo"
-        />
-        <p class="logo-text">Swift Insurance</p>
-      </div>
-      <ul>
-        <li><a href="/admin_claims">Claims</a></li>
-        <li><a href="/admin_dashboard">Dashboard</a></li>
-      </ul>
-      <ul>
-        <li>
-          <div class="user-container">
-            <i class="fa-solid fa-circle-user user-icon"></i>
-            <!-- <span class="username">{{current_user.user_name}}</span> -->
-          </div>
-        </li>
-        <li>
-          <a href="/logout">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="dashboard-container">
-      <section class="stats-section">
-        <div class="section-header">
-          <i class="fa-solid fa-users section-icon" style="font-size: 35px"></i>
-          <h2 class="section-title">User Statistics</h2>
-        </div>
-
-        <div class="stats-cards">
-          <div class="stats-card">
-            <p class="card-label">Total Users</p>
-            <p class="card-value">{{no_user}}</p>
-          </div>
-
-          <div class="stats-card">
-            <p class="card-label">This month registrations</p>
-            <p class="card-value">2</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="charts-section">
-        <div class="section-header">
-          <i
-            class="fa-solid fa-chart-line section-icon"
-            style="font-size: 35px"
-          ></i>
-          <h2 class="section-title">Claims Analytics</h2>
-        </div>
-
-        <div class="chart-cards">
-          <div class="chart-card">
-            <canvas id="claimsChart"></canvas>
-          </div>
-          <div class="chart-card">
-            <canvas id="statusPieChart"></canvas>
-          </div>
-        </div>
-      </section>
-
-      <section class="activity-section">
-        <div class="section-header">
-          <i
-            class="fa-solid fa-clock-rotate-left section-icon"
-            style="font-size: 35px"
-          ></i>
-          <h2 class="section-title">Recent Activity</h2>
-        </div>
-
-        <div class="activity-card">
-          <h3>Admin Actions</h3>
-          <ul class="activity-list">
-            {% for act in all_activities_dict %}
-            <li>{{ act.activity }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      </section>
+    .navbar li a {
+      padding: 16px;
+    }
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="dashboard-container">
+  <section class="stats-section">
+    <div class="section-header">
+      <i class="fa-solid fa-users section-icon"></i>
+      <h2 class="section-title">User Statistics</h2>
     </div>
 
-    <script>
-      const claimsByMonth = {{ monthly_counts | tojson }};
-      const labels = claimsByMonth.map(item => item[0]);
-      const dataValues = claimsByMonth.map(item => item[1]);
+    <div class="stats-cards">
+      <div class="stats-card">
+        <p class="card-label">Total Users</p>
+        <p class="card-value">{{no_user}}</p>
+      </div>
 
-      const ctx = document.getElementById("claimsChart").getContext("2d");
-      new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              label: "Claims Filed",
-              data: dataValues,
-              backgroundColor: "#2563eb",
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-        },
-      });
+      <div class="stats-card">
+        <p class="card-label">New Registrations</p>
+        <p class="card-value">30</p>
+        <p class="card-label">Today</p>
+      </div>
+    </div>
+  </section>
 
-      const statusCounts = {{ status_counts | tojson }};
-      const pieCtx = document.getElementById("statusPieChart").getContext("2d");
-      new Chart(pieCtx, {
-        type: "pie",
-        data: {
-          labels: ["Pending", "Approved", "Rejected"],
-          datasets: [
-            {
-              data: [
-                statusCounts.pending || 0,
-                statusCounts.approved || 0,
-                statusCounts.rejected || 0
-              ],
-              backgroundColor: ["#f59e0b", "#10b981", "#ef4444"],
-            },
+  <section class="charts-section">
+    <div class="section-header">
+      <i class="fa-solid fa-chart-line section-icon"></i>
+      <h2 class="section-title">Claims Analytics</h2>
+    </div>
+
+    <div class="chart-cards">
+      <div class="chart-card">
+        <canvas id="claimsChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <canvas id="statusPieChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section class="activity-section">
+    <div class="section-header">
+      <i class="fa-solid fa-clock-rotate-left section-icon"></i>
+      <h2 class="section-title">Recent Activity</h2>
+    </div>
+
+    <div class="activity-card">
+      <h3>Admin Actions</h3>
+      <ul class="activity-list">
+        {% for act in all_activities_dict %}
+        <li>{{ act.activity }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script>
+  const claimsByMonth = {{ monthly_counts | tojson }};
+  const labels = claimsByMonth.map(item => item[0]);
+  const dataValues = claimsByMonth.map(item => item[1]);
+
+  const ctx = document.getElementById("claimsChart").getContext("2d");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Claims Filed",
+          data: dataValues,
+          backgroundColor: "#2563eb",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  });
+
+  const statusCounts = {{ status_counts | tojson }};
+  const pieCtx = document.getElementById("statusPieChart").getContext("2d");
+  new Chart(pieCtx, {
+    type: "pie",
+    data: {
+      labels: ["Pending", "Approved", "Rejected"],
+      datasets: [
+        {
+          data: [
+            statusCounts.pending || 0,
+            statusCounts.approved || 0,
+            statusCounts.rejected || 0
           ],
+          backgroundColor: ["#f59e0b", "#10b981", "#ef4444"],
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-        },
-      });
-    </script>
-  </body>
-</html>
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  });
+</script>
+{% endblock %}

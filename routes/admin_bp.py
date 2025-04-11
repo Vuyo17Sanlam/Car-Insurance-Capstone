@@ -4,7 +4,9 @@ import uuid
 from collections import defaultdict
 from datetime import datetime
 
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required, login_user, logout_user
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from extensions import db
 from models import recent_activity
@@ -15,6 +17,49 @@ from models.recent_activity import RecentActivity
 from models.user import User
 
 admin_bp = Blueprint("admin_bp", __name__)
+
+
+@admin_bp.get("/admin_login")
+def admin_login_page():
+    return render_template("admin_login.html")
+
+
+@admin_bp.get("/admin_logout")
+def logout_page():
+    logout_user()
+    return redirect(url_for("admin_bp.submit_admin_login_page"))
+
+
+@admin_bp.post("/admin_login")
+def submit_admin_login_page():
+    id_number = request.form.get("id_number", "").strip()
+    password_hash = request.form.get("password_hash", "").strip()
+    try:
+        # Validations
+        if not id_number:
+            raise ValueError("ID number is required")
+
+        if not password_hash:
+            raise ValueError("Password is required")
+
+        user_from_db = User.query.filter_by(id_number=id_number).first()
+
+        print(user_from_db)
+
+        if not user_from_db:
+            raise ValueError("Credentials are invalid")
+
+        if not check_password_hash(user_from_db.password_hash, password_hash):
+            raise ValueError("Credentials are invalid")
+        login_user(user_from_db)
+        flash("Login successful", "success")
+        return redirect(url_for("admin_bp.admin_page"))
+
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        flash(str(e), "danger")
+        return redirect(url_for("admin_bp.submit_admin_login_page"))
 
 
 @admin_bp.get("/admin_dashboard")

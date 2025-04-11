@@ -68,6 +68,7 @@ def get_dashboard():
     # Get today's date and monthly payment day from the first policy
     today = datetime.today()
 
+    day = None
     try:
         if payment and payment.monthly_payment_day:
             day = payment.monthly_payment_day
@@ -75,6 +76,7 @@ def get_dashboard():
         day = None
 
     # Calculate next month's payment date
+
     if day is not None:
         next_month = today.month + 1 if today.month < 12 else 1
         year = today.year if today.month < 12 else today.year + 1

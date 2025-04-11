@@ -7,7 +7,7 @@
 <div class="form-container">
   {% if vehicles_list%}
   <form action="{{url_for('user_bp.submit_claim')}}" method="POST">
-    <h1>Claim Form</h1>
+    <h1 class="pg-title">Claim Form</h1>
     <p class="instruction">
       Please fill out the details below to submit your insurance claim.
     </p>
@@ -87,7 +87,11 @@
       <label for="documents">Photo/ Video</label>
       <input type="url" id="documents" name="images[]" required />
     </div>
-    <button type="button" onclick="addLinkInput()">Add Photo/ Video</button>
+    <div class="add-btn-section">
+      <button type="button" class="add" onclick="addLinkInput()">
+        <i class="fa-solid fa-plus"></i> Photo/ Video
+      </button>
+    </div>
     <button class="submit-button" type="submit">Submit Claim</button>
   </form>
   {% else %}

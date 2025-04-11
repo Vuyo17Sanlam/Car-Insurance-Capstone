@@ -39,11 +39,11 @@
           alt=""
           class="logo"
         />
-        <p class="logo-text">swift insurance</p>
+        <h1 class="logo-text">swift insurance</h1>
       </div>
-      <ul>
+      <ul class="nav-ul">
+         <li><a href="/dashboard">Dashboard</a></li>
         <li><a href="/claims">Claims</a></li>
-        <li><a href="/dashboard">Dashboard</a></li>
         <li><a href="/support">Support</a></li>
         <li><a href="/partners">Partners</a></li>
       </ul>
@@ -78,6 +78,9 @@
       ></button>
     </div>
     {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
+ <main>
+      <div style="height: 200px; background: #f8f9fa"></div>
+    </main>
     <footer class="insurance-footer">
       <div class="footer-content">
         <div class="footer-logo-section">
@@ -87,7 +90,7 @@
               src="{{ url_for('static', filename='images/blue_logo.png') }}"
               alt="White Logo"
             />
-            <p class="logo-text-footer">swift insurance</p>
+            <p class="logo-text" style="color: #3b82f6">swift insurance</p>
           </div>
         </div>
 

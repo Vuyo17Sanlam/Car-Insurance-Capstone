@@ -31,45 +31,40 @@
     {% block head_content %} {% endblock %}
   </head>
   <body>
-    <div class="content-wrapper">
-      <nav>
-        <div class="logo-container">
-          <img
-            class="logo"
-            src="https://static.vecteezy.com/system/resources/thumbnails/046/887/565/small_2x/a-black-and-white-car-icon-on-a-white-background-vector.jpg"
-            alt="Logo"
-          />
-          <h1 class="logo-text">swift insurance</h1>
-        </div>
+    <nav class="home-base-nav">
+      <div class="logo-container">
+        <img
+          class="logo"
+          src="https://static.vecteezy.com/system/resources/thumbnails/046/887/565/small_2x/a-black-and-white-car-icon-on-a-white-background-vector.jpg"
+          alt="Logo"
+        />
+        <h1 class="logo-text">swift insurance</h1>
+      </div>
 
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="#">Coverage</a></li>
-          <li><a href="/partners_home">Partners</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="/support_home">Contact</a></li>
-        </ul>
+      <ul class="nav-ul">
+        <li><a href="/">Home</a></li>
+        <li><a href="#">Coverage</a></li>
+        <li><a href="/partners_home">Partners</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="/support_home">Contact</a></li>
+      </ul>
 
-        <div class="auth-buttons">
-          <button
-            class="btn btn-outline"
-            onclick="window.location.href='/login'"
-          >
-            Login
-          </button>
-          <button
-            class="btn btn-primary"
-            onclick="window.location.href='/signup'"
-          >
-            Sign Up
-          </button>
-        </div>
-      </nav>
-      {% block content %} {% endblock %}
-      <main>
-        <div style="height: 200px; background: #f8f9fa"></div>
-      </main>
-    </div>
+      <div class="auth-buttons">
+        <button class="btn btn-outline" onclick="window.location.href='/login'">
+          Login
+        </button>
+        <button
+          class="btn btn-primary"
+          onclick="window.location.href='/signup'"
+        >
+          Sign Up
+        </button>
+      </div>
+    </nav>
+    {% block content %} {% endblock %}
+    <main>
+      <div style="height: 200px; background: #f8f9fa"></div>
+    </main>
 
     <footer class="insurance-footer">
       <div class="footer-content">
