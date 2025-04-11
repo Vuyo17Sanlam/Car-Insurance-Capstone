@@ -1,82 +1,9 @@
-{% extends "home_base.html" %} {% block head_content %}
-<style>
-  body {
-    place-content: center;
-    min-height: 100vh;
-    margin: 0;
-
-    background-color: #f8fafc;
-
-    font-family: "Roboto", sans-serif;
-  }
-
-  .form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 416px;
-    max-width: 500px;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .form-element {
-    position: relative;
-    margin-bottom: 16px;
-  }
-
-  .form-element input {
-    width: 90%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-
-  .form-element label {
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    background-color: #ffffff;
-    padding: 0 5px;
-    color: #2563eb;
-    font-size: 14px;
-    font-weight: bold;
-  }
-
-  .btn-login {
-    padding: 12px;
-    background-color: #2563eb;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 95%;
-  }
-
-  .btn-login:hover {
-    background-color: #0741bc;
-    color: gray;
-  }
-  .main-heading {
-    text-align: center;
-    color: #2563eb;
-  }
-  .form-section {
-    display: flex;
-    justify-content: center;
-    margin-top: 90px;
-  }
-  .login-footer-text {
-    color: #64748b;
-    text-align: center;
-  }
-</style>
-{% endblock %} {% block content %} {% with messages =
+{% extends "home_base.html" %} {% block head_content %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/auth/login.css') }}"
+/>
+{% endblock %} {% endblock %} {% block content %} {% with messages =
 get_flashed_messages(with_categories=true) %} {% if messages %} {% for category,
 message in messages %}
 <div

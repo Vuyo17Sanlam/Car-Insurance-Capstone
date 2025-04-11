@@ -1,11 +1,13 @@
 import calendar
 import json
+import uuid
 from collections import defaultdict
 from datetime import datetime
 
 from flask import Blueprint, redirect, render_template, request, url_for
 
 from extensions import db
+from models import recent_activity
 from models.claims import Claim
 from models.documents import Document
 from models.policies import Policy
@@ -112,19 +114,32 @@ def admin_user_claims_page(claim_id):
 @admin_bp.post("/admin_user/<claim_id>")
 def update_claim_status(claim_id):
     claim = Claim.query.filter_by(claim_id=claim_id).first()
+
+    if not claim:
+        return "Claim not found", 404
+
     try:
+        # Create a new recent activity instance
+        new_activity = RecentActivity()
+        new_activity.id = uuid.uuid4()
+
         if "approve" in request.form:
             claim.claim_status = "Approved"
+            new_activity.activity = f"Admin approved claim {claim_id}"
+
         elif "reject" in request.form:
             claim.claim_status = "Rejected"
+            new_activity.activity = f"Admin rejected claim {claim_id}"
+
         else:
             return "No action specified", 400
 
-        db.session.commit()  # Save changes to DB
-        return redirect(
-            url_for("admin_bp.admin_claims_page")
-        )  # Redirect to avoid resubmission
+        # Add the recent activity to the session
+        db.session.add(new_activity)
+        db.session.commit()  # Save all changes
+        return redirect(url_for("admin_bp.admin_claims_page"))
+
     except Exception as e:
         print(e)
-        db.session.rollback()  # Undo changes on error
+        db.session.rollback()
         return f"Error updating claim: {str(e)}", 500

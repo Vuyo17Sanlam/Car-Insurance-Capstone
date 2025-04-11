@@ -1,0 +1,154 @@
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+  line-height: 24px;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.btn-outline:hover {
+  background-color: #e2e8f0;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 32px;
+  background: linear-gradient(to bottom, white 0%, #f8fafc 100%);
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  color: #64748b;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.hero-image {
+  max-width: 800px;
+  width: 100%;
+  margin-top: 48px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.features {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 32px;
+}
+
+.features-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 48px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  color: #2563eb;
+  margin-bottom: 24px;
+}
+
+.feature-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 16px 0;
+}
+
+.feature-description {
+  color: #64748b;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+  }
+
+  nav {
+    padding: 0 16px;
+  }
+
+  li a {
+    padding: 16px;
+  }
+
+  .auth-buttons {
+    gap: 8px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+  }
+}

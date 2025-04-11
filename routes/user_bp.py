@@ -48,7 +48,11 @@ def get_dashboard():
     policies = Policy.query.filter_by(user_id=current_user.user_id).all()
     payment = Payment.query.filter_by(user_id=current_user.user_id).first()
 
-    card_number = payment.card_number
+    try:
+        card_number = payment.card_number
+    except Exception as e:
+        card_number = "-"
+
     all_vehicles = Vehicles.query.filter_by(user_id=current_user.user_id).all()
     vehicles_list = [
         {
@@ -63,12 +67,12 @@ def get_dashboard():
 
     # Get today's date and monthly payment day from the first policy
     today = datetime.today()
-    first_policy = policies[0] if policies else None
 
-    if first_policy and first_policy.monthly_payment_day:
-        day = first_policy.monthly_payment_day
-    else:
-        day = None  # Set to None if no valid monthly_payment_day
+    try:
+        if payment and payment.monthly_payment_day:
+            day = payment.monthly_payment_day
+    except Exception as e:
+        day = None
 
     # Calculate next month's payment date
     if day is not None:
@@ -278,12 +282,15 @@ def submit_claim():
         if not policy:
             flash("No active policy found for this vehicle", "error")
             return redirect(url_for("user_bp.claim_forms"))
+        today = datetime.today().date()
+
         claim_data = {
             "policy_id": policy.policy_id,
             "user_id": current_user.user_id,
             "incident": request.form.get("incident"),
             "incident_date": request.form.get("incident_date"),
             "description": request.form.get("description"),
+            "claim_duration": f"{today.strftime('%d %b %Y')} - ",
         }
         new_claim = Claim(**claim_data)
         db.session.add(new_claim)
