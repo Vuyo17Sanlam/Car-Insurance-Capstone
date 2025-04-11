@@ -1,19 +1,19 @@
 from datetime import datetime, timedelta
 from email import policy
 
+from constants import STATUS_CODE
+from extensions import db
+
 # import requests
 from flask import Blueprint, flash, json, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from werkzeug.security import check_password_hash, generate_password_hash
-
-from constants import STATUS_CODE
-from extensions import db
 from models.claims import Claim
 from models.documents import Document
 from models.payment_details import Payment
 from models.policies import Policy
 from models.user import User
 from models.vehicles import Vehicles
+from werkzeug.security import check_password_hash, generate_password_hash
 
 user_bp = Blueprint("user_bp", __name__)
 
@@ -48,7 +48,11 @@ def get_dashboard():
     policies = Policy.query.filter_by(user_id=current_user.user_id).all()
     payment = Payment.query.filter_by(user_id=current_user.user_id).first()
 
-    card_number = payment.card_number
+    try:
+        card_number = payment.card_number
+    except Exception as e:
+        card_number = "-"
+
     all_vehicles = Vehicles.query.filter_by(user_id=current_user.user_id).all()
     vehicles_list = [
         {
@@ -63,14 +67,15 @@ def get_dashboard():
 
     # Get today's date and monthly payment day from the first policy
     today = datetime.today()
-    first_policy = policies[0] if policies else None
-
-    if first_policy and first_policy.monthly_payment_day:
-        day = first_policy.monthly_payment_day
-    else:
-        day = None  # Set to None if no valid monthly_payment_day
+    day = None
+    try:
+        if payment and payment.monthly_payment_day:
+            day = payment.monthly_payment_day
+    except Exception as e:
+        day = None
 
     # Calculate next month's payment date
+
     if day is not None:
         next_month = today.month + 1 if today.month < 12 else 1
         year = today.year if today.month < 12 else today.year + 1

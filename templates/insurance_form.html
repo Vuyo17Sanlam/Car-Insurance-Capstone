@@ -172,6 +172,10 @@
           gap: 16px;
         }
       }
+      .select-option{
+        display: flex;
+        flex-direction: column;
+      }
     </style>
   </head>
   <body>
@@ -322,31 +326,38 @@
             </div>
           </div>
 
-          <!-- Coverage Type Section -->
            <div class="form-section">
             <h3 class="section-title">Coverage Type</h3>
             <div class="coverage-options">
-                <div class="coverage-card">
-                    <input type="radio" id="comprehensive" name="coverage_type" value="comprehensive" required>
-                    <label for="comprehensive">
-                        <h5>Comprehensive</h5>
-                        <p>Full protection including accidents, theft, fire, and third-party liability. Recommended for newer vehicles.</p>
-                    </label>
+              <div class="coverage-card">
+                <h5>Comprehensive</h5>
+                <p>Full protection including accidents, theft, fire, and third-party liability. Recommended for newer vehicles.</p>
                 </div>
+
                 <div class="coverage-card">
-                    <input type="radio" id="third-party" name="coverage_type" value="third-party" required>
-                    <label for="third-party">
-                        <h5>Third Party</h5>
-                        <p>Covers damage you cause to others but not your own vehicle. Suitable for older vehicles.</p>
-                    </label>
+                 <h5>Third Party</h5>
+                <p>Covers damage you cause to others but not your own vehicle. Suitable for older vehicles.</p>
                 </div>
+
                 <div class="coverage-card">
-                    <input type="radio" id="third-party-fire-theft" name="coverage_type" value="third-party-fire-theft" required>
-                    <label for="third-party-fire-theft">
-                        <h5>Third Party, Fire & Theft</h5>
-                        <p>Covers third-party liability plus protection against fire damage and theft of your vehicle.</p>
-                    </label>
+                <h5>Third Party, Fire & Theft</h5>
+                <p>Covers third-party liability plus protection against fire damage and theft of your vehicle.</p>
+
                 </div>
+                <div class="select-option">
+                  <label for="comprehensive">
+                     <input type="radio" id="comprehensive" name="coverage_type" value="comprehensive" required>
+                     Comprehensive
+                  </label>
+                  <label for="third-party">
+                     <input type="radio" id="third-party" name="coverage_type" value="third-party" required>
+                      Third Party
+                   </label>
+                   <label for="third-party-fire-theft">
+                        <input type="radio" id="third-party-fire-theft" name="coverage_type" value="third-party-fire-theft" required>
+                        Third Party, Fire & Theft
+                   </label>
+                   </div>
             </div>
         </div>
 

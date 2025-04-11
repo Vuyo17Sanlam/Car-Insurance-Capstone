@@ -1,47 +1,6 @@
 {% extends "home_base.html" %} {% block head_content %}
 <style>
-  body {
-    margin: 0;
-    font-family: "Inter", sans-serif;
-    background-color: #f8fafc;
-    color: #1e293b;
-    line-height: 24px;
-  }
-
-  .auth-buttons {
-    display: flex;
-    gap: 16px;
-  }
-
-  .btn {
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: none;
-  }
-
-  .btn-primary {
-    background-color: #2563eb;
-    color: white;
-  }
-
-  .btn-primary:hover {
-    background-color: #1d4ed8;
-  }
-
-  .btn-outline {
-    background-color: transparent;
-    color: #2563eb;
-    border: 1px solid #2563eb;
-  }
-
-  .btn-outline:hover {
-    background-color: #e2e8f0;
-  }
-
-  .hero {
+  .main-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,7 +10,7 @@
     background: linear-gradient(to bottom, white 0%, #f8fafc 100%);
   }
 
-  .hero-title {
+  .main-section-title {
     font-size: 48px;
     font-weight: 800;
     color: #1e293b;
@@ -59,22 +18,16 @@
     line-height: 1.2;
   }
 
-  .hero-subtitle {
+  .main-section-subtitle {
     font-size: 20px;
     color: #64748b;
     max-width: 600px;
     margin-bottom: 40px;
   }
-
-  .hero-image {
-    max-width: 800px;
-    width: 100%;
-    margin-top: 48px;
-    border-radius: 16px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  .feature-card i {
+    color: #2563eb;
+    font-size: 30px;
   }
-
   .features {
     max-width: 1200px;
     margin: 0 auto;
@@ -121,7 +74,7 @@
     font-size: 20px;
     font-weight: 700;
     color: #1e293b;
-    margin: 0 0 16px 0;
+    margin-bottom: 16px;
   }
 
   .feature-description {
@@ -145,24 +98,17 @@
     li a {
       padding: 16px;
     }
-
-    .auth-buttons {
-      gap: 8px;
-    }
-
-    .btn {
-      padding: 8px 16px;
-    }
   }
 </style>
 {% endblock %} {% block content %}
 
 <main>
-  <section class="hero">
-    <h1 class="hero-title">Smart Car Insurance for the Modern Driver</h1>
-    <p class="hero-subtitle">
-      Get personalized coverage within minutes and save a lot on your car
-      insurance.
+  <section class="main-section">
+    <h1 class="main-section-title">
+      Smart Car Insurance for the Modern Driver
+    </h1>
+    <p class="main-section-subtitle">
+      Get coverage within minutes and save a lot on your car insurance.
     </p>
   </section>
 
@@ -170,7 +116,9 @@
     <h2 class="features-title">Why Choose Swift Insurance?</h2>
     <div class="features-grid">
       <div class="feature-card">
-        <i class="fa-solid fa-bolt" style="color: #2563eb; font-size: 30px"></i>
+        <i class="fa-solid fa-bolt"></i>
+        <br />
+        <br />
         <h3 class="feature-title">Instant Coverage</h3>
         <p class="feature-description">
           Get covered in minutes with our fully digital onboarding process. No
@@ -179,10 +127,9 @@
       </div>
 
       <div class="feature-card">
-        <i
-          class="fa-solid fa-sack-dollar"
-          style="color: #2563eb; font-size: 30px"
-        ></i>
+        <i class="fa-solid fa-sack-dollar"></i>
+        <br />
+        <br />
         <h3 class="feature-title">Fair Pricing</h3>
         <p class="feature-description">
           Pay only for what you need. We offer you the best rate.
@@ -190,10 +137,9 @@
       </div>
 
       <div class="feature-card">
-        <i
-          class="fa-solid fa-shield-halved"
-          style="color: #2563eb; font-size: 30px"
-        ></i>
+        <i class="fa-solid fa-shield-halved"></i>
+        <br />
+        <br />
         <h3 class="feature-title">24/7 Protection</h3>
         <p class="feature-description">
           Our claims team is available around the clock to assist you whenever

@@ -24,54 +24,47 @@
       referrerpolicy="no-referrer"
     />
     <style>
-      /* Set minimum height for the page */
       html,
       body {
         font-family: "Inter", sans-serif;
-        display: flex;
-        flex-direction: column;
+
         background-color: #f8fafc;
         margin: 0;
       }
 
-      /* Main content wrapper - pushes footer down */
-      .content-wrapper {
-        flex: 1;
-      }
-
-      nav {
+      .home-base-nav {
         position: sticky;
         top: 0;
         background-color: white;
         display: flex;
         justify-content: space-between;
+        /*affects the login and signup button in navbar*/
         align-items: center;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        /* for shadow underneath navbar (removed second layer*/
+        box-shadow: 0 2px 4px 3px rgba(0, 0, 0, 0.06);
         padding: 0 32px;
-        z-index: 50;
+        /*removed z-index:50*/
       }
 
-      ul {
+      /*affects page tab layout in navbar*/
+      .nav-ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
         display: flex;
         gap: 16px;
-        align-items: center;
       }
 
-      li a {
+      .nav-ul li a {
         display: block;
         text-align: center;
         padding: 20px 24px;
         text-decoration: none;
         color: #1e293b;
-        transition: all 0.2s ease;
         border-radius: 8px;
       }
 
-      li a:hover {
+      .nav-ul li a:hover {
         background-color: #e2e8f0;
         color: #2563eb;
       }
@@ -93,6 +86,7 @@
         text-align: center;
         font-size: 16px;
         width: 200px;
+        color: #3b82f6"
       }
 
       .auth-buttons {
@@ -190,7 +184,6 @@
         color: #ccc;
         text-decoration: none;
         font-size: 14px;
-        transition: color 0.3s;
         text-align: left;
         padding-top: 0px;
         padding-left: 0px;
@@ -238,7 +231,6 @@
       .social-icons a:hover {
         color: white;
         background: #3b82f6;
-        transform: translateY(-3px);
       }
 
       .footer-bottom {
@@ -253,13 +245,6 @@
         margin-right: auto;
         padding-left: 20px;
         padding-right: 20px;
-      }
-
-      .footer-slogan {
-        color: #aaa;
-        font-size: 14px;
-        margin-top: 15px;
-        font-style: italic;
       }
 
       @media (max-width: 768px) {
@@ -296,45 +281,40 @@
     {% block head_content %} {% endblock %}
   </head>
   <body>
-    <div class="content-wrapper">
-      <nav>
-        <div class="logo-container">
-          <img
-            class="logo"
-            src="https://static.vecteezy.com/system/resources/thumbnails/046/887/565/small_2x/a-black-and-white-car-icon-on-a-white-background-vector.jpg"
-            alt="Logo"
-          />
-          <h1 class="logo-text">swift insurance</h1>
-        </div>
+    <nav class="home-base-nav">
+      <div class="logo-container">
+        <img
+          class="logo"
+          src="https://static.vecteezy.com/system/resources/thumbnails/046/887/565/small_2x/a-black-and-white-car-icon-on-a-white-background-vector.jpg"
+          alt="Logo"
+        />
+        <h1 class="logo-text">swift insurance</h1>
+      </div>
 
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="#">Coverage</a></li>
-          <li><a href="/partners_home">Partners</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="/support_home">Contact</a></li>
-        </ul>
+      <ul class="nav-ul">
+        <li><a href="/">Home</a></li>
+        <li><a href="#">Coverage</a></li>
+        <li><a href="/partners_home">Partners</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="/support_home">Contact</a></li>
+      </ul>
 
-        <div class="auth-buttons">
-          <button
-            class="btn btn-outline"
-            onclick="window.location.href='/login'"
-          >
-            Login
-          </button>
-          <button
-            class="btn btn-primary"
-            onclick="window.location.href='/signup'"
-          >
-            Sign Up
-          </button>
-        </div>
-      </nav>
-      {% block content %} {% endblock %}
-      <main>
-        <div style="height: 200px; background: #f8f9fa"></div>
-      </main>
-    </div>
+      <div class="auth-buttons">
+        <button class="btn btn-outline" onclick="window.location.href='/login'">
+          Login
+        </button>
+        <button
+          class="btn btn-primary"
+          onclick="window.location.href='/signup'"
+        >
+          Sign Up
+        </button>
+      </div>
+    </nav>
+    {% block content %} {% endblock %}
+    <main>
+      <div style="height: 200px; background: #f8f9fa"></div>
+    </main>
 
     <footer class="insurance-footer">
       <div class="footer-content">

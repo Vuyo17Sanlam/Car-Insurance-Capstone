@@ -29,68 +29,60 @@
         font-family: "Roboto", sans-serif;
         background-color: #e0f7fa;
       }
-      nav {
+      .navbar {
         position: sticky;
         top: 0;
         background-color: white;
         display: flex;
         justify-content: space-between;
+        /*affects the login and signup button in navbar*/
         align-items: center;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-          0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        padding: 0 2rem;
-        z-index: 50;
+        /* for shadow underneath navbar (removed second layer*/
+        box-shadow: 0 2px 4px 3px rgba(0, 0, 0, 0.06);
+        padding: 0 32px;
+        /*removed z-index:50*/
       }
-      .navbar ul {
-        list-style-type: none;
+      .nav-ul {
+       list-style-type: none;
         margin: 0;
         padding: 0;
         display: flex;
-        gap: 1rem;
-        align-items: center;
+        gap: 16px;
       }
-      .navbar li a {
-        display: block;
+      .nav-ul li a {
+       display: block;
         text-align: center;
-        padding: 1.25rem 1.5rem;
+        padding: 20px 24px;
         text-decoration: none;
         color: #1e293b;
-
-        transition: all 0.2s ease;
-        border-radius: 0.5rem;
+        border-radius: 8px;
       }
-      li a:hover {
+      .nav-ul li a:hover {
         background-color: #e2e8f0;
         color: #2563eb;
       }
 
       .logo-container {
-        display: flex;
+       display: flex;
         align-items: center;
-        margin-left: 0px;
+        margin-left: 24px;
         gap: 6px;
-        width: 400px;
       }
       .logo {
-        width: 100px;
+         width: 100px;
         height: 80px;
       }
       .logo-text {
-        font-family: "Michroma", sans-serif;
-        margin-top: 0;
-        margin-bottom: 0;
+         font-family: "Michroma", sans-serif;
         text-align: center;
-      }
-      .logo-text-footer {
-        font-family: "Michroma", sans-serif;
-        margin-top: 0;
-        margin-bottom: 0;
-        text-align: center;
-        color: #2563eb;
+        font-size: 16px;
+        width: 200px;
+        color: #3b82f6"
       }
 
+
       .username {
-        color: #00796b;
+
         margin-top: 10px;
       }
       .user {
@@ -101,7 +93,7 @@
       }
       .fa-circle-user {
         text-align: center;
-        color: #00796b;
+
         font-size: 25px;
         margin-top: 12px;
       }
@@ -112,38 +104,34 @@
         color: #ffffff;
         padding: 60px 0 20px;
         font-family: "Inter", sans-serif;
-        position: static;
-        bottom: 0;
         width: 100%;
+        margin-top: auto;
       }
 
       .footer-content {
         display: flex;
-        justify-content: space-between;
         align-items: flex-start;
         max-width: 1200px;
-        margin: 0 auto;
+        margin: 0px;
         padding: 0 20px;
         gap: 60px;
       }
 
       .footer-logo-section {
-        flex: 0 0 250px;
-        margin-left: -20px;
         padding-left: 20px;
+        margin-top: 15px;
       }
 
       .footer-sections {
         display: flex;
-
         gap: 40px;
         flex: 1;
-        justify-content: flex-start;
+        justify-content: flex-end;
         margin-right: -20px;
       }
 
       .footer-section {
-        min-width: 160px;
+        min-width: 200px;
       }
 
       .footer-section h4 {
@@ -157,20 +145,24 @@
 
       .footer-section ul {
         list-style: none;
+        display: block;
         padding: 0;
         margin: 0;
+        margin-left: 0;
       }
 
       .footer-section ul li {
         margin-bottom: 12px;
+        padding-left: 0;
       }
 
       .footer-section ul li a {
         color: #ccc;
         text-decoration: none;
         font-size: 14px;
-        transition: color 0.3s;
-        display: block;
+        text-align: left;
+        padding-top: 0px;
+        padding-left: 0px;
       }
 
       .footer-section ul li a:hover {
@@ -184,6 +176,7 @@
         margin-bottom: 12px;
         color: #ccc;
         font-size: 14px;
+        padding-left: 0;
       }
 
       .contact-info i {
@@ -194,7 +187,8 @@
       .social-icons {
         display: flex;
         gap: 15px;
-        justify-content: center;
+        justify-content: flex-start;
+        padding-left: 0;
       }
 
       .social-icons a {
@@ -213,7 +207,6 @@
       .social-icons a:hover {
         color: white;
         background: #3b82f6;
-        transform: translateY(-3px);
       }
 
       .footer-bottom {
@@ -228,13 +221,6 @@
         margin-right: auto;
         padding-left: 20px;
         padding-right: 20px;
-      }
-
-      .footer-slogan {
-        color: #aaa;
-        font-size: 14px;
-        margin-top: 15px;
-        font-style: italic;
       }
 
       @media (max-width: 768px) {
@@ -258,7 +244,18 @@
         .footer-section {
           min-width: 100%;
         }
+
+        .footer-section ul li a {
+          text-align: left;
+        }
+
+        .social-icons {
+          justify-content: flex-start;
+        }
       }
+
+
+
       .profile-container {
         position: relative;
         display: inline-block;
@@ -311,11 +308,11 @@
           alt=""
           class="logo"
         />
-        <p class="logo-text">swift insurance</p>
+        <h1 class="logo-text">swift insurance</h1>
       </div>
-      <ul>
+      <ul class="nav-ul">
+         <li><a href="/dashboard">Dashboard</a></li>
         <li><a href="/claims">Claims</a></li>
-        <li><a href="/dashboard">Dashboard</a></li>
         <li><a href="/support">Support</a></li>
         <li><a href="/partners">Partners</a></li>
       </ul>
@@ -350,6 +347,9 @@
       ></button>
     </div>
     {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
+ <main>
+      <div style="height: 200px; background: #f8f9fa"></div>
+    </main>
     <footer class="insurance-footer">
       <div class="footer-content">
         <div class="footer-logo-section">
@@ -359,7 +359,7 @@
               src="{{ url_for('static', filename='images/blue_logo.png') }}"
               alt="White Logo"
             />
-            <p class="logo-text-footer">swift insurance</p>
+            <p class="logo-text" style="color: #3b82f6">swift insurance</p>
           </div>
         </div>
 
