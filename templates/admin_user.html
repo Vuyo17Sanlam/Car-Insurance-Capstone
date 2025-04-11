@@ -8,30 +8,6 @@
     padding: 0;
   }
 
-  .admin-header {
-    background-color: white;
-    padding: 16px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .admin-header a {
-    color: #2563eb;
-    text-decoration: none;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .admin-header a:hover {
-    color: #1d4ed8;
-  }
 
   .admin-container {
     max-width: 1400px;
@@ -326,18 +302,8 @@
 {% endblock %} {% block content %}
 
 
-  </head>
+
   <body>
-    <header class="admin-header">
-      <a href="#">
-
-        Admin Dashboard
-      </a>
-      <a href="/admin_claims">
-
-        Back to Claims
-      </a>
-    </header>
 
     <div class="admin-container">
       <!-- Images Section -->
@@ -394,50 +360,7 @@
           </form>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Dashboard Grid -->
-  <div class="dashboard-grid">
-    <!-- Policy Type Card -->
-    <div class="dashboard-card">
-      <h3 class="section-title">
-        <i class="fa-regular fa-bookmark"></i>
-        Policy Details
-      </h3>
-      <div class="policy-type">{{policy.coverage_type}}</div>
-      <p>Comprehensive coverage with roadside assistance</p>
-    </div>
-
-    <!-- Documents Card -->
-    <div class="dashboard-card">
-      <h3 class="section-title">
-        <i class="fa-regular fa-file"></i>
-        Claim Description
-      </h3>
-      <div class="documents-list">
-        <p class="description-text">{{claim.description}}</p>
-      </div>
-    </div>
-
-    <!-- Claim Amount Card -->
-    <div class="dashboard-card">
-      <h3 class="section-title">
-        <i class="fa-solid fa-money-bills"></i>
-        Claim Estimate
-      </h3>
-      <div class="claim-amount">R {{claim.claim_amount}}</div>
-      <form
-        method="POST"
-        action="{{ url_for('admin_bp.update_claim_status', claim_id=claim.claim_id) }}"
-      >
-        <div class="action-buttons">
-          <button class="btn-approve" name="approve">Approve</button>
-          <button class="btn-reject" name="reject">Reject</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
   <div class="documents-section">
     <h3 class="documents-title">
@@ -459,5 +382,18 @@
       </a>
     </div>
   </div>
+    </div>
+
+  </section>
+
+
+
+
+
+
+
+
+
+
   {% endblock %}
 </div>

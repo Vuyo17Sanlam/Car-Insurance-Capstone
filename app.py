@@ -1,21 +1,22 @@
-from config import Config
-from extensions import db
 from flask import Flask
 from flask_login import LoginManager
-from models.user import User
-from routes.admin_bp import admin_bp
-from routes.car_insurance_bp import car_insurance_bp
-from routes.user_bp import claims_page, user_bp
 from sqlalchemy.orm import Session
 
 # from routes.car_insurance_bp import car_insurance_bp
 from sqlalchemy.sql import text
 
+from config import Config
+from extensions import db
+from models.user import User
+from routes.admin_bp import admin_bp
+from routes.car_insurance_bp import car_insurance_bp
+from routes.user_bp import claims_page, user_bp
+
 session = Session()
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="static")
     app.config.from_object(Config)
 
     # Initialize the DB

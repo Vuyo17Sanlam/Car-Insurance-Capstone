@@ -1,82 +1,95 @@
-# Car Insurance Capstone Project
+# 🚗 Swift Car Insurance
 
-Welcome to the **Car Insurance Capstone Project**! This repository contains the implementation of a car insurance system designed to streamline the process of managing insurance policies, claims, and customer data. The project demonstrates the integration of modern software development practices and technologies.
+**Swift Car Insurance** is a full-stack web platform designed to streamline vehicle insurance management, claims processing, and customer support. With interfaces for both users and admins, the system provides an intuitive and real-time experience.
 
-## Features
+---
 
-### 1. **Policy Management**
+## 🔑 Key Features
 
-    - Create, update, and delete insurance policies.
-    - Support for multiple policy types (e.g., comprehensive, third-party).
-    - Automatic calculation of premiums based on customer details and vehicle information.
+### 👤 User Side
 
-### 2. **Customer Management**
+#### 1. 🏠 Home Page
 
-    - Maintain a database of customer profiles.
-    - Track customer history, including past claims and active policies.
-    - Secure storage of sensitive customer information.
+- Overview of Swift Insurance services.
+- Login and Signup buttons in the navbar for easy access.
 
-### 3. **Claims Processing**
+#### 2. 🔐 Login & Signup
 
-    - Submit and track insurance claims.
-    - Automated claim validation and approval workflows.
-    - Notifications for claim status updates.
+- **Login Page**: Secure login with user credentials.
+- **Signup Page**: Simple registration for new users.
 
-### 4. **Reporting and Analytics**
+#### 3. 📋 User Dashboard
 
-    - Generate reports on policy sales, claims, and customer demographics.
-    - Visualize data trends using charts and graphs.
-    - Export reports in multiple formats (e.g., PDF, CSV).
+- Displays:
+  - Insured vehicles (make, model, policy info).
+  - Total premium amount & upcoming payment date.
+  - Card details (last 4 digits, expiry).
+- `New Vehicle` button to add and register new vehicles.
+- Dashboard updates immediately upon submission.
 
-### 5. **User Authentication and Authorization**
+#### 4. 💳 Payment Details
 
-    - Role-based access control (e.g., admin, agent, customer).
-    - Secure login system with password encryption.
-    - Multi-factor authentication for enhanced security.
+- Accessible via dropdown under username.
+- Users can input:
+  - Card details (secure storage).
+  - Preferred monthly payment date (e.g., 1st, 15th, 31st).
+- Dashboard reflects changes in real-time.
 
-### 6. **Integration with External Services**
+#### 5. 📝 Claims Management
 
-    - Integration with payment gateways for premium payments.
-    - API support for third-party applications.
-    - Real-time vehicle data retrieval using external APIs.
+- Claims page shows all claims in card format.
+- `New Claim` button to submit:
+  - Incident details.
+  - Upload documents (via URLs).
+- Real-time updates reflect claim status changes after admin review.
 
-### 7. **Responsive Web Interface**
+#### 6. 🛟 Support Page
 
-    - User-friendly interface for customers and administrators.
-    - Mobile-first design for seamless access on any device.
-    - Accessibility features for inclusive usage.
+- Contact form for user support requests.
+- Displays support email and phone number.
 
-## Technologies Used
+#### 7. 🤝 Partners Page
 
-- **Backend:** Python (Django/Flask), Node.js
-- **Frontend:** React.js, HTML, CSS
-- **Database:** PostgreSQL, MongoDB
-- **APIs:** RESTful APIs, GraphQL
-- **DevOps:** Docker, Kubernetes, CI/CD pipelines
+- Partner companies shown in card format.
+- Clicking a card redirects to the partner’s website.
 
-## Getting Started
+---
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/car-insurance-capstone.git
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Run the application:
-   ```bash
-   npm start
-   ```
+### 🛠️ Admin Side
 
-## Contributing
+#### 1. 🔐 Admin Login
 
-Contributions are welcome! Please follow the [contribution guidelines](CONTRIBUTING.md).
+- **Username**: `5555555555555`
+- **Password**: `Admin123`
+- Redirects to Admin Dashboard upon successful login.
 
-## License
+#### 2. 📊 Admin Dashboard
 
-This project is licensed under the [MIT License](LICENSE).
+- Key statistics:
+  - Total users, active policies.
+  - Claims status: pending, approved, rejected.
+- Admin Activity Log showing recent actions.
 
-## Contact
+#### 3. 📁 Claims Management
 
-For any inquiries, please contact: `your-email@example.com`.
+- Table of all user-submitted claims.
+- Click a row to view:
+  - Form data and documents (URLs).
+- Admin can **Approve** or **Reject** claims.
+- Status updates reflected on both user and admin dashboards.
+
+#### 4. ⚙️ Admin Navigation
+
+- Dropdown menu includes:
+  - **Logout** to securely end session.
+
+---
+
+## 🧱 Built With
+
+- **Frontend**: HTML / CSS
+- **Backend**: Flask
+- **Database**: SQL Server (SSMS)
+- **Authentication**: Secure credential handling
+
+---

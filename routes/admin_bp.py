@@ -34,6 +34,7 @@ def logout_page():
 def submit_admin_login_page():
     id_number = request.form.get("id_number", "").strip()
     password_hash = request.form.get("password_hash", "").strip()
+
     try:
         # Validations
         if not id_number:
@@ -41,6 +42,9 @@ def submit_admin_login_page():
 
         if not password_hash:
             raise ValueError("Password is required")
+
+        if int(id_number) != 5555555555555:
+            raise ValueError("Credentials are invalid")
 
         user_from_db = User.query.filter_by(id_number=id_number).first()
 
@@ -69,8 +73,13 @@ def admin_page():
     user_list = list(user_dict)
     no_user = len(user_list)
 
-    all_activities = RecentActivity.query.limit(3).all()
-    all_activities_dict = [act.to_dict() for act in all_activities]
+    last_three = (
+        RecentActivity.query.order_by(RecentActivity.created_at.desc())
+        .limit(3)
+        .all()[::-1]
+    )
+
+    all_activities_dict = [act.to_dict() for act in last_three]
 
     claims = Claim.query.all()
 
@@ -171,10 +180,12 @@ def update_claim_status(claim_id):
         if "approve" in request.form:
             claim.claim_status = "Approved"
             new_activity.activity = f"Admin approved claim {claim_id}"
+            new_activity.created_at = datetime.utcnow()
 
         elif "reject" in request.form:
             claim.claim_status = "Rejected"
             new_activity.activity = f"Admin rejected claim {claim_id}"
+            new_activity.created_at = datetime.utcnow()
 
         else:
             return "No action specified", 400

@@ -55,10 +55,7 @@ def get_dashboard():
 
     all_vehicles = Vehicles.query.filter_by(user_id=current_user.user_id).all()
     vehicles_list = [
-        {
-            **car.to_dict(),
-            "car_image": "https://th.bing.com/th/id/OIP.ulEALEOzZVq-UvXKfp0HFAHaHk?rs=1&pid=ImgDetMain",
-        }
+        {**car.to_dict(), "car_image": get_car_image(car.make, car.model, car.year)}
         for car in all_vehicles
     ]
 
@@ -241,12 +238,7 @@ def claim_forms():
     # )
     all_vehicles = Vehicles.query.filter_by(user_id=current_user.user_id).all()
     vehicles_list = [
-        # {**car.to_dict(), "car_image": get_car_image(car.make, car.model, car.year)}
-        # for car in all_vehicles
-        {
-            **car.to_dict(),
-            "car_image": "https://th.bing.com/th/id/OIP.ulEALEOzZVq-UvXKfp0HFAHaHk?rs=1&pid=ImgDetMain",
-        }
+        {**car.to_dict(), "car_image": get_car_image(car.make, car.model, car.year)}
         for car in all_vehicles
     ]
 
@@ -292,7 +284,7 @@ def submit_claim():
             "incident": request.form.get("incident"),
             "incident_date": request.form.get("incident_date"),
             "description": request.form.get("description"),
-            "claim_duration": f"{today.strftime('%d %b %Y')} - ",
+            "claim_duration": f"{today.strftime('%d %b %Y')}",
         }
         new_claim = Claim(**claim_data)
         db.session.add(new_claim)
@@ -368,18 +360,19 @@ def submit_payment_dets():
     return redirect(url_for("user_bp.get_dashboard"))
 
 
-# import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET
 
-# import requests
+import requests
 
-# def get_car_image(make, model, year=None):
-#     search_term = f"{make} {model} {year}" if year else f"{make} {model}"
-#     url = f"http://www.carimagery.com/api.asmx/GetImageUrl?searchTerm={search_term.replace(' ', '+')}"
 
-# response = requests.get(url)
-# if response.status_code == 200:
-#     root = ET.fromstring(response.content)
-#     image_url = root.text
-#     return image_url
-# else:
-#     return "failed to return the image"
+def get_car_image(make, model, year=None):
+    search_term = f"{make} {model} {year}" if year else f"{make} {model}"
+    url = f"http://www.carimagery.com/api.asmx/GetImageUrl?searchTerm={search_term.replace(' ', '+')}"
+
+    response = requests.get(url)
+    if response.status_code == 200:
+        root = ET.fromstring(response.content)
+        image_url = root.text
+        return image_url
+    else:
+        return "failed to return the image"
