@@ -4,6 +4,50 @@
 
 ---
 
+## 🤝 Contributors
+
+- **Luvuyo Matomela**
+- **Inganathi Jacobs**
+
+---
+
+## 🛠️ Features & Responsibilities
+
+### 🧑‍💻 Luvuyo Matomela
+
+- Home page UI
+- Support page UI
+- Signup page UI and functionality
+- Vehicle image API implementation
+- Vehicle details retrieval from database
+- Payment details page UI
+- Next payment date calculation
+- Insurance form UI
+- Claims page UI and functionality
+- Admin dashboard page UI and functionality
+- Admin claims management page UI and functionality
+- Admin claim page (`admin_user.html`) UI and data retrieval
+- Database design and creation (shared)
+
+### 👩‍💻 Inganathi Jacobs
+
+- User-side base HTMLs with navbar and footer
+- Partners page
+- Login page functionality and UI
+- Posting data from signup page to database
+- User-side dashboard UI
+- Drop-down menu UI and functionality
+- Payment details data handling (post & retrieve)
+- Insurance form data posting to database
+- Claims form UI and functionality
+- Login authentication
+- Admin login page UI and authentication
+- Admin-side base HTML with navbar and footer
+- Approve or reject claim functionality
+- Database design and creation (shared)
+
+---
+
 ## 🔑 Key Features
 
 ### 👤 User Side
